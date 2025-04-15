@@ -1,0 +1,53 @@
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Document</title>
+        <style>
+            body,html{
+                height: 3000px;
+            }
+            .status{
+                background-color: black;
+                color: white;
+                padding: 20px;
+                position: fixed;
+                top: 0;
+                left: 0;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="status">
+            Scroll Posistion
+            <span id="scrollPosition"></span>
+        </div>
+        
+        <script>
+             let lastScrollTime = 0;
+             let throttleTime=300
+             function updateScrollPosition(){
+                let now=new Date().getTime()
+                console.log(now);
+                
+                let time =new Date(now)
+                console.log(time);
+                if(now-lastScrollTime >throttleTime){
+                    const position=document.querySelector('.scrollposition')
+                    postion.innerText=window.scrollY
+                    console.log(position,'hi');
+                    lastScrollTime=now
+                }
+                
+             }
+       
+        window.addEventListener('scroll', updateScrollPosition)
+        </script>
+
+
+
+
+        
+    </body>
+    </html>
