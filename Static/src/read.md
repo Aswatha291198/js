@@ -1,0 +1,1 @@
+Build a navigation bar and have two LINKS on it, one by the name Home and one by the name Watchlist Create two Components by the name Home and Watchlist When you click on Home on the Navbar Home component should get rendered and when you click on Watchlist so Watchlist should get Rendered Use React-Router-DOM to achieve this
