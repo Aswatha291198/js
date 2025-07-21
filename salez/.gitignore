@@ -30,4 +30,4 @@ dist-ssr
 
 # Environment files
 .env
-sales/server/.env
+server/.env
