@@ -1,0 +1,22 @@
+.nav-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 20px;
+  background-color: #000066;
+  padding-left: 10px;
+  margin-left: 20px;
+
+}
+.custom-menu {
+  background-color: #000066 !important; /* same as nav-container */
+  border-bottom: none;
+}
+
+.logo img {
+  height: 60px;
+  padding-top: 10px;
+  margin-top: 15px;
+  border: 4px;
+  border-radius: 15px;
+}

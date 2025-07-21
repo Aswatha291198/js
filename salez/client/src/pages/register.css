@@ -1,0 +1,36 @@
+.register-layout {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #f9f9f9;
+}
+.salez-text {
+  color: rgb(94, 169, 199);
+  transition: transform 0.3s ease;
+}
+
+.salez-text:hover {
+  transform: scale(1.1); /* 👈 grow slightly */
+}
+
+.register-box {
+  background-color: white;
+  padding: 32px;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  width: 300px;
+}
+
+.custom-input {
+  border-radius: 8px;
+  padding: 10px;
+}
+
+.login-form .ant-form-item-label > label {
+  font-weight: 600;
+}
+.radio{
+  display: flex;
+  justify-content: space-around;
+}
