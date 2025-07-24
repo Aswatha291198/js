@@ -1,10 +1,10 @@
-const { LoginUser, RegisterUser, getCurrentUser } = require("../controllers/userController");
-const auth = require("../middleware/auth");
+const { RegisterUser, LoginUser,CurrentUser } = require("../controllers/userController")
+const auth = require("../middleware/auth")
 
-const UserRouter = require("express").Router();
+const UserRouter=require("express").Router()
 
-UserRouter.post('/login',LoginUser)
 UserRouter.post('/register',RegisterUser)
-UserRouter.get('/current',auth,getCurrentUser)
+UserRouter.post('/login',LoginUser)
+UserRouter.get('/current',auth,CurrentUser)
 
-module.exports={UserRouter}
+module.exports=UserRouter

@@ -1,39 +1,61 @@
 import React, { useEffect } from 'react'
-import logo from '../logo/logo.png'
 import './ProtectedRoute.css'
-import { Link, useNavigate } from 'react-router-dom'
-import { useSelector, useDispatch } from 'react-redux'
-import { hideLoading, setUser, showLoading } from '../redux/userSlice'
+import {Link,useNavigate} from 'react-router-dom'
 import { Menu, Layout } from 'antd'
-import { LogoutOutlined, ProfileOutlined, UserOutlined } from '@ant-design/icons'
-import { CurrentUser } from '../api/user'
+import { HomeOutlined, LogoutOutlined,ProfileOutlined,UserOutlined} from '@ant-design/icons'
+import { setUser, showLoading, hideLoading } from '../redux/userSlice'
+import { useDispatch, useSelector } from 'react-redux'
+import { Header } from 'antd/es/layout/layout'
+import logo from '../logo/logo.png'
+import { GetCurrentUser } from '../api/user'
 
 
 const ProtectedRoute = ({children}) => {
-  const { user } = useSelector(state => state.users)
   const dispatch = useDispatch()
-  const navigate = useNavigate()
+  const navigate=useNavigate()
+  const { user } = useSelector(state => state.users)
+  useEffect(() => {
+    const getUser = async () => {
+      try {
+        dispatch(showLoading())
+        console.log('user is fetching');
+        
+        const response = await GetCurrentUser()
+        console.log(response.data);
+        
+        dispatch(setUser(response.data))
+        console.log(user,'user');
+        
+        dispatch(hideLoading())
+      } catch (error) {
+          console.log(error);
+          dispatch(hideLoading())       
+      }
+    }
+    getUser()
+  },[])
   const navItems = [
   {
     key: "home",
-    label: <Link to="/">Home</Link>,
+    label: "Home",
+    icon: <HomeOutlined />,
   },
   {
-    key: "user-menu",
+    key: "user",
     label: `${user ? user?.name : ""}`,
     icon: <UserOutlined />,
     children: [
       {
-        key: "my-profile",
+        key: "profile",
         label: (
           <span
             onClick={() => {
-              if (user.role === "admin") {
+              if (user?.role === "admin") {
                 navigate("/admin");
-              } else if (user.role === "recruiter") {
-                navigate("/recruiter");
+              } else if (user?.role === "recruiter") {
+                navigate("/partner");
               } else {
-                navigate("/candidate");
+                navigate("/profile");
               }
             }}
           >
@@ -60,44 +82,23 @@ const ProtectedRoute = ({children}) => {
   },
 ];
 
-  useEffect(() => {
-    const getValiduser = async () => {
-      try {
-        dispatch(showLoading())
-        const response = await CurrentUser()
-        console.log('user is fetching');
-        dispatch(setUser(response.data))
-        dispatch(hideLoading())
-
-      } catch (error) {
-        console.log("user is not a valid user");
-
-      }
-    }
-    if (localStorage.getItem("token")) {
-      getValiduser()
-    }
-    else {
-      navigate('/login')
-    }
-  }, [])
-  const { Header } = Layout
   return (
     <>
       <Layout>
-        <Header className='nav-container'>
-          <div className='logo'>
-            <img src={logo} alt="logo" />
-          </div>
-          <Menu mode='horizontal'
-            theme='dark'
-            className='custom-menu'
-            items={navItems} />
+        <Header className='nav-header'>
+          <div>
+            <img src={logo} alt="logo" className='logo' /></div>
+
+
+           {user && <Menu theme='light' mode='horizontal' items={navItems} />
+}
         </Header>
-         <div style={{ padding: 24, minHeight: 380, background: "#fff" }}>
-            {children}
-          </div>
+
+
+
       </Layout>
+      <div>{children}</div>
+
     </>
   )
 }

@@ -1,34 +1,27 @@
-import { axiosInstance } from "./index";
+import { axiosInstance } from ".";
 
-export const RegisterUser = async (values) => {
-    console.log('user is fwthing');
 
+export const RegisterUser=async(values)=>{
     try {
-        const response = await axiosInstance.post('/salez/user/register', values)
-        return response.data
+        const response =await axiosInstance.post('/salez/user/register',values)
+    return response.data
     } catch (error) {
-        console.log(error);
-
+       console.log(error)
     }
 }
-
-export const LoginUser = async (values) => {
-    console.log('user is logging in');
-    
+export const LoginUser=async(values)=>{
     try {
-        const response = await axiosInstance.post('/salez/user/login', values)
-        return response.data
+        const response =await axiosInstance.post('/salez/user/login',values)
+    return response.data
     } catch (error) {
-        console.log(error);
+        console.log(error)
     }
 }
-export const CurrentUser = async () => {
-    console.log('accesssing the current route');
-    
+export const GetCurrentUser=async()=>{
+    console.log("current user")
     try {
-        const response = await axiosInstance.get('/salez/user/current/')
-        return response.data
+        const response=await axiosInstance.get('/salez/user/current')
     } catch (error) {
-        console.log(error);
+      return error  
     }
 }

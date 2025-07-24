@@ -1,8 +1,9 @@
 import React from 'react';
-import { Form, Button, Input, message,Radio } from 'antd';
+import { Form, Button, Input, message, Radio } from 'antd';
 import './register.css';
 import { Link, useNavigate } from 'react-router-dom'
-import { RegisterUser } from '../api/user';
+import register from './register.png'
+import { RegisterUser } from '../../api/user';
 
 const Register = () => {
   const navigate=useNavigate()
@@ -12,31 +13,24 @@ const Register = () => {
       if (response.success) {
         message.success(response.message)
         navigate('/login')
-
       }
       else {
         message.error(response.message)
       }
     } catch (error) {
-      message.error(error.message)
-
+      message.error(response.message)
     }
-
-
-  };
-
-  const onFinishFailed = (errorInfo) => {
-    console.log('Failed:', errorInfo);
-  };
+  }
 
   return (
-    <div className='register-layout '>
+    <div className='register-layout' style={{ backgroundImage: `url(${register})`, backgroundSize: 'cover', backgroundPosition: 'center' }}
+    >
       <div className='register-box'>
         <h2 className='salez-text'>Welcome TO Salez By HireForSkillz</h2>
         <Form
           name="registerform"
           onFinish={onFinish}
-          onFinishFailed={onFinishFailed}
+          //   onFinishFailed={onFinishFailed}
           layout="vertical"
           className="register-form"
         >
@@ -55,7 +49,7 @@ const Register = () => {
           >
             <Input className="custom-input" />
           </Form.Item>
-
+        
           <Form.Item
             label="Password"
             name="password"
@@ -71,15 +65,15 @@ const Register = () => {
           </Form.Item>
           <div className='radio'>
             <Form.Item
-          label="Register As A Recruiter"
-          htmlFor='role'
-          name="role">
-            <Radio.Group name='Radiogroup' >
-              <Radio value='recruiter'>Yes</Radio>
-              <Radio value='candidate'>No</Radio>
-            </Radio.Group>
+              label="Register As A Recruiter"
+              htmlFor='role'
+              name="role">
+              <Radio.Group name='Radiogroup' >
+                <Radio value='recruiter'>Yes</Radio>
+                <Radio value='candidate'>No</Radio>
+              </Radio.Group>
 
-          </Form.Item>
+            </Form.Item>
           </div>
           <p>Already a User <Link to='/login'>login</Link></p>
         </Form>

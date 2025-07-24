@@ -1,11 +1,14 @@
-import axios from "axios"
-const token=localStorage.getItem("token")
+import axios from 'axios'
 
-
-console.log('axios is created');
-export const axiosInstance= axios.create({
+ export const axiosInstance=axios.create({
     headers:{
-        "Content-type":"application/json",
-        Authorization:token ?`Bearer ${token}`:""
+        "Content-Type":"application/json",
     },
+})
+axiosInstance.interceptors.request.use(function(config){
+    const token=localStorage.getItem("token")
+    if(token){
+        config.headers.Authorization=`Bearer ${token}`
+    }
+    return config
 })

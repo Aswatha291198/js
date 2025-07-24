@@ -1,13 +1,11 @@
 const express=require("express")
 const app=express()
 require("dotenv").config();
-const connectDB=require('./config/db')
+const connectDB=require('./config/db');
+const UserRouter = require("./routes/userRoutes");
 connectDB() 
 app.use(express.json())
-const { UserRouter } = require("./routes/userRoutes")
-const { JobRouter } = require("./routes/jobRoutes")
-app.use('/salez/user',UserRouter)
-app.use('/salez/jobs/',JobRouter)
+app.use('/salez/user/',UserRouter)
 
 const port=8082
 app.listen(port,()=>{
