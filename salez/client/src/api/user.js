@@ -21,6 +21,7 @@ export const GetCurrentUser=async()=>{
     console.log("current user")
     try {
         const response=await axiosInstance.get('/salez/user/current')
+        return response.data
     } catch (error) {
       return error  
     }

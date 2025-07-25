@@ -1,103 +1,54 @@
-import React, { useEffect } from 'react'
+import React from 'react'
+import { Layout, Menu, Form, Input } from 'antd'
+import { SearchOutlined,BellOutlined } from '@ant-design/icons'
 import './ProtectedRoute.css'
-import {Link,useNavigate} from 'react-router-dom'
-import { Menu, Layout } from 'antd'
-import { HomeOutlined, LogoutOutlined,ProfileOutlined,UserOutlined} from '@ant-design/icons'
-import { setUser, showLoading, hideLoading } from '../redux/userSlice'
-import { useDispatch, useSelector } from 'react-redux'
-import { Header } from 'antd/es/layout/layout'
 import logo from '../logo/logo.png'
-import { GetCurrentUser } from '../api/user'
 
 
-const ProtectedRoute = ({children}) => {
-  const dispatch = useDispatch()
-  const navigate=useNavigate()
-  const { user } = useSelector(state => state.users)
-  useEffect(() => {
-    const getUser = async () => {
-      try {
-        dispatch(showLoading())
-        console.log('user is fetching');
-        
-        const response = await GetCurrentUser()
-        console.log(response.data);
-        
-        dispatch(setUser(response.data))
-        console.log(user,'user');
-        
-        dispatch(hideLoading())
-      } catch (error) {
-          console.log(error);
-          dispatch(hideLoading())       
-      }
-    }
-    getUser()
-  },[])
+const ProtectedRoute = () => {
+  const { Header } = Layout
   const navItems = [
-  {
-    key: "home",
-    label: "Home",
-    icon: <HomeOutlined />,
-  },
-  {
-    key: "user",
-    label: `${user ? user?.name : ""}`,
-    icon: <UserOutlined />,
-    children: [
-      {
-        key: "profile",
-        label: (
-          <span
-            onClick={() => {
-              if (user?.role === "admin") {
-                navigate("/admin");
-              } else if (user?.role === "recruiter") {
-                navigate("/partner");
-              } else {
-                navigate("/profile");
-              }
-            }}
-          >
-            My Profile
-          </span>
-        ),
-        icon: <ProfileOutlined />,
-      },
-      {
-        key: "logout",
-        label: (
-          <Link
-            to="/login"
-            onClick={() => {
-              localStorage.removeItem("token");
-            }}
-          >
-            Logout
-          </Link>
-        ),
-        icon: <LogoutOutlined />,
-      },
-    ],
-  },
-];
-
+    {
+      key: "jobs",
+      label: "Jobs",
+    },
+    {
+      key: "companies",
+      label: "Companies",
+    },
+    {
+      key: "services",
+      label: "Services"
+    }
+  ]
   return (
     <>
       <Layout>
-        <Header className='nav-header'>
-          <div>
-            <img src={logo} alt="logo" className='logo' /></div>
+        <Header className='navbar'>
+          <div className='logo-container'>
+            img
+          </div>
+          <Menu theme='light' mode='horizontal' items={navItems}style={{padding:0}}/>
+          <Form className='custm-form'>
+            <div className='form'> 
+              <Form.Item
+                name="Search"
+                rules={[{ message: 'Search' }]}
+              >
+                <Input prefix={<SearchOutlined />} />
+              </Form.Item>
+            </div>
+            
+          </Form>
+          <BellOutlined/>
+          
 
-
-           {user && <Menu theme='light' mode='horizontal' items={navItems} />
-}
         </Header>
 
-
-
       </Layout>
-      <div>{children}</div>
+
+
+
 
     </>
   )

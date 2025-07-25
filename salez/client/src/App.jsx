@@ -5,7 +5,7 @@ import { Routes, Route } from 'react-router-dom'
 import ProtectedRoute from './components/ProtectedRoute'
 import { Provider } from 'react-redux'
 import store from '../src/redux/store'
-import Home from './pages/Home'
+import Home from './pages/home/Home'
 const App = () => {
     return (
         <>

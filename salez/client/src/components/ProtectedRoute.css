@@ -1,13 +1,26 @@
-.nav-header{
-  background-color:rgb(8, 22, 100);
-  display: flex;  
-}
-.logo{
-  height:50px;
-  padding-top: 10px;
-  border-radius: 20px ;
-}
-html{
-  padding: 0;
-  margin: 0;
-}
+  .navbar{
+    display: flex;
+    background-color:white;
+    border: 1px solid grey;
+    box-shadow: 12px;
+    justify-content: space-between;
+  }
+  .logo-container{
+    background-color: white;
+    width: 15%;
+    display: flex;
+    justify-content: space-between;
+    border-right: 2px solid;
+    padding-left: 40px;
+  }
+  .custm-form{
+    padding-left: 10px;
+    
+  }
+  .form{
+    padding-left: 40px;
+    display: flex;
+    padding-top: 15px;
+    justify-content: center;
+    align-items: center;
+  }
