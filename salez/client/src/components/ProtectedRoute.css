@@ -1,26 +1,107 @@
-  .navbar{
+  .navbar-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 75px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  gap: 10px;
+}
+.space {
     display: flex;
-    background-color:white;
-    border: 1px solid grey;
-    box-shadow: 12px;
-    justify-content: space-between;
+    width: 10%;
+    padding-left: 30px;
+    position: relative;
+    left: 100px;
   }
-  .logo-container{
-    background-color: white;
-    width: 15%;
-    display: flex;
-    justify-content: space-between;
-    border-right: 2px solid;
-    padding-left: 40px;
+
+  .logo-container {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 180px; 
+}
+
+
+  .salez {
+    color: rgb(63, 72, 197);
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    padding-top: 4px;
+    padding-right: 10px;
   }
-  .custm-form{
-    padding-left: 10px;
-    
+
+  
+
+  .navbar {
+  display: flex;
+  flex: 1; 
+  justify-content: center;
+  align-items: center;
+}
+
+.nav-header {
+  display: flex;
+  list-style: none;
+  gap: 40px;
+  position: relative    ;
+  left: 70px;
+}
+
+  .li {
+    color: rgb(11, 122, 8);
+    text-decoration: none;
+    font-size: larger;
   }
-  .form{
-    padding-left: 40px;
-    display: flex;
-    padding-top: 15px;
-    justify-content: center;
-    align-items: center;
-  }
+
+  .input-header {
+  width: 600px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-left: 90px;
+}
+.input-div{
+  width: 90%;
+  display: flex;
+  justify-content: flex;
+  align-items: flex;
+  padding-left: 10px;
+}
+.input{
+  border-radius: 25%;
+}
+.bell{
+  padding: 20px;
+}
+.profile{
+  display: flex;
+  padding-left: 20px;
+  position: relative;
+  bottom: 16px;
+  cursor: pointer;
+}.bell-icon{
+  padding-bottom: 14px;
+  position: absolute;
+}
+.user{
+  padding-left: 20px;
+}
+.SZ{
+  padding-left: 20px;
+  position: relative;
+  border: 2px solid skyblue;
+  right: 3px;
+  width: 350px;
+  height: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50px;
+  gap: 10px;
+}
+.name{
+  color:rgb(18, 63, 100);
+  font-weight: 600;
+}
+.carrier{
+  padding-right: 20px;
+}

@@ -1,13 +1,9 @@
 import React from 'react'
-import {Company} from './Company'
-import {CandidateList} from './CandidateList'
-import{Tabs} from 'antd'
 
-const index = () => {
-    
+const Recruiter = () => {
   return (
-    
+    <div>Recruiter</div>
   )
 }
 
-export default index
+export default Recruiter
