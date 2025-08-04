@@ -1,0 +1,31 @@
+.user-cont{
+border: 2px solid black;
+height: 100vh;
+width: 100vw;
+display: flex;
+
+}
+.profile-cont{
+    border: 2px solid red;
+    margin:60px;
+    width: 300px;
+}
+.profile-wrap{
+    border: 2px solid yellow;
+    height: 180px;
+}
+.image-cont{
+    border: 2px solid red;
+    height: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.name-cont{
+    display: block;
+    border: 2px solid green;
+    margin-top: 4px;
+    height: 30px;
+    text-align: center;
+    font-weight: 600;
+}

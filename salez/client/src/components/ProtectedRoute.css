@@ -1,107 +1,89 @@
-  .navbar-container {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  height: 75px;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-  gap: 10px;
+.header{
+  height: 70px;
 }
-.space {
-    display: flex;
-    width: 10%;
-    padding-left: 30px;
-    position: relative;
-    left: 100px;
-  }
-
-  .logo-container {
+.navbar{
+  height: 90%;
   display: flex;
-  align-items: center;
-  gap: 10px;
-  width: 180px; 
+ 
 }
-
-
-  .salez {
-    color: rgb(63, 72, 197);
-    font-family: Verdana, Geneva, Tahoma, sans-serif;
-    padding-top: 4px;
-    padding-right: 10px;
-  }
-
+.space{
   
-
-  .navbar {
-  display: flex;
-  flex: 1; 
-  justify-content: center;
-  align-items: center;
+  height: 100%;
+  width: 170px;
 }
-
-.nav-header {
+.image-wrap{
+  
+  width: 200px;
+  display: flex;
+}
+.logo{
+  height: 60px;
+  width: 80px;
+  background-color: white ;
+}
+.logo-name{
+  padding-top: 15px;
+  font-family:'poppins',sans-serif;
+  font-weight: 550;
+  color: rgb(21, 80, 207);
+}
+.nav-items{
   display: flex;
   list-style: none;
-  gap: 40px;
-  position: relative    ;
-  left: 70px;
+  width: 330px;
+  padding-left: 20px;
+  padding-top: 22px;
+  gap: 50px;
 }
-
-  .li {
-    color: rgb(11, 122, 8);
-    text-decoration: none;
-    font-size: larger;
-  }
-
-  .input-header {
-  width: 600px;
+.li{
+  color:rgb(92, 83, 83);
+  text-decoration: none;
+  font-size: larger;
+}
+.input-wrap{
+  padding-top: 10px;
+  height: 60px;
+  width: 300px; 
   display: flex;
   justify-content: center;
   align-items: center;
-  padding-left: 90px;
-}
-.input-div{
-  width: 90%;
-  display: flex;
-  justify-content: flex;
-  align-items: flex;
-  padding-left: 10px;
-}
-.input{
-  border-radius: 25%;
-}
-.bell{
-  padding: 20px;
-}
-.profile{
-  display: flex;
-  padding-left: 20px;
   position: relative;
-  bottom: 16px;
-  cursor: pointer;
+}
+.input-nav{
+  width: 230px;
+  height: 38px;
+  border-radius: 20px;
+  text-align: center;
+  
+}
+.search-icon{
+  position:absolute;
+  right: 39px;
+  color: white;
+  height: 28px;
+  padding-right: 10px;
+  background-color: rgb(15, 67, 165);
+  border-radius: 30px;
+  text-align: center;
+  align-items: center;  
+}
+.bell-wrap{
+  height: 60px;
+  width: 60px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-top: 5px;
 }.bell-icon{
-  padding-bottom: 14px;
-  position: absolute;
+  font-size: larger ;
+  padding-top: 5px;
 }
-.user{
-  padding-left: 20px;
-}
-.SZ{
-  padding-left: 20px;
-  position: relative;
-  border: 2px solid skyblue;
-  right: 3px;
-  width: 350px;
-  height: 50px;
+.user-wrap{
+   height: 60px;
+  width: 60px;
   display: flex;
   justify-content: center;
   align-items: center;
-  border-radius: 50px;
-  gap: 10px;
-}
-.name{
-  color:rgb(18, 63, 100);
-  font-weight: 600;
-}
-.carrier{
-  padding-right: 20px;
+  padding-left: 30px;
+  padding-top: 5px;
 }
