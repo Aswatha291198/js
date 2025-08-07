@@ -5,7 +5,7 @@ export default defineConfig({
   plugins: [react()],
   server: {
     proxy: {
-      '/api': {
+      '/turfo': {
         target: 'http://localhost:8082',
         changeOrigin: true,
       },

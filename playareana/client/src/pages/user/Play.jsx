@@ -1,50 +1,50 @@
-import React, { useEffect, useState } from 'react'
-import {DatePicker, Select} from 'antd'
-import'./play.css'
-import { Switch } from 'antd';
-import FilterForm from './FilterForm';
-const Play = () => {
-  const [view ,setView]=useState('filter')
-  const [modelOpen,setModelOpen]=useState(false)
-  const[sport,setSport]=useState(null)
-  const [date,setDate]=useState(null)
-  useEffect(()=>{
-const getGame=async()=>{
+import React, { useState } from 'react'
+import './play.css'
+import{Select,Row,Col} from 'antd'
 
-}
-  },[sport,date])
-    
+
+const Play = () => {
+  const [games,setGames]=useState(null)
+  const[location,setLocation]=useState("bangalore")
   return (
     <>
-   
-    <div className='play-cont'> 
-        
-        <div className='filter-cont'> 
-           
-            <div className='filter'>
-                <i className="fa-solid fa-filter"></i>
-                <span>Filter & Sort</span>
-                <i className="fa-solid fa-caret-down"></i>
+      <main className='play-container'>
+        <div className='play-cont'>
+          <section className='play-section-cont'>           
+            <div className='text-div'>
+              <div className='play-1'>
+             <h1 className='games'>Games in <span className='game'>{location}</span></h1>
             </div>
-             
-            <div className='sport'>
-                <i className="fa-solid fa-baseball"></i>
-                <span>Sport</span>
-                <i className="fa-solid fa-caret-down"></i>
-            </div>
-            <div className='filter'>
-                <DatePicker placeholder='Date' className='date'/>
-            </div>
-            <div className='filter'>
-                <i className="fa-solid fa-filter"></i>
-                <span>Filter & Sort</span>
-                <i className="fa-solid fa-caret-down"></i>
-            </div>
+              </div>
+              <div className='items-div'>
+              <div className='items-wrap'>
+                <div>
+                 <Row>
+                  <Col span={8}>
+                  <Select id ='game' name='game'
+                  placeholder="Select a game"
+                  options={games.map((game)=>({
+                    key:game?._id,
+                    value:game?._id,
+                    label:game?.name
+                  }))}>
+                    
+                  </Select>
+                  </Col>
+                 </Row>
+                 
+                </div>
+                <div></div>
+                <div></div>
+                <div></div>
+              </div>
+              </div>
+            
+          </section>
         </div>
-        
-          </div>
-          {view==='filter' && <FilterForm/>}
-   
+      </main>
+
+
     </>
   )
 }

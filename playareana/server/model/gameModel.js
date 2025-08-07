@@ -1,28 +1,26 @@
-const mongoose=require('mongoose')
+const mongoose = require('mongoose')
 
-const gameSchema=mongoose.Schema({
-    name:{
-        type:String,
-        required:true
+const gameSchema = mongoose.Schema({
+    name: {
+        type: String,
+        required: true
     },
-    date:{
-        type:Date,
-        required:true
+    
+    turf:{
+        type:mongoose.Schema.Types.ObjectId,
+        ref:"turf"
     },
-    timing:{
-        type:String,
-        required:true
-    },
-    host:{
+
+    host: {
         type: mongoose.Schema.Types.ObjectId,
-              ref: "users",
+        ref: "users",
     },
-    Instructions:{
-        type:String,     
+    Instructions: {
+        type: String,
     },
-    level:{
-type:String
+    level: {
+        type: String
     }
 })
-const gameModel=mongoose.model(gameSchema,'games')
-module.export=gameModel
+const gameModel = mongoose.model('games', gameSchema);
+module.exports = gameModel
