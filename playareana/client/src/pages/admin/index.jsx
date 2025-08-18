@@ -3,7 +3,7 @@ import { Tabs } from 'antd'
 import GameList from './GameList'
 import TurfList from './TurfList'
 
-const index = () => {
+const Admin = () => {
     const tabItems=[{
         key:"gamename",
         label:"GameName",
@@ -19,4 +19,4 @@ const index = () => {
   )
 }
 
-export default index
+export default Admin

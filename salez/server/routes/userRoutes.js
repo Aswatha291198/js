@@ -7,4 +7,5 @@ UserRouter.post('/register',RegisterUser)
 UserRouter.post('/login',LoginUser)
 UserRouter.get('/current',auth,CurrentUser)
 
+
 module.exports=UserRouter

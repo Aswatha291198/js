@@ -1,4 +1,3 @@
-const { all } = require('axios')
 const turf = require('../model/turfModel')
 
 const addTurf = async (req, res) => {
@@ -6,7 +5,10 @@ const addTurf = async (req, res) => {
         const newturf = await turf.create(req.body)
         return res.status(200).send({ message: 'Turf Created', success: true, data: newturf })
     } catch (error) {
+        console.log(error.message);
         return res.status(500).send("Something Went Wrong")
+        
+        
     }
 }
 const updateTurf = async (req, res) => {
@@ -48,9 +50,9 @@ const deleteTurf = async (req, res) => {
         })
     }
 }
-const getTurfById=async(req,res)=>{
+const getTurfByIdowner=async(req,res)=>{
     try {
-        const find=await turf.findById(req.body.id)
+        const find=await turf.find.populate("owner")
         res.send({
             message:'turf',
             success:true,
@@ -61,6 +63,8 @@ const getTurfById=async(req,res)=>{
             message:"something went wrong",
             success:false
         })
+        console.log(error.message);
+        
     }
 }
 const getTurfBySearch = async (req, res) => {
@@ -77,4 +81,4 @@ const getTurfBySearch = async (req, res) => {
         return res.status(500).send('Something went wrtong')
     }
 }
-module.exports={addTurf,updateTurf,deleteTurf,getTurfById,getAllTurf,getTurfBySearch}
+module.exports={addTurf,updateTurf,deleteTurf,getTurfByIdowner,getAllTurf,getTurfBySearch}

@@ -1,49 +1,38 @@
-import React, { useState } from 'react'
-import './play.css'
-import{Select,Row,Col} from 'antd'
+import React, { useEffect, useState } from 'react'
+import { showLoading, hideLoading } from '../../../redux/slice/userSlice'
+import { useDispatch, useSelector } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
+import { getAllTurf } from '../../api/turf'
+import { message } from 'antd'
+
 
 
 const Play = () => {
-  const [games,setGames]=useState(null)
-  const[location,setLocation]=useState("bangalore")
+  const [allTurf, setAllTurf] = useState(null)
+  const dispatch = useDispatch()
+  const getData = async () => {
+    try {
+      dispatch(showLoading())
+      const response = await getAllTurf()
+      if (response.success) {
+        setAllTurf(response.data)
+        message.success(response.message)
+      }
+      dispatch(hideLoading())
+    } catch (error) {
+      message.error(response.message)
+      error.message()
+    }
+  }
+  useEffect(() => {
+    getData()
+  }, [])
   return (
     <>
-      <main className='play-container'>
-        <div className='play-cont'>
-          <section className='play-section-cont'>           
-            <div className='text-div'>
-              <div className='play-1'>
-             <h1 className='games'>Games in <span className='game'>{location}</span></h1>
-            </div>
-              </div>
-              <div className='items-div'>
-              <div className='items-wrap'>
-                <div>
-                 <Row>
-                  <Col span={8}>
-                  <Select id ='game' name='game'
-                  placeholder="Select a game"
-                  options={games.map((game)=>({
-                    key:game?._id,
-                    value:game?._id,
-                    label:game?.name
-                  }))}>
-                    
-                  </Select>
-                  </Col>
-                 </Row>
-                 
-                </div>
-                <div></div>
-                <div></div>
-                <div></div>
-              </div>
-              </div>
-            
-          </section>
-        </div>
-      </main>
 
+      {allTurf && allTurf.map((turf) => {
+        <div>{turf.name}hi </div>
+      })}
 
     </>
   )

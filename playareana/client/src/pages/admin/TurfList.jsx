@@ -1,8 +1,9 @@
-import React, { useState } from 'react'
-import { message, Tabs } from 'antd'
+import React, { useEffect, useState } from 'react'
+import { Button, message, Table, Tabs } from 'antd'
 import { hideLoading,showLoading } from '../../../redux/slice/userSlice'
 import { useDispatch } from 'react-redux'
-import { allTurf } from '../../api/turf'
+import { getAllTurf, updateTurf } from '../../api/turf'
+
 
 
 const TurfList = () => {
@@ -11,14 +12,17 @@ const TurfList = () => {
     const getData=async()=>{
         try {
             dispatch(showLoading())
-            const res=await allTurf()
+            const res=await getAllTurf()
             if(res.success){
                 message.success(res.message)
+
                 const turfs=res.data
+                console.log(turfs);
+                
                 setTurf(turfs.map((turf)=>{
                     return {...turf,key:`turf${turf._id}`}
                 }))
-                dispatch(hideLoading)
+                dispatch(hideLoading())
             }
             
         } catch (error) {
@@ -27,7 +31,36 @@ const TurfList = () => {
             
         }
     }
-    const taviItems=[
+    useEffect(()=>{
+        getData()
+    },[])
+    const handleStatusChange =async(turf)=>{
+        try {
+            dispatch(showLoading())
+            let values={
+                ...turf,
+                turfid:turf_.id,
+                isActive:turf.isActive,
+            }
+            const res=await updateTurf(values)
+            if(res.success){
+                message.success(res.message)
+                getData()
+                dispatch(hideLoading())
+            }
+            else{
+                message.error(res.message)
+                dispatch(hideLoading())
+
+            }
+            
+        } catch (error) {
+            dispatch(hideLoading())
+            console.log(error.message);
+            
+        }
+    }
+    const columns=[
         {   title:"name",
             dataIndex:"name",    
             key:"name"
@@ -51,9 +84,28 @@ const TurfList = () => {
                 return data.owner && data.owner.name
             }
         },
+        {
+            title:"Action",
+            dataIndex:"action",
+            render:(text,data)=>{
+                return(
+                    <div>
+                        {data.isActive ? (
+                      <Button onClick={()=>handleStatusChange(data)}>Block</Button>      
+                        ):(
+                            <Button onClick={()=>handleStatusChange(data)}>Approve</Button>
+                        )  }
+                    </div>
+                )
+            }
+               
+        }
     ]
   return (
-    <div>TurfList</div>
+    <>
+    <Table dataSource={turf} columns={columns}/>
+    </>
+    
   )
 }
 

@@ -1,10 +1,10 @@
 import { axiosInstance } from ".";
 
 export const loginUser=async(values)=>{
-    console.log('coming to frontend api');
+    console.log('coming to frontend');
     
     try {
-        const response=await axiosInstance.post('/api/turfo/user/login',values)
+        const response=await axiosInstance.post('/turfo/user/login',values)
         return response.data
         
     } catch (error) {
@@ -15,21 +15,30 @@ export const loginUser=async(values)=>{
 
 export const registerUser=async(values)=>{
     try {
-        const response=await axiosInstance.post('/api/turfo/user/register',values)
+        const response=await axiosInstance.post('/turfo/user/register',values)
         return response.data
         
     } catch (error) {
-     console.log('error register api');
+     console.log('error register');
         
     }
 }
 export const GetCurrentUser=async(values)=>{
     try {
-        const response=await axiosInstance.get('/api/turfo/user/current')
+        const response=await axiosInstance.get('/turfo/user/current')
         return response.data
         
     } catch (error) {
-     console.log('error current api');
+     console.log('error current');
+        
+    }
+}
+export const updateuser=async(values)=>{
+    try {
+        const response=await axiosInstance.post('/turfo/user/update-user',values)
+        return response.data
+    } catch (error) {
+        console.log(error.message);
         
     }
 }

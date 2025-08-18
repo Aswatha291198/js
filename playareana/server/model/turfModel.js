@@ -20,11 +20,12 @@ const turfSchema = mongoose.Schema({
     },
     open: {
         type: String,
+        required:true
         
     },
-    timing: {
+    SlotTiming: {
         type: String,
-        required: true
+       
     },
     owner: {
         type: mongoose.Schema.Types.ObjectId,
@@ -37,8 +38,12 @@ const turfSchema = mongoose.Schema({
     isClosed: {
         type: Boolean,
         default: false
+    },
+    isActive:{
+        type:Boolean,
+        default:false
     }
 
-})
+},{timestamps:true})
 const turfModel = mongoose.model('Turf', turfSchema);
 module.exports = turfModel

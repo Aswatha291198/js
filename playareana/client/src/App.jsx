@@ -9,6 +9,7 @@ import{Provider} from 'react-redux'
 import store from '../redux/store'
 import UserProfile from './pages/user/userProfile'
 import Admin from './pages/admin'
+import OwnerPage from './partner'
 
 const App = () => {
     return (
@@ -21,7 +22,9 @@ const App = () => {
                 <Route path='/play' element={<Protected><Play/></Protected>}></Route>
                 <Route path='/userprofile' element={<Protected><UserProfile/></Protected>}></Route>
                 <Route path='/admin' element={<Protected><Admin/></Protected>}></Route>
+                <Route path='/owner' element={<Protected><OwnerPage/></Protected>}></Route>
             </Routes>
+           
         </Provider>
             
         </>

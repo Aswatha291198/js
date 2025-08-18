@@ -19,9 +19,9 @@ body{
 }
 .nav-cont{
     
-    margin-left: 100px;
-    width: 400px;
-}
+    margin-left: 200px;
+    width: 450px;
+   }
 .nav-div{
     width: 90%;
     height: 70%;
@@ -32,18 +32,58 @@ body{
     height: 50px;
     list-style: none;
     text-align: center;
+    gap: 30px;
+    width: 400px;
+    
 }
 .li-nav{
-   
     cursor: pointer;
     width: 30%;
     height: 35px;
     margin-top: 2px;
-    padding-top: 4%;
+    padding-top: 2%;
 }
 .lin-div{
     color: black;
     text-decoration: none;  
     font-weight: 600;
     font-size: x-large;  
+}
+.user-div{  
+    margin-left: 50px;
+    width: 400px;    
+    margin-top: 20px;    
+}
+.user-wrap{  
+    margin-left: 30px;
+    text-align: center;
+    width: 50px;
+    height: 40px;
+
+}
+.custom-menu{
+    margin-left: auto;
+}
+.dropdown {
+  position: absolute;
+  top: 70px;
+  right: 40px;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 10px;
+  width: 150px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+.dropdown ul {
+  padding: 0;
+  margin: 0;
+}
+.dropdown li {
+  padding: 8px;
+  cursor: pointer;
+  font-size: 14px;
+}
+.dropdown li:hover {
+  background: #f5f5f5;
 }

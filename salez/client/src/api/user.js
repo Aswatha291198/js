@@ -26,3 +26,12 @@ export const GetCurrentUser=async()=>{
       return error  
     }
 }
+export const updateUser=async(values)=>{
+    console.log('update user');
+    try {
+        const response=await axiosInstance.post()
+    } catch (error) {
+        
+    }
+    
+}

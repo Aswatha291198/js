@@ -1,31 +1,119 @@
 .user-cont{
-border: 2px solid black;
-height: 100vh;
+
+height: 1400px;
 width: 100vw;
 display: flex;
-
 }
-.profile-cont{
-    border: 2px solid red;
-    margin:60px;
-    width: 300px;
+.user-div-cont{ 
+    width: 100%;
+    display: flex;
+    gap: 10px;
+}
+.user-pro-div{
+    border: 2px solid rgb(238, 230, 230); 
+    margin:50px;
+    width: 400px;
+    border-radius:10px
 }
 .profile-wrap{
-    border: 2px solid yellow;
-    height: 180px;
+        height: 220px;
 }
 .image-cont{
-    border: 2px solid red;
     height: 100px;
     display: flex;
     justify-content: center;
     align-items: center;
+    margin-top: 12px;
 }
-.name-cont{
-    display: block;
-    border: 2px solid green;
-    margin-top: 4px;
-    height: 30px;
+
+.text-pro-div{
+    margin-bottom: 30px;
     text-align: center;
-    font-weight: 600;
+    color: rgb(75, 72, 72);
+}
+.booking-cont{
+    
+    height: 50px;
+    width: 100%;
+}
+.booking-wrap{
+    
+    margin: 10px;
+    height: 20px;
+    display: flex;
+    gap: 20px;
+}
+.book-icon{
+    color:rgb(128, 108, 108);
+    padding-left: 20px;
+    font-size: large;
+}
+.display-container{
+    border: 2px solid rgb(238, 230, 230); 
+    margin: 50px;
+    width: 70%; 
+    border-radius: 10px;
+    height: 90%;
+   
+}
+.display-main{
+    display: flex;
+    height: 100%;
+}
+.booking-container{
+    width: 100%;
+    height: 100px;
+}
+.book-wrap{
+    background-color: rgb(238, 224, 224);
+    width: 350px;
+    height: 60px;
+    margin-top: 20px;
+    margin-left: 10px;
+    border-radius: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.allbooking{
+    background-color: rgb(35, 110, 35);
+    height: 40px;
+    width: 250px;
+    border-radius: 10px;
+    
+}
+.title-div{
+    margin: 10px;
+    
+    height: 90%;
+    width: 100%;
+}
+
+.banner-div-pro{
+   
+    height: 200px;
+    display:  flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+.banner-div-one{
+    border: 2px solid rgb(238, 230, 230);
+    width: 300px;
+}
+.banner-div-two{
+    height: 100px;
+    
+    width: 100px;
+    border-radius: 60%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.banner-div-three{
+    border: 2px solid rgb(238, 230, 230);
+    width: 300px;
+}
+.form-div{
+    display: flex;
 }

@@ -1,5 +1,5 @@
 import React from 'react'
-import { Form, Button, Input, message } from 'antd'
+import { Form, Button, Input, message ,Radio } from 'antd'
 import { Link, useNavigate } from "react-router-dom"
 import './login.css'
 import { loginUser } from '../../api/user';
@@ -48,7 +48,7 @@ const Login = () => {
                 className="form"
                 rules={[{ required: true, message: "Password is required" }]}>
 
-                <Input id="email" type="text" placeholder="Enter your password" className='custom-input' />
+                <Input id="email" type="password" placeholder="Enter your password" className='custom-input' />
               </Form.Item>
 
               <Form.Item>

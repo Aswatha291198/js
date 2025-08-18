@@ -45,4 +45,5 @@ const CurrentUser = async (req, res) => {
         return res.status(500).send("something went wrong")
     }
 }
-module.exports = { RegisterUser, LoginUser, CurrentUser }
+
+module.exports = { RegisterUser, LoginUser, CurrentUser,UpdateUser }
