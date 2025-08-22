@@ -41,6 +41,8 @@ const deleteGame = async (req, res) => {
     }
 }
 const getAllGame = async (req, res) => {
+    console.log('allgame');
+    
     try {
         const allgame = await game.find()
         res.send({

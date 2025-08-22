@@ -23,6 +23,9 @@ const turfSchema = mongoose.Schema({
         required:true
         
     },
+    poster:{
+        type:String,
+    },
     SlotTiming: {
         type: String,
        
@@ -42,6 +45,17 @@ const turfSchema = mongoose.Schema({
     isActive:{
         type:Boolean,
         default:false
+    },
+    AddSport:{
+        type:[String],
+    },
+    price:{
+        type:String,
+        required:true
+    },
+    address:{
+        type:String,
+        required:true 
     }
 
 },{timestamps:true})

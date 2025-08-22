@@ -1,56 +1,97 @@
 import React from 'react'
-import{Form, Input, message, Modal,Button} from 'antd'
+import { Modal, Card, Button, Form, Input, message } from 'antd'
 import { hideLoading,showLoading } from '../../../redux/slice/userSlice'
-import { useDispatch } from 'react-redux'
+import{useDispatch,useSelector}from 'react-redux'
 import { addGame } from '../../api/game'
+
 const GameForm = ({
-  isModalopen,
-  setIsModalOpen,
-  getData
+    isModalOpen,
+    setIsModalOpen,
+    selectedGame,
+    setSelectedGame,
+    getData,
+    formType
 }) => {
-  const dispatch=useDispatch()
-  const onFinish=async(values)=>{
-    try {
-      dispatch(showLoading())
-      const res=await addGame(values)
-      if(res.success){
-        message.success(res.message) 
-        getData()
-        setIsModalOpen(false) 
-        dispatch(hideLoading())
-      }
-    } catch (error) {
-      console.log(error.message);
-      dispatch(hideLoading())
+    const dispatch=useDispatch()
+    const handleCancel=()=>{
+        setIsModalOpen(false)
+        setSelectedGame(null)
     }
-  }
-  const handleCancel=()=>{
-    setIsModalOpen(false)
-  }
+    const onFinish=async(values)=>{
+        try {
+            dispatch(showLoading())
+            const response=await addGame(values)
+            if(response.success){
+                message.success(response.message)
+                getData()
+                dispatch(hideLoading())
+            }
 
-  return (
-    <>
-    <Modal
-    centered
-    open={isModalopen}
-    onCancel={handleCancel}
-    width={500}
+        } catch (error) {
+            console.log(error.message);
+            
+        }
+    }
+    return (
+        <>
+            <Modal
+      centered
+      title={formType === "add" ? "Add Game" : "Edit Game"}
+      open={isModalOpen}
+      onCancel={handleCancel}
+      width={800}
+      footer={null}
+      body={{ padding: "20px", backgroundColor: "#f9f9f9" }} // modal body
     >
-      
-      <Form onFinish={onFinish}>
-      <Form.Item
-      label='name'
-      name='name'
-
+      <Card
+        style={{
+          borderRadius: "12px",
+          padding: "20px",
+          boxShadow: "0 4px 12px rgba(0,0,0,0.1)",
+          border: "1px solid #e0e0e0",
+        }}
       >
-        <Input placeholder='add a game'/>
-      </Form.Item>
-      <Form.Item><Button
-      htmlType='submit'>Save</Button></Form.Item>
-      </Form>
+        <Form layout="vertical"
+        onFinish={onFinish}>
+          <Form.Item
+            label="Game Name"
+            name='name'
+            style={{
+              fontWeight: "bold",
+              marginBottom: "16px",
+            }}
+          >
+            <Input
+              placeholder="Enter game name"
+              style={{
+                borderRadius: "8px",
+                padding: "10px",
+                border: "1px solid #ccc",
+              }}
+            />
+          </Form.Item>
+
+          <Form.Item style={{ textAlign: "right", marginTop: "20px" }}>
+            <Button
+              type="primary"
+              style={{
+                backgroundColor: "rgb(16, 151, 16)",
+                borderColor: "rgb(16, 151, 16)",
+                borderRadius: "8px",
+                padding: "8px 20px",
+                fontWeight: "bold",
+                boxShadow: "0 4px 6px rgba(0,0,0,0.2)",
+              }}
+              htmlType='submit'
+            >
+              Save
+            </Button>
+          </Form.Item>
+        </Form>
+      </Card>
     </Modal>
-    </>
-  )
+        </>
+    )
 }
 
 export default GameForm

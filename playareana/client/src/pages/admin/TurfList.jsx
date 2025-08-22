@@ -1,111 +1,75 @@
-import React, { useEffect, useState } from 'react'
-import { Button, message, Table, Tabs } from 'antd'
+import React, { useState } from 'react'
 import { hideLoading,showLoading } from '../../../redux/slice/userSlice'
-import { useDispatch } from 'react-redux'
-import { getAllTurf, updateTurf } from '../../api/turf'
-
-
-
+import{useDispatch,useSelector}from 'react-redux'
+import { useEffect } from 'react'
+import { getAllTurf } from '../../api/turf'
+import { Button, message,Card } from 'antd'
+import{EditOutlined} from '@ant-design/icons'
+import'./turf.css'
 const TurfList = () => {
-    const [turf,setTurf]=useState(null)
-    const dispatch=useDispatch()
-    const getData=async()=>{
-        try {
-            dispatch(showLoading())
-            const res=await getAllTurf()
-            if(res.success){
-                message.success(res.message)
-
-                const turfs=res.data
-                console.log(turfs);
-                
-                setTurf(turfs.map((turf)=>{
-                    return {...turf,key:`turf${turf._id}`}
-                }))
-                dispatch(hideLoading())
-            }
-            
-        } catch (error) {
-            console.log(error.message);
-            dispatch(hideLoading())
-            
-        }
+  const[turfs,setTurfs]=useState(null)
+  const dispatch=useDispatch()
+const getData=async()=>{
+  try {
+    dispatch(showLoading())
+    const response=await getAllTurf()
+    if(response.success){
+      const allTurf=response.data
+     message.success(response.message)
+      setTurfs(allTurf.map((turf)=>{
+          return{
+            ...turf,
+            key:`turf${turf._id}`
+          }
+      }))
     }
-    useEffect(()=>{
-        getData()
-    },[])
-    const handleStatusChange =async(turf)=>{
-        try {
-            dispatch(showLoading())
-            let values={
-                ...turf,
-                turfid:turf_.id,
-                isActive:turf.isActive,
-            }
-            const res=await updateTurf(values)
-            if(res.success){
-                message.success(res.message)
-                getData()
-                dispatch(hideLoading())
-            }
-            else{
-                message.error(res.message)
-                dispatch(hideLoading())
-
-            }
-            
-        } catch (error) {
-            dispatch(hideLoading())
-            console.log(error.message);
-            
-        }
+    else{
+      message.error(response.message)
     }
-    const columns=[
-        {   title:"name",
-            dataIndex:"name",    
-            key:"name"
-        },
-        {   title:"email",
-            dataIndex:"email",    
-            key:"email"
-        },
-        {   title:"phone",
-            dataIndex:"phone",    
-            key:"phone"
-        },
-        {   title:"location",
-            dataIndex:"location",    
-            key:"location"
-        },
-        {   title:"owner",
-            dataIndex:"owner",    
-            key:"owner",
-            render:(text,data)=>{
-                return data.owner && data.owner.name
-            }
-        },
-        {
-            title:"Action",
-            dataIndex:"action",
-            render:(text,data)=>{
-                return(
-                    <div>
-                        {data.isActive ? (
-                      <Button onClick={()=>handleStatusChange(data)}>Block</Button>      
-                        ):(
-                            <Button onClick={()=>handleStatusChange(data)}>Approve</Button>
-                        )  }
-                    </div>
-                )
-            }
-               
-        }
-    ]
+dispatch(hideLoading())
+  } catch (error) {
+    console.log(error.message);
+    
+  }
+}
+console.log((turfs));
+
+
+  useEffect(()=>{
+    getData()
+  },[])
   return (
     <>
-    <Table dataSource={turf} columns={columns}/>
-    </>
+    <div className='turf-cont'>
+      <h2>Manage Turf</h2>
+    </div>
+    <div className='card-back'>
+      {turfs &&turfs.map((turf)=>{
+     return(
+       <Card
+      key={turf._id}
+      variant='borderless'
+      title={turf.name}
+      className='custom-card-turf'
+      >
+        <div>
+          <img src="" alt="" />
+          <span></span>
+        </div>
+        <div  >
+          <span>{turf.name}</span>
+          <span>{turf.email}</span>
+          <span>{turf.location}</span>
+          <span>{turf.isActive}</span>
+          
+        </div>
+
+      </Card>  
+     )
+    })}
+    </div>
     
+    </>
   )
 }
 

@@ -1,89 +1,84 @@
-import React, { use, useEffect, useState } from 'react'
-import{showLoading,hideLoading}from '../../../redux/slice/userSlice'
-import{useDispatch} from 'react-redux'
-import { Button, message,Table } from 'antd'
-import{DeleteOutlined} from '@ant-design/icons'
-import './gamelist.css'
+import React from 'react'
+import { useState, useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { showLoading, hideLoading } from '../../../redux/slice/userSlice'
 import { getAllGame } from '../../api/game'
+import { Button, Card, message } from 'antd'
+import './gamelist.css'
 import GameForm from './GameForm'
-import DeleteModal from './DeleteModal'
-
 
 const GameList = () => {
-    const[games,setGames]=useState(null)
-    const[isModalopen,setIsModalOpen]=useState(false)
-    const dispatch=useDispatch()
-    const[selectedGame,setSelectedGame]=useState(null)
-    const[deleteModal,setDeleteModal]=useState(false)
+  const [game, setGame] = useState(null)
+  const { user } = useSelector(state => state.users)
+  const dispatch = useDispatch()
+  
+  const [isModalOpen, setIsModalOpen] = useState(false)
+  const [formType, setFormType] = useState('add')
 
-const getData=async()=>{
+  const getData = async () => {
     try {
-        dispatch(showLoading())
-        const res=await getAllGame()
-        if(res.success){
-            message.success(res.message)
-            const allgames=res.data
-            setGames(allgames.map((game)=>{
-                return {...game,key:`${game._id}`}
-            }))
-            dispatch(hideLoading())
-        }
-        else{
-            message.error(res.message)
-            dispatch(hideLoading())
-        }
+      dispatch(showLoading())
+      const response = await getAllGame()
+      if (response.success) {
+        const allgames = response.data
+        message.success(response.message)
+        setGame(allgames.map((game) => {
+          return {
+            ...game,
+            key: `game${game._id}`
+          }
+        }))
+      }
+      else {
+        message.error(response.message)
+      }
+      dispatch(hideLoading())
     } catch (error) {
-        console.log(error.message);
-        dispatch(hideLoading())
-        
+      console.log(error.message);
+      dispatch(hideLoading())
     }
-}
-useEffect(()=>{
-getData()
-},[])
-const columns=[
-    {
-        title:"Name",
-        dataIndex:"name",
-        key:"name"
-        
-    },
-    {
-        title:'Action',
-        dataIndex:'action',
-        render:(_,record)=>{
-            return (
-                <div className='delete'>
-                    <Button onClick={()=>{
-                        console.log('delelte');
-                        setSelectedGame(record)
-                        setDeleteModal(true)
-                        
-                        console.log(selectedGame,'deletebutton');
-                        
-                    }}>
-                        <DeleteOutlined/>
-                    </Button>
-                </div>
-            )
-        }
-    }
-]
-
-    useEffect(()=>{
-        getData()
-    },[])
+  }
+  useEffect(() => {
+    getData()
+  }, [])
   return (
-   <>
-   <Button onClick={()=>{
-    console.log('adding game');
-    
-    setIsModalOpen(true)
-   }}>Add </Button>
-   <Table dataSource={games} columns={columns}/>
-   {isModalopen && (<GameForm isModalopen={isModalopen}setIsModalOpen={setIsModalOpen}getData={getData}/>)}
-   {deleteModal && <DeleteModal deleteModal={deleteModal}setDeleteModal={setDeleteModal}selectedGame={selectedGame}setSelectedGame={setSelectedGame}getData={getData}/>}
-   </>
+    <>
+      <div className='game-display'>
+        <h1 className='manage-text'>Manage Turfs</h1>
+      </div>
+      <div className='add-game'>
+        <Button type='primary' className='custom-btn' onClick={() => {
+          setIsModalOpen(true)
+          setFormType('add')
+
+        }}>Add game</Button>
+      </div>
+      <div className='game-cont'>
+        {game && game.map((item) => {
+          return(
+          <Card
+            key={item._id}
+            title={item.name}
+            className='custom-card'
+            variant='borderless'
+            onClick={() => { setSelectedGame(item) }}
+          >
+            <div className='btn-div'>
+              
+              <Button
+              onClick={()=>{setFormType('edit')
+                            setIsModalOpen(true)
+                            setSelectedGame(item)
+              }
+              }
+              >Edit</Button>
+              <Button>Delete</Button>
+            </div>
+          </Card>
+        )})}
+      </div>
+      {isModalOpen && (<GameForm isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen} selectedGame={selectedGame} setSelectedGame={setSelectedGame} getData={getData} formType={formType} />)}
+    </>
   )
 }
 

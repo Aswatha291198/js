@@ -3,7 +3,7 @@ import React from 'react'
 import { hideLoading, showLoading } from '../../redux/slice/userSlice'
 import { useDispatch, useSelector } from 'react-redux'
 import { addTurf, updateTurf } from '../api/turf'
-import{Form,Row,Col,Input,Button}from 'antd'
+import { Form, Row, Col, Input, Button,Select } from 'antd'
 const TurfForm = ({
   isModalOpen,
   setIsModalOpen,
@@ -19,26 +19,26 @@ const TurfForm = ({
   const onFinish = async (values) => {
     try {
       dispatch(showLoading())
-      let response=null
-      if(formType==='add'){
-        response=await addTurf({...values,owner:user._id})
+      let response = null
+      if (formType === 'add') {
+        response = await addTurf({ ...values, owner: user._id })
       }
-      else{
+      else {
         console.log(values);
-        values.turfId=selectedTurf._id
-        response=await updateTurf(values)       
+        values.turfId = selectedTurf._id
+        response = await updateTurf(values)
       }
       dispatch(hideLoading())
     } catch (error) {
       console.log(error.message);
       dispatch(hideLoading())
-      
+
     }
   }
-  const handleCancel=()=>{
-setIsModalOpen(false)
-setSelectedTurf(null)
-}
+  const handleCancel = () => {
+    setIsModalOpen(false)
+    setSelectedTurf(null)
+  }
   return (
     <>
       <Modal
@@ -65,7 +65,7 @@ setSelectedTurf(null)
             </Col>
             <Col span={24}>
               <Form.Item
-                label="Turf Address"
+                label="Address"
                 name="address"
                 rules={[{ required: true, message: "Turf address is required!" }]}
               >
@@ -78,7 +78,7 @@ setSelectedTurf(null)
             </Col>
             <Col span={24}>
               <Row gutter={{ xs: 6, sm: 10, md: 12, lg: 16 }}>
-                <Col span={12}>
+                <Col span={8}>
                   <Form.Item
                     label="Email"
                     name="email"
@@ -91,7 +91,7 @@ setSelectedTurf(null)
                     />
                   </Form.Item>
                 </Col>
-                <Col span={12}>
+                <Col span={8}>
                   <Form.Item
                     label="Phone number"
                     name="phone"
@@ -106,37 +106,82 @@ setSelectedTurf(null)
                     />
                   </Form.Item>
                 </Col>
+                <Col span={8}>
+                <Form.Item
+                label='Price'
+                name='price'
+                rules={[
+                  {required:true,message:"Price is Required"}
+                ]}
+                >
+                   <Input
+                  type='number'
+                  placeholder='Enter the price'/>
+                </Form.Item>
+        
+                </Col>
               </Row>
             </Col>
           </Row>
-          <Row  gutter={{ xs: 6, sm: 10, md: 12, lg: 16 }}>
+          <Row gutter={{ xs: 6, sm: 10, md: 12, lg: 16 }}>
             <Col span={8}>
-            <Form.Item
-            label='location'
-            name='location'
-            >
-              <Input type='text' placeholder='Enter Turf Location'/>
-            </Form.Item>
+              <Form.Item
+                label='location'
+                name='location'
+              >
+                <Input type='text' placeholder='Enter Turf Location' />
+              </Form.Item>
             </Col>
             <Col span={8}>
-            <Form.Item
-            label='opening time'
-            name='open'
-            >
-              <Input type='text' placeholder='Enter Opening time'/>
-            </Form.Item>
+              <Form.Item
+                label='opening time'
+                name='open'
+              >
+                <Input type='text' placeholder='Enter Opening time' />
+              </Form.Item>
             </Col>
-    
+
             <Col span={8}>
-            <Form.Item
-            label='closing time'
-            name='close'
-            >
-              <Input type='text' placeholder='Enter Closing time'/>
-            </Form.Item>
+              <Form.Item
+                label='closing time'
+                name='close'
+              >
+                <Input type='text' placeholder='Enter Closing time' />
+              </Form.Item>
             </Col>
           </Row>
+          <Row>
+            <Col span={12}>
+              <Form.Item
+                label="Sports Available"
+                name="AddSport"
+                rules={[{ required: true, message: "Please add at least one sport!" }]}
+              >
+                <Select
+                  mode="tags"
+                  placeholder="Type or select sports"
+                  allowClear
+                  style={{ width: "100%" }}
+                />
+              </Form.Item>
+            </Col>
+            <Col span={12}>
+                <Form.Item
+                  label="Poster URL"
+                  name="poster"
+                  rules={[
+                    { required: true, message: "Movie Poster is required!" },
+                  ]}
+                >
+                  <Input placeholder="Enter the poster URL" />
+                </Form.Item>
+              </Col>
+          </Row>
+
+           
+            
           
+
           <Form.Item>
             <Button
               block

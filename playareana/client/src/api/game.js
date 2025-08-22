@@ -10,6 +10,8 @@ export const addGame=async(values)=>{
     }
 }
 export const getAllGame=async(values)=>{
+    console.log('coming to allgame fonrtend');
+    
     try {
         const res=await axiosInstance.get('/turfo/game/allgame')
         return res.data

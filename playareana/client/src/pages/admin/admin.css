@@ -1,16 +1,16 @@
-.owner-cont {
+.admin-cont {
     width: 100%;
     height: 100vh;
     display: flex;
     background-color: white;
 
 }
-.owner-div {
+.admin-div {
     width: 100%;
     height: 100%;
     display: flex;   
 }
-.owner-sec {
+.admin-sec {
     margin-top: 30px;
     margin-left: 90px;
     width: 250px;
@@ -19,11 +19,11 @@
     border: 2px solid rgb(217, 220, 221);
     height: 90%;
 }
-.owner-profile {
+.admin-profile {
     height: 250px;
     width: 100%;
 }
-.owner-img {
+.admin-img {
     height: 200px;
     display: flex;
     justify-content: center;
@@ -40,22 +40,44 @@
     justify-content: center;
     align-items: center;
 }
-.owner-info-div {
+.admin-info-div {
     display: flex;
     flex-direction: column;
     text-align: center;
     gap: 5px;
 }
-.owner-name {
+.admin-name {
     text-transform: capitalize;
     color: black;
     font-weight: 600;
     margin-right: 6px;
 }
-.owner-wrapper {
+.admin-wrapper {
     height: 200px;
     display: flex;
     flex-direction: column;
+}
+.game-div {
+    height: 25%;
+}
+.game-wrap {
+    height: 60%;
+    margin: 10px;
+    display: flex;
+    gap: 10px;
+}
+.icon-wrap {
+    margin-left: 30px;
+    color: rgb(194, 181, 181);
+}
+.game-icon {
+    margin-left: 25px;
+    margin-top: 5px;
+    font-size: large;
+}
+.game-txt {
+    font-weight: 400;
+    padding-top: 4px;
 }
 .turf-div {
     height: 25%;
@@ -66,42 +88,11 @@
     display: flex;
     gap: 10px;
 }
-.turf-icon-wrap {
-    margin-left: 25px;
-    color: rgb(194, 181, 181);
-    margin-top: 3px;
-}
 .turf-icon {
     margin-left: 25px;
-    margin-top: 5px;
-    font-size: large;
 }
 .turf-txt {
-    font-weight: 400;
-    padding-top: 4px;
-    margin-top: 3px;
-}
-.reviews-div {
-    height: 25%;
-}
-.reviews-wrap {
-    height: 60%;
-    margin: 10px;
-    display: flex;
-   
-}
-.reviews-icon-wrap {
-    margin-left: 25px;
-}
-.reviews-icon{
-margin-left: 30px;
-margin-top: 4px;
- color: rgb(194, 181, 181);
-}
-
-.reviews-txt {
-    margin-left: 8px;
-    margin-top: 4px;
+    margin-left: 7px;
 }
 .edit-div {
     height: 25%;
@@ -123,16 +114,14 @@ margin-top: 4px;
 .edit-span {
     margin-left: 10px;
 }
-.owner-disp{
+.admin-disp{
     border: 2px solid rgb(224, 231, 233);
     margin-top: 30px;
     margin-left: 30px;
     border-radius: 10px;
     width: 60%;
-    background-color: rgb(242, 245, 247);
 }
-.owner-dis-div{
+.admin-dis-div{
     width: 96%;
     height: 90%;
-    overflow: scroll;
 }
