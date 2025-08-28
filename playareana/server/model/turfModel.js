@@ -30,6 +30,9 @@ const turfSchema = mongoose.Schema({
         type: String,
        
     },
+    facility:{
+        type:[String]
+    },
     owner: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "users",

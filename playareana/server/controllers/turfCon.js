@@ -1,3 +1,4 @@
+const { message } = require('antd');
 const turf = require('../model/turfModel')
 
 const addTurf = async (req, res) => {
@@ -31,6 +32,8 @@ const updateTurf = async (req, res) => {
     }
 }
 const getAllTurf =async(req,res)=>{
+    console.log('getallturf');
+    
     try {
         const allturf=await turf.find()
         res.status(201).send({success:true,data:allturf})
@@ -40,7 +43,7 @@ const getAllTurf =async(req,res)=>{
 }
 const deleteTurf = async (req, res) => {
     try {
-        const deleteTurf = await turf.findByIdAndDelete(req.body.id)
+        const deleteTurf = await turf.findByIdAndDelete(req.params.id)
         if(!deleteTurf){
             return res.status(404).send({message:"Not able to delete",success:false})
         }
@@ -55,6 +58,8 @@ const deleteTurf = async (req, res) => {
             success: false,
             data: allTurf
         })
+        console.log(error.message);
+        
     }
 }
 const getTurfByIdowner=async(req,res)=>{
@@ -76,6 +81,26 @@ const getTurfByIdowner=async(req,res)=>{
         
     }
 }
+const getTurfById=async(req,res)=>{
+    console.log('coming to the id');
+    try {
+        const turfById=await turf.findById(req.params.id)
+        console.log(turfById,'trufid');
+        
+        res.send({
+            success:true,
+            data:turfById
+        })
+        
+        
+    } catch (error) {
+        res.send({
+            success:false,
+            message:error.message
+        })
+        
+    }
+}
 const getTurfBySearch = async (req, res) => {
     try {
         const search = await turf.find(req.body)
@@ -90,4 +115,4 @@ const getTurfBySearch = async (req, res) => {
         return res.status(500).send('Something went wrtong')
     }
 }
-module.exports={addTurf,updateTurf,deleteTurf,getTurfByIdowner,getAllTurf,getTurfBySearch}
+module.exports={addTurf,updateTurf,deleteTurf,getTurfByIdowner,getAllTurf,getTurfBySearch,getTurfById}

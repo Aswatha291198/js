@@ -10,6 +10,8 @@ import store from '../redux/store'
 import UserProfile from './pages/user/userProfile'
 import Admin from './pages/admin'
 import OwnerPage from './partner'
+import Book from './pages/user/Book'
+import SingleTurf from './pages/Bookings/SingleTurf'
 
 const App = () => {
     return (
@@ -23,6 +25,8 @@ const App = () => {
                 <Route path='/userprofile' element={<Protected><UserProfile/></Protected>}></Route>
                 <Route path='/admin' element={<Protected><Admin/></Protected>}></Route>
                 <Route path='/owner' element={<Protected><OwnerPage/></Protected>}></Route>
+                <Route path='/book' element={<Protected><Book/></Protected>}></Route>
+                <Route path='/turf/:id' element={<Protected><SingleTurf/></Protected>}></Route>
             </Routes>
            
         </Provider>

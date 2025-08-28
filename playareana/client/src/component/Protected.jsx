@@ -6,8 +6,18 @@ import { showLoading, hideLoading, setUser } from '../../redux/slice/userSlice'
 import { GetCurrentUser } from '../api/user'
 import { message,Menu, Avatar } from 'antd'
 import{LogoutOutlined, ProfileOutlined, UserOutlined}from "@ant-design/icons"
+import book from '../assets/agenda.png'
+import trophy from '../assets/trophy.png'
+import cap from '../assets/cap.png'
+import shoot from '../assets/shoot.png'
+import money from '../assets/earnings.png'
+import income from '../assets/income.png'
+import turf from '../pages/home/turf.png'
+
 
 const Protected = ({ children }) => {
+  console.log('protected mointer');
+  
   const { user } = useSelector(store => store.users)
   const dispatch = useDispatch()
   const navigate = useNavigate()
@@ -97,7 +107,9 @@ useEffect(()=>{
       <header className='header-cont'>
         <div className='space'></div>
         <div className='logo'>
-          <h1 className='image'><Link to='/'>logo</Link></h1>
+          <div className='image'>
+            <img src={turf} alt="turf" />
+          </div>
         </div>
         <nav className='nav-cont'>
           <div className='nav-div'>
@@ -105,18 +117,26 @@ useEffect(()=>{
               {user && user.role==='player' && (
                <>
                 <li className='li-nav'>
-                  <i className="fa-solid fa-person"></i><Link to='/play' className='lin-div'>Play</Link></li> 
+                 <span className='icon'><img src={shoot} alt="shoot" className='shoot' /></span> <Link to='/play' className='lin-div'>Play</Link></li> 
               <li className='li-nav'>
-                <i className="fa-regular fa-futbol"></i>
+                <span className='icon'>
+                  <img src={book} alt="book"  className='shoot' />
+                </span>
                 <Link  className='lin-div' to='/book'>Book</Link></li>
                <li className='li-nav'>
-                <i className="fa-solid fa-chart-line" to='/train'></i><Link  className='lin-div'>Train</Link></li>
+               <span className='icon'>
+                <img src={cap} alt="cap"  className='shoot' /></span><Link  className='lin-div'>Train</Link></li>
                </>
               )}
               {user && user.role==='owner' && (
                 <>
-                 <li className='li-nav'><Link className='lin-div'>Turf</Link></li> 
-              <li className='li-nav'><Link  className='lin-div'>Incoming </Link></li>
+                 <li className='li-nav'>
+                  <span className='icon'>
+                    <img src={trophy} alt="trophy"  className='shoot' />
+                    </span><Link className='lin-div'>Tournament</Link></li> 
+              <li className='li-nav'>
+                <span className='icon'><img src={income} alt="income"  className='shoot' /></span>
+                <Link  className='lin-div'>Incoming </Link></li>
                 </>
               )}
             </ul>

@@ -6,11 +6,17 @@ import { Button, message,Card } from 'antd'
 import{EditOutlined} from '@ant-design/icons'
 import './turf.css'
 import TurfForm from './TurfForm'
+import DeleteModal from './DeleteModal'
+import location from '../assets/location.png'
+import clock from '../assets/clock.png'
+import phone from '../assets/telephone.png'
+import rupee from '../assets/rupee.png'
 
 
 const Turfs = () => {
     const [isModalOpen, setIsModalOpen] = useState(false)
     const [turfList, setTurfList] = useState(null)
+    const[isDeleteModal,setDeleteModal]=useState(false)
     const[formType,setFormType]=useState('add')
     const [selectedTurf, setSelectedTurf] = useState(null)
     const dispatch = useDispatch()
@@ -33,6 +39,8 @@ const Turfs = () => {
             else {
                 message.error(response.message)
             }
+            console.log(response.data);
+            
             dispatch(hideLoading())
         } catch (error) {
             dispatch(hideLoading())
@@ -78,22 +86,26 @@ const Turfs = () => {
                                 <div className='turf-info-div'>
                                     <span className='turf-name'>{turf.name}</span>
                                     <span className='location-wrap'>
-                                        <i class="fa-solid fa-location-dot location-icon"></i>
-                                        <span>{turf.address}</span>
+                                        <span className='location-img'><img src={location} alt="location" className='location-image' /></span>
+                                        <span className='turf-address'>{turf.address}</span>
                                     </span>
                                     <span className='turf-timings'>
-                                        <i className="fa-regular fa-clock clock-icon"></i>
-                                        <span>{turf.open} -</span>
-                                    <span>{turf.close}</span>
+                                       <span className='location-img'><img src={clock} alt="clock"
+                                       className='location-image' /></span>
+                                        <span className='turf-address'>{turf.open} -</span>
+                                    <span className=' turf-address'>{turf.close}</span>
                                     </span>
                                     <span className='turf-phone-wrap'>
-                                        <i className="fa-solid fa-phone phone-icon"></i>
-                                          <span>{turf.phone}</span>
+                                       <span className='location-img'><img src={phone} alt="phone" className='location-image' /></span>
+                                          <span className='turf-address'>{turf.phone}</span>
                                           </span> 
                                           <span className='price-div'>
-                                            <i className="fa-solid fa-money-bill"></i>
-                                            <span>{turf.price} <span>Price per one Hour</span></span>
+                                            <span className='location-img'><img src={rupee} alt="rupee"className='location-image'/></span>
+                                            <span className='turf-address'>{turf.price} <span className='turf-address'>Price per one Hour</span></span>
                                           </span>
+                                          <div>
+                                            <span></span>
+                                          </div>
                                           <div className='turf-btn-wrapper'>
                                             <Button 
                                             type='primary'
@@ -106,6 +118,10 @@ const Turfs = () => {
                                             <Button
                                             type='primary'
                                             className='delete-btn-turf'
+                                            onClick={()=>{
+                                                setDeleteModal(true)
+                                                setSelectedTurf(turf)
+                                            }}
                                             >Delete</Button>
                                             </div>                                 
                                 </div>
@@ -124,6 +140,15 @@ const Turfs = () => {
             formType={formType}
             />
         )}
+            {isDeleteModal && (
+                <DeleteModal
+                selectedTurf ={selectedTurf}
+                setDeleteModal={setDeleteModal}
+                isDeleteModal={isDeleteModal}
+                setSelectedTurf={setSelectedTurf}
+                getData={getData}
+                />
+            )}
         
         
         </>

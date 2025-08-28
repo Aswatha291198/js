@@ -1,0 +1,117 @@
+.single-cont {
+    height: 1000px;
+}
+
+.single-wrapper {
+    height: 100%;
+    display: flex;
+    gap: 10px;
+}
+
+.single-disp {
+    width: 60%;
+    margin: 30px;
+}
+
+.single-disp-name {
+    margin-left: 10px;
+}
+
+.turf-name-single {
+    margin-left: 12px;
+}
+
+.single-turf-img {
+    margin-left: 20px;
+    border-radius: 20px;
+}
+
+.single-poster {
+    border-radius: 10px;
+}
+
+.poster-div {
+    margin-top: 20px;
+    margin-left: 20px;
+    height: 180px;
+    border-radius: 10px;
+    border: 2px solid rgb(215, 218, 219);
+}
+.sports-wrap {
+    margin-left: 10px;
+    height: 35%;
+}
+.sports {
+    font-size: x-large;
+    font-weight: 600;
+}
+.sports-name-cont {
+    height: 65%;
+}
+.sports-div {
+    height: 75px;
+    border: 2px solid lightblue;
+    width: 80px;
+    margin-left: 20px;
+    
+    box-shadow: 0 4px 10px rgba(173, 216, 230, 0.6);
+}
+.facilities-cont{
+    border: 2px solid red;
+}
+.single-disp-right{
+    margin: 30px;
+    width: 40%;
+    height: 100%;
+}
+.book-now-div{
+    margin: 20px;
+    height: 100px;
+}
+.book-now-btn{
+    margin-top: 40px;
+    margin-left: 20px;
+    width: 400px;
+    height: 40px;
+    border: none;
+    border-radius: 10px;
+    background-color: rgb(33, 168, 33);
+    color: white;
+    font-size: medium;
+    font-weight: 600;
+    letter-spacing: 0.3px;
+    cursor: pointer;
+}
+.turf-time-cont{
+    width: 390px;
+    height: 80px;
+    border-radius: 10px;
+    border: 1px solid rgb(207, 223, 228);
+    margin-left: 40px;
+    display: flex;
+    flex-direction: column;
+}
+.timing{
+    margin: 15px;
+    font-size: larger;
+    font-weight: 600;
+}
+.timing-wrap{
+    margin-left: 15px;
+}
+.address-div{
+    border:1px solid rgb(207, 223, 228);
+    width: 390px;
+    height: 80px;
+    margin-left: 40px;
+    border-radius: 10px;
+    margin-top: 25px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.address{
+    font-size: large;
+    text-transform: capitalize;
+    font-weight: 600;
+}

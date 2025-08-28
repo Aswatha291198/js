@@ -1,5 +1,5 @@
     .turf-cont {
-        height: 100%;      
+        height: 100%;
     }
 
     .turf-display-cont {
@@ -42,8 +42,9 @@
     }
 
     .custom-card-turf {
-        width: 400px;
-        height: 400px;
+        width: auto;
+        height: auto;
+        margin: 20px;
     }
 
     .custom-card-turf .ant-card-body {
@@ -51,8 +52,8 @@
     }
 
     .turf-img-div {
-        height: 170px;
-        position: relative;
+        width: auto !important;
+        height: 250px !important;
     }
 
     .poster-image {
@@ -60,6 +61,7 @@
         height: 100%;
         border-radius: 10px;
         transition: all 0.3s ease;
+        object-fit: cover;
     }
 
     .poster-image:hover {
@@ -83,13 +85,28 @@
         gap: 5px;
     }
 
-    .location-icon {
+    .location-img {
         margin: 3px;
+        background-color: lightgrey;
+        height: 35px;
+        width: 30px;
+        border-radius: 10px;
+    }
+    .location-image{
+        width: 60%;
+        margin-top: 8px;
+        margin-left: 6px;
     }
 
     .turf-timings {
         margin: 3px;
         display: flex;
+    }
+    .turf-address{
+        margin-top: 5px;
+        font-size: large;
+        text-transform: capitalize;
+        font-weight: 600;
     }
 
     .clock-icon {
@@ -105,6 +122,10 @@
     .phone-icon {
         margin-top: 2px;
         margin-right: 5px;
+    }
+    .price-div{
+         margin: 3px;
+        display: flex;
     }
 
     .turf-btn-wrapper {
@@ -136,15 +157,16 @@
         width: 100px;
         height: 40px;
         font-weight: 600;
-        background-color:rgb(201, 51, 51);
+        background-color: rgb(201, 51, 51);
         color: white;
         border: none;
         border-radius: 6px;
         cursor: pointer;
         transition: all 0.3s ease;
     }
+
     .delete-btn-turf:hover {
-        background-color:rgb(173, 82, 82) !important;
+        background-color: rgb(173, 82, 82) !important;
         transform: scale(1.05);
         box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
     }
