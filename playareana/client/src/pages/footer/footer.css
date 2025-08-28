@@ -1,0 +1,13 @@
+.footer-cont{
+    border: 2px solid red;
+    background-color: red;
+    height: 300px;
+}
+.footer-disp{
+    display: flex;
+    height: 100%;
+    border: 2px solid green;
+}
+.footer-logo{
+    
+}

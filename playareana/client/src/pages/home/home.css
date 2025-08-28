@@ -1,12 +1,13 @@
-.container{
+.container {
     display: flex;
     flex-direction: column;
     width: 100%;
-    height: 1300px;
+    height: auto;
     background-color: rgb(243, 238, 238);
-    
+
 }
-.section-cont{
+
+.section-cont {
     display: flex;
     height: 550px;
     background-color: white;
@@ -14,67 +15,77 @@
     border-bottom-right-radius: 20px;
 }
 
-.content-div{    
+.content-div {
     margin-left: 48px;
-     margin-right: 48px;
+    margin-right: 48px;
     width: 100%;
     height: 100%;
     display: flex;
 }
-.space-div{
+
+.space-div {
     display: block;
     height: 100%;
     width: 50%;
-   
-   margin-top: 40px;
-}
-.first-div{
-    margin-top: 29px;
-    width: 50%;
-    
-    }
-.second-div{
-    width: 50%;  
-    
+
     margin-top: 40px;
 }
-.second-div-img{
+
+.first-div {
+    margin-top: 29px;
+    width: 50%;
+
+}
+
+.second-div {
+    width: 50%;
+
+    margin-top: 40px;
+}
+
+.second-div-img {
     width: 100%;
     height: 100%;
     margin-top: px;
-    
+
 }
-.kick{
+
+.kick {
     width: 100%;
     height: 100%;
 }
-.blocking{
+
+.blocking {
     display: block;
     width: 100%;
     height: 30px;
 }
-.content-info{
+
+.content-info {
     color: rgb(80, 62, 62);
     font-weight: 800;
     font-size: xx-large;
 }
-.content-para{
+
+.content-para {
     font-size: x-large;
     color: rgb(99, 81, 81);
     padding-top: 20px;
 }
-.choose-container{
+
+.choose-container {
     margin-top: 50px;
     margin-left: 40px;
     height: auto;
     border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1),;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1), ;
     width: 100%;
     display: grid;
-    grid-template-columns: repeat(3,1fr);
+    grid-template-columns: repeat(3, 1fr);
 
 }
-.connect{
+
+.connect {
     width: 50%;
     background-color: white;
     border-radius: 10px;
@@ -82,7 +93,8 @@
     margin-left: 40px;
     margin-top: 30px;
 }
-.connect-img{
+
+.connect-img {
     text-align: center;
     width: 80%;
     height: 100px;
@@ -90,33 +102,191 @@
     justify-content: center;
     align-items: center;
 }
-.group{
+
+.group {
     width: 45%;
     margin-left: 35px;
     margin-top: 20px;
 }
-.connect-wrap{
+
+.connect-wrap {
     margin-top: 30px;
-    text-align: center;  
+    text-align: center;
 }
-.connect-text{
+
+.connect-text {
     font-size: larger;
     margin-top: 20px;
     font-weight: 600;
     color: darkgreen;
     letter-spacing: 0.4px;
-    font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif ;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 }
-.connect-texts-div{
+
+.connect-texts-div {
     margin-left: 10px;
     margin-top: 20px;
-    
 }
-.connect-texts{
+
+.connect-texts {
     margin-left: 25px;
     font-weight: 400;
 }
-.connect-texts-supports{
-  margin-left: 10px; 
-  font-weight: 400; 
+
+.connect-texts-supports {
+    margin-left: 10px;
+    font-weight: 400;
+}
+
+.tournement-div-home {
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+    margin-top: 10px;
+}
+
+.div-wrap {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    align-items: center;
+    box-sizing: border-box;
+
+
+}
+
+.lead-name {
+    width: 497px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+}
+
+.be {
+    font-size: 40px;
+    font-weight: 600;
+}
+.color {
+    color: rgb(42, 177, 42);
+}
+.content-row {
+    display: flex;
+    width: 100%;
+    height: 480px;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    
+}
+.start {
+    width: 25%;
+    height: 70%;
+    border-radius: 10px;
+    background-color: white;
+    margin-left: 20px;
+    position: relative;
+    left: 50px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+.start-div {
+    margin-left: 10px;
+    margin-right: 10px;
+    height: 100%;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+}
+
+.start-img {
+    height: 25%;
+    width: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 20px;
+    position: relative;
+    left: 30px;
+}
+
+.trophy {
+    width: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-left: 15px;
+}
+
+.start-name {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+
+}
+
+.kick-h {
+    height: 30px;
+    text-align: center;
+}
+
+.kick-p {
+    font-size: larger;
+    margin-left: 10px;
+    font-weight: 400;
+
+}
+
+.start-btn {
+    height: 60px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.btn-str {
+    width: 100px;
+    height: 40px;
+    border-radius: 10px;
+    border: none;
+    margin-bottom: 15px;
+    background-color: rgb(3, 100, 3);
+    color: white;
+    font-size: large;
+    letter-spacing: 0.9px;
+}
+
+.coach {
+    margin-bottom: 20px;
+}
+
+.kick-t {
+    font-size: larger;
+}
+
+.sports-cont {
+    border: 2px solid green;
+    height: 200px;
+    display: flex;
+    gap: 20px;
+    background-color: white;
+    border-radius: 10px;
+    margin: 10px;
+}
+
+.sport-wrapper {
+    margin: 10px;
+    border: 1px solid red;
+    width: 15%;
+    border-radius: 10px;
+    position: relative;
+}
+
+.game-name {
+    position: absolute;
+    top: 90px;
+    right: 80px;
+    z-index: 2;
 }
