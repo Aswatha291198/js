@@ -10,6 +10,9 @@ const gameSchema = mongoose.Schema({
         type:mongoose.Schema.Types.ObjectId,
         ref:"turf"
     },
+    poster:{
+            type:String
+    },
 
     host: {
         type: mongoose.Schema.Types.ObjectId,

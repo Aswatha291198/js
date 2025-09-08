@@ -1,195 +1,150 @@
 import React, { useEffect, useState } from 'react'
-import { showLoading, hideLoading } from '../../../redux/slice/userSlice'
-import { useDispatch } from 'react-redux'
-import { getAllTurf } from '../../api/turf'
-import { message, Input, Card } from 'antd'
+import { SearchOutlined } from '@ant-design/icons'
 import whistle from '../../assets/whistle.png'
 import down from '../../assets/down.png'
-import bat from '../../assets/cricket-bat.png'
-import football from '../../assets/football.png'
-import tennis from '../../assets/tennis.png'
-import pickle from '../../assets/pickle.png'
-import  shuttle from '../../assets/shuttle-cock.png'
-import './book.css'
-import{useNavigate} from 'react-router-dom'
+import bat from "../../assets/cricket-bat.png";
+import football from "../../assets/football.png";
+import tennis from "../../assets/tennis.png";
+import pickle from "../../assets/pickle.png";
+import shuttle from "../../assets/shuttle-cock.png";
+import { useDispatch } from 'react-redux'
+import{useNavigate}from 'react-router-dom'
+import { hideLoading, showLoading } from '../../../redux/slice/userSlice'
 import { getAllGame } from '../../api/game'
+import { getAllTurf } from '../../api/turf';
+
 const Book = () => {
-    const [allTurfs, setAllTurfs] = useState([])
-    const [openModal, setOpenModal] = useState(false)
-    const [games, setGames] = useState(null)
-    const [activeTabs,setActiveTabs]=useState('venue')
-    const[view,setView]=useState('venue')
+    const [sportsModel, setSportsModel] = useState(false)
     const dispatch = useDispatch()
+    const [games, setGames] = useState(null)
     const navigate=useNavigate()
+    const [venueSearch, setVenueSearch] = useState('')
+    const [turfList, setTurfList] = useState(null)
+
+       
+    const sportIcons = {
+        Cricket: bat,
+        Football: football,
+        Tennis: tennis,
+        "Pickle Ball": pickle,
+        Shuttle: shuttle,
+    };
+
     const getData = async () => {
         try {
             dispatch(showLoading())
-            const allGamesresponse = await getAllGame()
-            if (allGamesresponse.success) {
-                setGames(allGamesresponse.data)
+            const gameResponse = await getAllGame()
+            if (gameResponse.success) {
+                setGames(gameResponse.data)
+                dispatch(hideLoading())
             }
-            else {
-                message.error(allGamesresponse.response)
+            const turfResponse = await getAllTurf()
+            if (turfResponse.success) {
+                setTurfList(turfResponse.data)
+                dispatch(hideLoading())
             }
-            const response = await getAllTurf()
-            if (response.success) {
-                const allturfList = response.data
-                console.log(allTurfs);
+            dispatch(hideLoading())
+            console.log(gameResponse);
 
-                setAllTurfs(allturfList.map((turf) => {
-                    return {
-                        ...turf,
-                        key: `turflist${turf._id}`
-                    }
-                }))
-            }
-            else {
-                message.error(response.message)
-            }
-            dispatch(hideLoading())
         } catch (error) {
-            dispatch(hideLoading())
             console.log(error.message);
-      }
+            dispatch(hideLoading())
+
+        }
     }
+    const handleChange = (e) => {
+        setVenueSearch(e.target.value)
+        console.log(e.target.value);
+
+    }
+
     useEffect(() => {
         getData()
     }, [])
     return (
         <>
-            <main className='book-cont'>
-                <div className='book-div-cont'>
-                    <div className='book-txt-cont'>
-                    <div className='book-txt-wrap'>
-                    <div >
-                    <h1 className='book-text'>Sports Venues in Bangalore: Discover and Book Nearby Venue</h1>
-                    </div>
-                    <div className='book-wrapper'>
-                    <div className='input-wrap'>
-                    <span>
-                    <i className="fa-solid fa-magnifying-glass search-icon"></i>
-                    </span>
-                    <Input
-                    placeholder='search by your venue name'
-                    className='input-book' />
-                    </div>
-                    <div className='select-wrap' onClick={() => {
-                    setOpenModal(!openModal)
-                    }}>
-                    <span className='whistle-wrap'>
-                    <img src={whistle} alt="whistle" className='whistle-icon' />
-                    </span>
-                    <span className='all-sports'>All Sports</span>
-                    <span className='down-wrapper'>
-                    <img src={down} alt="down" className='down' />
-                    </span>
-                    </div>
-                    </div>
-                    </div>
-                    </div>
-                    {openModal && (
-                        <>
-                            <div className='modal-cont'>
-                                <div className='modal-wrap'>
-                                {
-                                games && games.map((game) => {
-                                return(
-                                <div
-                                key={game._id}
-                                className='games-cont'>
-                                <input type="checkbox"className='check-box' />
-                                <div className='game-name'>
-                                {game.name==='Cricket' && (
-                                <div className='cricket-wrap'>
-                                <img src={bat} alt="bat" className='bat' />
-                                <span className='cricket'>{game.name}</span>
-                                </div>
-                               )}
-                               {game.name==='Football' && (
-                               <div className='cricket-wrap'>
-                              <img src={football} alt="bat" className='bat' />
-                             <span className='cricket'>{game.name}</span>
-                             </div>
-                             )}
-                            {game.name==='Tennis' && (
-                           <div className='cricket-wrap'>
-                            <img src={tennis} alt="bat" className='bat' />
-                            <span className='cricket'>{game.name}</span>
-                            </div>
-                             )}
-                            {game.name==='Pickle Ball' && (
-                             <div className='cricket-wrap'>
-                             <img src={pickle} alt="bat" className='bat' />
-                             <span className='cricket'>{game.name}</span>
-                             </div>
-                             )}
-                             {game.name==='Shuttle' && (
-                             <div className='cricket-wrap'>
-                             <img src={shuttle} alt="bat" className='bat' />
-                             <span className='cricket'>{game.name}</span>
-                             </div>
-                             )}
-
-                            </div>
-                             </div>    
-                             )      
-                             })
-                              }
-                            </div>
-                            </div>
-
-                        </>
-                    )}
-                    <div className='book-display'>
-                        <div className='book-display-cont'>
-                        <div className='book-display-wrap'>
-                            <div className='venues' onClick={()=>{ 
-                                setActiveTabs('venue')
-                                 setView('venue') }} 
-                                 style={{ color:activeTabs==='venue'? 'green':'black',
-                                }}>
-                                  <span className='venues-name'>Venues</span>
-                                   <span>({allTurfs.length})</span>
-                                    </div> <div className='tournaments'
-                                     onClick={()=>{ setActiveTabs('tournaments') 
-                                     setView('tournaments') }} style={{ color:activeTabs==='tournaments'? 'green':'black'
-                                     }}>
-                                         <span className='venues-name'>Tournaments</span>
-                                          <span>({allTurfs.length})</span>
-                             </div>
-                        </div>
-                        </div>
-                    </div>
-                    {view==='venue' &&(
-                        <div className='venue-cont'>
-                            <div className='venue-wrapper'>
-                                {allTurfs && allTurfs.map((turf)=>{
-                                    return (
-                                        <div 
-                                        className='book-div'
-                                        onClick={()=>{
-                                                   navigate(`/turf/${turf._id}`) 
-                                        }}
-                                        key={turf._id} >
-                                           <div className='turf-img-div'>
-                                            <img src={turf.poster} alt="poster"className='turf-poster' />
-                                           </div>
-                                           <div className='book-turf-wrap'>
-                                            <span className='book-turf-name'>{turf.name}</span>
-                                            <span>{turf.address}</span>
-
-                                           </div>
-                                        </div>
-                                    )
-                                })}
-                            </div>
-                        </div>
-                    )}
-                    
+            <main className='book-main'
+            >
+                <div className='book-div-cont'
+                >
+                <section className='book-name-sect'>
+                <div className='book-name-wrap'>
+                <div className='book-name-cont'>
+                <h1 className='book-name-h1'>Sports Venue Discover and Book Nearby Venue</h1>
+                <div className='book-search-cont'>
+                <div className='book-search-input'>
+                <i className="fa-solid fa-magnifying-glass seach-input"></i>
+                <input type="text" placeholder='Search by venue name' onChange={handleChange} />
                 </div>
-            </main>
+                <div className='book-select' >
+                <div className='book-select-cont'
+                onClick={() => {setSportsModel(!sportsModel) }}>
+                <span className='whistle'><img src={whistle} alt="whistle" /></span>
+                <span className='all-sport'>All Sports</span>
+                <span className='down'><img src={down} alt="" />
+                </span>
+                </div>
+                {sportsModel && (
+                <div className="sports-dropdown">
+                <div className='sport-drop'>
+                {games && games.map((game) => {
+                return (
+                <div className='sports-cont'>
+                <input type="checkbox" className='check-box' />
+                <div className='sport-name-wrap'>
+                <span>{game.name}</span>
+                </div>
+                <div className='sport-img-wrap'>
+                <span><img src={sportIcons[game.name]} alt="" /></span>
+                </div>
+                </div>
+                )})}
+                </div>                                  
+                </div>)}
+                </div>
+                </div>
+                </div>
+                </div>
+                </section>
+                <section className='venue-nav-bar'>
+                <div className='venue-nav-wrap'>
+                  <div className='venue-disp'>
+                <div className='venue-wrap'> 
+               {turfList &&( <span className='venue-text'>Venue ({turfList.length})</span>)}
+                </div>
+                  
+                  <div>
+                    <div> <span></span></div>
+                  </div>
+                   </div>  
+                 
+                </div>
+                </section>
+              <section className='turflist-card-sect'>
+              <div className='turflist-card-cont'>
+            
+                    {turfList &&
+            turfList
+                .filter((turf) =>
+                turf.name.toLowerCase().includes(venueSearch.toLowerCase())
+                )
+                .map((turf) => {
+                    return(
+                        <div
+                        className='turflist-cards'
+                        key={turf._id}
+                        ><img src={turf.poster} alt="turf" className="turf-img"/>
+                        <div><span>{turf.name}</span></div>
+                        </div>
+                    )
+                })
+                }
+             
+              </div>                
+              </section>
+              </div>
+              </main>
         </>
-
     )
 }
 

@@ -12,7 +12,6 @@ export const loginUser=async(values)=>{
         
     }
 }
-
 export const registerUser=async(values)=>{
     try {
         const response=await axiosInstance.post('/turfo/user/register',values)
@@ -29,13 +28,25 @@ export const GetCurrentUser=async(values)=>{
         return response.data
         
     } catch (error) {
+     console.log(error.message);
+
      console.log('error current');
+     
         
     }
 }
 export const updateuser=async(values)=>{
     try {
         const response=await axiosInstance.post('/turfo/user/update-user',values)
+        return response.data
+    } catch (error) {
+        console.log(error.message);
+        
+    }
+}
+export const getAllUsers=async()=>{
+    try {
+        const response=await axiosInstance.get('/turfo/user/all-users')
         return response.data
     } catch (error) {
         console.log(error.message);

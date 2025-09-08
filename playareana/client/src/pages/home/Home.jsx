@@ -8,20 +8,36 @@ import group from '../../assets/group.png'
 import support from '../../assets/support.png'
 import trophy from '../../assets/trophy.png'
 import coach from '../../assets/coach.png'
+import bar from '../../assets/bar-chart.png'
+import check from '../../assets/check-mark.png'
 import { getAllGame } from '../../api/game'
 import { message } from 'antd'
 import Footer from '../footer/Footer'
+import { GetAllBlogs } from '../../api/blog'
+import { useNavigate } from 'react-router-dom'
 
 
 const Home = () => {
   const [turfs, setTurs] = useState(null)
   const dispatch = useDispatch()
+  const navigate=useNavigate()
   const { user } = useSelector(store => store.users)
   const [sport, setSports] = useState(null)
+  const[blogs,setBlogs]=useState(null)
 
   const getSport = async () => {
     try {
       dispatch(showLoading())
+      const blogResponse=await GetAllBlogs()
+      if(blogResponse.success){
+        const allBlogs=blogResponse.data
+        setBlogs(allBlogs.map((blog)=>{
+          return{
+            ...blog,
+            key:`blog${blog._id}`
+          }
+        }))
+      }
       const response = await getAllGame()
       if (response.success) {
         const allgames = response.data
@@ -44,6 +60,15 @@ const Home = () => {
   useEffect(() => {
     getSport()
   }, [])
+const truncateTitle = (title) => {
+  const words = title.split(" ");
+  if (words.length > 3) {
+    return words.slice(0, 3).join(" ") + "..."
+  }
+  return title;
+};
+
+
 
   return (
     <>
@@ -74,6 +99,12 @@ const Home = () => {
               </div>
             </div>
           )}
+          {user && user.role === 'admin' &&(
+                    <div className='div-wrap'>
+        <div className='lead-name'>
+          <h1 className='be'>Control  <span className='color'>Center</span></h1>
+        </div>
+      </div>)}
           <div className='content-row'>
             {user && user.role === 'player' && (
               <>
@@ -89,7 +120,10 @@ const Home = () => {
                       <p className='kick-p'>Create your own league and crown the champions</p>
                     </div>
                     <div className='start-btn'>
-                      <button className='btn-str'>Start</button>
+                      <button className='btn-str'
+                      onClick={()=>{
+                        navigate('/tournament')
+                      }}>Start</button>
                     </div>
 
                   </div>
@@ -121,8 +155,10 @@ const Home = () => {
         <div className='lead-name'>
           <h1 className='be'>Own a Turf? Manage it  <span className='color'>Smarter</span></h1>
         </div>
-      </div>
-            )}
+      </div>)}
+
+      
+     
             {user && user.role === 'owner' && (
 
               <>
@@ -165,7 +201,71 @@ const Home = () => {
                 </div>
               </>
             )}
+            {user && user.role === 'admin' && (
+              <>
+                <div className='start'>
+                  <div className='start-div'>
+                    <div className='start-img'>
+                      <div className='trophy'>
+                        <span className='tro-span'><img src={check} alt="tro" className='tro' /></span>
+                      </div>
+                    </div>
+                    <div className='start-name'>
+                      <h2 className='kick'>Streamline Approvals  </h2>
+                      <p className='kick-p'>Quickly review and approve turf requests with just a click</p>
+                    </div>
+                    <div className='start-btn'>
+                      <button className='btn-str'>Start</button>
+                    </div>
+
+                  </div>
+                </div>
+                <div className='start'>
+                  <div className='start-div'>
+                    <div className='start-img'>
+                      <div className='trophy '>
+                        <span><img src={bar} alt="c" className='coach' /></span>
+                      </div>
+                      <div>
+
+                      </div>
+                    </div>
+                    <div className='start-name'>
+                      <h2 className='kick-h'>Track Performance</h2>
+                      <p className='kick-t'>Monitor bookings, revenue, and turf usage in real time</p>
+                    </div>
+                    <div className='start-btn'>
+                      <button className='btn-str'>Start</button>
+                    </div>
+                  </div>
+
+                </div>
+              </>
+            )}
+            
           </div>
+        </section>
+        <section className='blogs-cont'>
+          <span>Blogs</span>
+          {blogs && blogs.map((blog)=>{
+            return (
+              <div
+              key={blog._id}
+              className='blogs-home'
+              onClick={()=>{
+                navigate(`/blog/${blog._id}`)
+              }}>
+              <div>
+                <img src={blog.image} alt="blog"
+                className='blogs-img-home' />
+              </div>
+               <div className='blogs-title-cont'> 
+                <h3 className='blog-title-div'>{truncateTitle(blog.title)}</h3>
+                <span className='blog-span'>{blog.author.name}</span> </div>
+              </div>
+         
+            )
+          })}
         </section>
         <div className='sports-cont'>
           {sport && sport.map((game) => {
@@ -179,6 +279,7 @@ const Home = () => {
               </div>
             )
           })}
+
         </div>
 <Footer/>
       </main>

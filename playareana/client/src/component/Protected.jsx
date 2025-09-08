@@ -13,6 +13,9 @@ import shoot from '../assets/shoot.png'
 import money from '../assets/earnings.png'
 import income from '../assets/income.png'
 import turf from '../pages/home/turf.png'
+import contact from '../assets/contact-list.png'
+import blog from '../assets/blog.png'
+
 
 
 const Protected = ({ children }) => {
@@ -108,7 +111,9 @@ useEffect(()=>{
         <div className='space'></div>
         <div className='logo'>
           <div className='image'>
-            <img src={turf} alt="turf" />
+            <img src='' alt="turf" onClick={()=>{
+                navigate('/')
+            }} />
           </div>
         </div>
         <nav className='nav-cont'>
@@ -137,6 +142,21 @@ useEffect(()=>{
               <li className='li-nav'>
                 <span className='icon'><img src={income} alt="income"  className='shoot' /></span>
                 <Link  className='lin-div'>Incoming </Link></li>
+                </>
+              )}
+              {user && user.role==='admin' && (
+                <>
+                 <li className='li-nav'>
+                  <span className='icon'>
+                    <img src={contact} alt="trophy"  className='shoot' />
+                    </span><Link className='lin-div' to='/userlist'>UsersList</Link></li> 
+              <li className='li-nav'>
+                <span className='icon'><img src={income} alt="income"  className='shoot' /></span>
+                <Link  className='lin-div'
+                to ='/incoming-turf-req'>Incoming </Link></li>
+                 <li className='li-nav'>
+                <span className='icon'><img src={blog} alt="blog"  className='shoot' /></span>
+                <Link  className='lin-div' to='/blogs'>Blogs </Link></li>
                 </>
               )}
             </ul>

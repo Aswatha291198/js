@@ -1,0 +1,146 @@
+.tour-main{
+    height: 100vh;
+    background-color: rgb(244, 249, 250);
+}
+.tour-div{
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+.tour-image{
+    height: 60%;
+    background-color: white;
+    border-bottom-left-radius: 30px ;
+    border-bottom-right-radius: 30px;
+    display: flex;
+}
+.tour-img-div{
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;    
+
+}
+.tour-img-wrap{
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 10px;
+}
+.tour-img-wrap img{
+height: 40%;
+width: 70%;
+}
+.start-tour{
+width: 240px;
+    height: 15%;
+    border: none;
+    border-radius: 10px;
+    background-color: rgb(11, 105, 11);
+    cursor: pointer;    
+}
+.start-tour span{
+width: 20px;
+    height: 30px;
+    position: relative;
+    bottom: 8px;
+    font-size: medium;
+    color: white;
+    font-weight: 600;
+    letter-spacing: 0.3px;
+}
+.start-tour  img{
+     width: 10%;
+    height: 50%;
+    margin-left: 10px;
+    margin-top: 15px;
+    filter: brightness(0) invert(1); 
+}
+.line{
+    border: 1px solid rgb(106, 170, 106);
+    position: relative;
+    top: 60px;
+    height: 300px;
+}
+.right-side-tour{
+    
+    width: 50%;
+}
+.tour-title-div{
+    margin: 20px;
+}
+.tour-title{
+    font-size: xx-large;
+    margin: 25px;
+    font-weight: 800;
+}
+.tour-cont{
+    margin: 20px;
+    position: relative;
+    left: 20px;
+    top: 10px;
+}
+.tour-desc{
+    font-size: xx-large;
+}
+.tour-btn-div{
+height: 50px;
+display: flex;
+justify-content: center;
+align-items: center;
+}
+.tour-btn{
+    width: 240px;
+    height: 100%;
+    border: none;
+    border-radius: 10px;
+    background-color: rgb(11, 105, 11);
+    cursor: pointer;
+}
+.tour-btn span{
+    width: 20px;
+    height: 30px;
+    position: relative;
+    bottom: 8px;
+    font-size: medium;
+    color: white;
+    font-weight: 600;
+    letter-spacing: 0.3px;
+}
+.tour-btn span img{
+    width: 10%;
+    height: 50%;
+    margin-left: 10px;
+    margin-top: 10px;
+    filter: brightness(0) invert(1); 
+}
+.tour-cont-sect{
+   
+}
+.tour-cont-div{
+    margin: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.span-tour{
+    margin-left: 10px;
+}
+.tour-h{
+    margin-left: 10px;
+}
+.tour-new-btn{
+    width: 200px;
+    height: 40px;
+    border: none;
+    background-color:  rgb(11, 110, 11);
+    color: white;
+    font-size: large;
+    font-weight: 600;
+    letter-spacing: 0.3px;
+    cursor: pointer;
+}

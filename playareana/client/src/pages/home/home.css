@@ -267,7 +267,6 @@
 }
 
 .sports-cont {
-    border: 2px solid green;
     height: 200px;
     display: flex;
     gap: 20px;
@@ -278,7 +277,6 @@
 
 .sport-wrapper {
     margin: 10px;
-    border: 1px solid red;
     width: 15%;
     border-radius: 10px;
     position: relative;
@@ -290,3 +288,46 @@
     right: 80px;
     z-index: 2;
 }
+.blogs-cont{
+    background-color: white;
+    border-radius: 10px;
+    height: 22.5rem;
+    margin: 25px;
+}
+.blogs-cont span{
+    margin-left: 20px;
+    font-size: 30px;
+    letter-spacing: 0.5px;
+    font-weight: 600;
+    margin-top: 20px;
+    position: relative;
+    top: 20px;
+    left: 20px;
+}
+.blogs-home{
+    display: flex;
+    gap: 10px;
+    flex-direction: column;
+    width: 250px;
+   position: relative;
+   height: 150px;
+   top: 40px;
+   left: 30px;
+   cursor: pointer;
+    background-color: green;
+}
+.blogs-img-home{
+    border-radius: 20px;
+     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    }
+.blogs-title-cont{
+display: flex;
+flex-direction: column;
+}
+.blog-title{
+    background: green;
+    height: 20px;
+}
+.blog-span{
+     
+    }

@@ -13,16 +13,25 @@ const addGame = async (req, res) => {
     }
 }
 const UpdateGame = async (req, res) => {
-    try {
-        const Game = await game.findByAndUpdate(req.body.id, req.body)
-        if (!Game) {
-            return res.status(404).send("game not found")
-        }
-        res.status(200).send({ message: "game upated", data: Game, success: true })
-    } catch (error) {
-        res.status(500).send("something went wrong")
+  try {
+    const { id, ...updateData } = req.body
+    const Game = await game.findByIdAndUpdate(id, updateData, { new: true })
+
+    if (!Game) {
+      return res.status(404).send({ success: false, message: "Game not found" })
     }
+
+    res.status(200).send({
+      success: true,
+      message: "Game updated successfully",
+      data: Game
+    })
+  } catch (error) {
+    console.error("UpdateGame error:", error.message)  // 👈 log the real error
+    res.status(500).send({ success: false, message: "Something went wrong" })
+  }
 }
+
 const deleteGame = async (req, res) => {
     console.log('hitting the delete route');
     console.log(req.body)

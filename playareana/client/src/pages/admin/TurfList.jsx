@@ -44,7 +44,7 @@ console.log((turfs));
       <h2>Manage Turf</h2>
     </div>
     <div className='card-back'>
-      {turfs &&turfs.map((turf)=>{
+      {turfs && turfs.map((turf)=>{
      return(
        <Card
       key={turf._id}

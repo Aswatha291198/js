@@ -9,10 +9,15 @@ import{Provider} from 'react-redux'
 import store from '../redux/store'
 import UserProfile from './pages/user/userProfile'
 import Admin from './pages/admin'
+import Incoming from './pages/admin/incoming/Incoming'
 import OwnerPage from './partner'
 import Book from './pages/user/Book'
+import Tour from './pages/Tour/Tour'
 import SingleTurf from './pages/Bookings/SingleTurf'
-
+import About from './pages/about/About'
+import UserList from './pages/admin/UserList'
+import Blogs from './pages/admin/blogs/Blogs'
+import SingleBlog from './pages/admin/blogs/SingleBlog'
 const App = () => {
     return (
         <>
@@ -27,8 +32,13 @@ const App = () => {
                 <Route path='/owner' element={<Protected><OwnerPage/></Protected>}></Route>
                 <Route path='/book' element={<Protected><Book/></Protected>}></Route>
                 <Route path='/turf/:id' element={<Protected><SingleTurf/></Protected>}></Route>
-            </Routes>
-           
+                <Route path='/about' element={<Protected><About/></Protected>}></Route>
+                <Route path='/userlist' element={<Protected><UserList/></Protected>}></Route>
+                <Route path='/blogs' element={<Protected><Blogs/></Protected>}></Route>
+                <Route path='/blog/:id' element={<Protected><SingleBlog/></Protected>}></Route>
+                <Route path='/incoming-turf-req' element={<Protected><Incoming/></Protected>}></Route>
+                <Route path='/tournament' element={<Protected><Tour/></Protected>}></Route>
+            </Routes>      
         </Provider>
             
         </>

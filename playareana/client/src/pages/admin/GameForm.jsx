@@ -2,7 +2,7 @@ import React from 'react'
 import { Modal, Card, Button, Form, Input, message } from 'antd'
 import { hideLoading,showLoading } from '../../../redux/slice/userSlice'
 import{useDispatch,useSelector}from 'react-redux'
-import { addGame } from '../../api/game'
+import { addGame, updateGame } from '../../api/game'
 
 const GameForm = ({
     isModalOpen,
@@ -19,17 +19,29 @@ const GameForm = ({
     }
     const onFinish=async(values)=>{
         try {
+            let response=null
             dispatch(showLoading())
-            const response=await addGame(values)
+            if(formType==='add'){
+                response=await addGame(values)
+            }
+            else{
+                response=await updateGame({
+                    ...values,
+                    id:selectedGame._id
+                })
+            }
             if(response.success){
                 message.success(response.message)
                 getData()
                 dispatch(hideLoading())
-            }
-
+            } 
+            else{
+                message.error(response.message)
+            }           
+            dispatch(hideLoading())
         } catch (error) {
             console.log(error.message);
-            
+            dispatch(hideLoading())
         }
     }
     return (
@@ -70,7 +82,23 @@ const GameForm = ({
               }}
             />
           </Form.Item>
-
+             <Form.Item
+            label="Poster"
+            name='poster'
+            style={{
+              fontWeight: "bold",
+              marginBottom: "16px",
+            }}
+          >
+            <Input
+              placeholder="Enter game poster"
+              style={{
+                borderRadius: "8px",
+                padding: "10px",
+                border: "1px solid #ccc",
+              }}
+            />
+          </Form.Item>
           <Form.Item style={{ textAlign: "right", marginTop: "20px" }}>
             <Button
               type="primary"

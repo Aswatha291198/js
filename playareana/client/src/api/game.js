@@ -31,3 +31,15 @@ export const deleteGame=async(id)=>{
         
     }
 }
+export const updateGame=async(values)=>{
+    console.log('coming to the updategame');
+    
+    try {
+        const res=await axiosInstance.post('/turfo/game/update-game',values)
+        return res.data
+        
+    } catch (error) {
+        console.log(error.message);
+        
+    }
+}

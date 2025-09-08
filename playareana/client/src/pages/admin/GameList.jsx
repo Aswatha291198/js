@@ -6,14 +6,16 @@ import { getAllGame } from '../../api/game'
 import { Button, Card, message } from 'antd'
 import './gamelist.css'
 import GameForm from './GameForm'
+import DeleteGame from './DeleteGame'
 
 const GameList = () => {
   const [game, setGame] = useState(null)
   const { user } = useSelector(state => state.users)
   const dispatch = useDispatch()
-  
+  const[selectedGame,setSelectedGame]=useState(null)
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [formType, setFormType] = useState('add')
+  const[deleteModal,setDeleteModal]=useState(false)
 
   const getData = async () => {
     try {
@@ -72,11 +74,15 @@ const GameList = () => {
               }
               }
               >Edit</Button>
-              <Button>Delete</Button>
+              <Button
+              onClick={()=>{
+                setDeleteModal(true)
+              }}>Delete</Button>
             </div>
           </Card>
         )})}
       </div>
+      {deleteModal && (<DeleteGame deleteModal={deleteModal}setDeleteModal={setDeleteModal}selectedGame={selectedGame}setSelectedGame={setSelectedGame} getData={getData}/>)}
       {isModalOpen && (<GameForm isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen} selectedGame={selectedGame} setSelectedGame={setSelectedGame} getData={getData} formType={formType} />)}
     </>
   )
