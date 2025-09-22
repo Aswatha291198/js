@@ -31,3 +31,11 @@ export const tournamentById=async(id)=>{
         
     }
 }
+export const GetAllTournament=async()=>{
+    try {
+        const response=await axiosInstance.get('/turfo/tournament/all-tournaments')
+        return response.data
+    } catch (error) {
+        console.log(error.message)
+    }
+}

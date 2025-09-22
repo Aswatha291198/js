@@ -1,288 +1,194 @@
 import React, { useEffect, useState } from 'react'
 import './home.css'
 import kick from '../home/kick.png'
+import field from '../../assets/soccer-field.png'
+import {useNavigate} from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
 import { hideLoading, showLoading } from '../../../redux/slice/userSlice'
 import { getAllTurf } from '../../api/turf'
-import group from '../../assets/group.png'
-import support from '../../assets/support.png'
-import trophy from '../../assets/trophy.png'
-import coach from '../../assets/coach.png'
-import bar from '../../assets/bar-chart.png'
-import check from '../../assets/check-mark.png'
 import { getAllGame } from '../../api/game'
-import { message } from 'antd'
-import Footer from '../footer/Footer'
 import { GetAllBlogs } from '../../api/blog'
-import { useNavigate } from 'react-router-dom'
+import Footer from '../footer/Footer'
 
 
 const Home = () => {
-  const [turfs, setTurs] = useState(null)
   const dispatch = useDispatch()
   const navigate=useNavigate()
-  const { user } = useSelector(store => store.users)
-  const [sport, setSports] = useState(null)
   const[blogs,setBlogs]=useState(null)
+  const[games,setGames]=useState(null)
+  const[location,setLocation]=useState('')
+  const { user } = useSelector(store => store.users)
+  const[turfs,setTurfs]=useState(null)
+  const [openIndex, setOpenIndex] = useState(null);
+const faqs = [
+  { 
+    question: "What is Playearena?", 
+    answer: "Playearena is a platform where users can book turfs and grounds across India." 
+  },
+  { 
+    question: "How do I book a turf?", 
+    answer: "You can browse available turfs, select your preferred time slot, and book directly online." 
+  },
+  { 
+    question: "Can I cancel my booking?", 
+    answer: "Yes, cancellations are allowed up to 24 hours before your booking." 
+  }
+];
 
-  const getSport = async () => {
+  const trimTitle=(title)=>{
+    return title.split(" ").slice(0,4).join(" ")+"..."
+  }
+
+  const getData=async()=>{
     try {
       dispatch(showLoading())
+      const turfResponse=await getAllTurf()
+      const gameResponse=await getAllGame()
       const blogResponse=await GetAllBlogs()
+      if(turfResponse.success){
+        const shuffled = turfResponse.data.sort(() => 0.5 - Math.random());
+        setTurfs(shuffled.slice(0, 4));
+        dispatch(hideLoading())
+      }
+      if(gameResponse.success){
+        setGames(gameResponse.data)
+        dispatch(hideLoading())
+      }
       if(blogResponse.success){
-        const allBlogs=blogResponse.data
-        setBlogs(allBlogs.map((blog)=>{
-          return{
-            ...blog,
-            key:`blog${blog._id}`
-          }
-        }))
-      }
-      const response = await getAllGame()
-      if (response.success) {
-        const allgames = response.data
-        setSports(allgames.map((game) => {
-          return {
-            ...game,
-            key: `game${game._id}`
-          }
-        }))
-      }
-      else {
-        message.error(response.message)
+        setBlogs(blogResponse.data)
+        dispatch(hideLoading())
       }
       dispatch(hideLoading())
+      console.log(turfResponse);
+      console.log(blogResponse,'blog');
+      console.log(gameResponse,'game');
+      
+      
+      
     } catch (error) {
-      dispatch(hideLoading())
       console.log(error.message);
+      dispatch(hideLoading())
     }
   }
-  useEffect(() => {
-    getSport()
-  }, [])
-const truncateTitle = (title) => {
-  const words = title.split(" ");
-  if (words.length > 3) {
-    return words.slice(0, 3).join(" ") + "..."
-  }
-  return title;
-};
 
-
+useEffect(()=>{
+  getData()
+},[location])
 
   return (
     <>
-      <main className='container'>
-        <section className='section-cont'>
-          <div className='content-div'>
-            <div className='space-div'>
-              <div className='first-div'>
-                <div className='blocking'></div>
-
-                <h1 className='content-info'>Explore Playing Communiteis</h1>
-                <p className='content-para'>Connect, play, and grow with like-minded sports enthusiasts around you</p>
-              </div>
-            </div>
-
-            <div className='second-div'>
-              <div className='second-div-img'>
-                <img src={kick} alt="kick" className='kick' />
-              </div>
-            </div>
+    <main className='home-container'>
+      <div className='home-wrapper'>
+    <section className='hero-cont'>
+      <section className='left-cont'>
+      <div className='left-wrap'>
+        <div className='left-div'>
+          <input type="text" placeholder='Enter Your Location'
+          onChange={(e)=>setLocation(e.target.value)} className='home-input' />
+          <h1 className='left-info'>Explore Playing Communities</h1>
+           <p className='left-para'>Connect, play, and grow with like-minded sports enthusiasts around you</p>
+        </div>
+      </div>
+              
+      </section>
+       <section className='right-cont'>
+        <div className='right-wrap'>
+          <div className='right-div'>
+            <img src={kick} alt="kijkc" className='kick-icon' />
           </div>
-        </section>
-        <section className='tournement-div-home'>
-          {user && user.role === 'player' && (
-            <div className='div-wrap'>
-              <div className='lead-name'>
-                <h1 className='be'>Be the Game <span className='color'>Changer</span></h1>
-              </div>
-            </div>
-          )}
-          {user && user.role === 'admin' &&(
-                    <div className='div-wrap'>
-        <div className='lead-name'>
-          <h1 className='be'>Control  <span className='color'>Center</span></h1>
         </div>
-      </div>)}
-          <div className='content-row'>
-            {user && user.role === 'player' && (
-              <>
-                <div className='start'>
-                  <div className='start-div'>
-                    <div className='start-img'>
-                      <div className='trophy'>
-                        <span className='tro-span'><img src={trophy} alt="tro" className='tro' /></span>
-                      </div>
-                    </div>
-                    <div className='start-name'>
-                      <h2 className='kick'>Kickstart a Tournament  </h2>
-                      <p className='kick-p'>Create your own league and crown the champions</p>
-                    </div>
-                    <div className='start-btn'>
-                      <button className='btn-str'
-                      onClick={()=>{
-                        navigate('/tournament')
-                      }}>Start</button>
-                    </div>
-
-                  </div>
-                </div>
-                <div className='start'>
-                  <div className='start-div'>
-                    <div className='start-img'>
-                      <div className='trophy '>
-                        <span><img src={coach} alt="c" className='coach' /></span>
-                      </div>
-                      <div>
-
-                      </div>
-                    </div>
-                    <div className='start-name'>
-                      <h2 className='kick-h'>Step In as a Trainer</h2>
-                      <p className='kick-t'>Turn passion into guidance, and players into legends.</p>
-                    </div>
-                    <div className='start-btn'>
-                      <button className='btn-str'>Start</button>
-                    </div>
-                  </div>
-
-                </div>
-              </>
-            )}
-            {user && user.role === 'owner' &&(
-                    <div className='div-wrap'>
-        <div className='lead-name'>
-          <h1 className='be'>Own a Turf? Manage it  <span className='color'>Smarter</span></h1>
+       </section>
+    </section>
+    <section className='home-content'>
+      <div className='content-wrap'>
+        <div className='home-venue'>
+        <h1 className='venue-text-home'>Book Venues</h1>
+        <h2 className='see-all'
+        onClick={()=>{
+          navigate('/book')
+        }}>See All Turfs </h2>
+        <div className='show-turf-cont'>
+          {turfs &&  turfs.filter((turf)=>turf.location.toLowerCase().includes(location.toLowerCase())).map((turf)=>{
+            return (
+             <div
+             className='home-turf-cards'
+             key={turf._id}
+             onClick={()=>{
+              navigate(`turf/${turf._id}`)
+             }}
+             >
+             <img src={turf.poster} alt="turf" className='home-turf-img' />
+             <h2 className='home-turf-name'>{turf.name}</h2>
+             <h3 className='home-turf-address'>{turf.address}</h3>
+             </div>
+            )
+          })}
         </div>
-      </div>)}
-
-      
-     
-            {user && user.role === 'owner' && (
-
-              <>
-                <div className='start'>
-                  <div className='start-div'>
-                    <div className='start-img'>
-                      <div className='trophy'>
-                        <span className='tro-span'><img src={trophy} alt="tro" className='tro' /></span>
-                      </div>
-                    </div>
-                    <div className='start-name'>
-                      <h2 className='kick'>List Your Turf  </h2>
-                      <p className='kick-p'>Showcase your venue and attract more players effortlessly</p>
-                    </div>
-                    <div className='start-btn'>
-                      <button className='btn-str'>Start</button>
-                    </div>
-
-                  </div>
-                </div>
-                <div className='start'>
-                  <div className='start-div'>
-                    <div className='start-img'>
-                      <div className='trophy '>
-                        <span><img src={coach} alt="c" className='coach' /></span>
-                      </div>
-                      <div>
-
-                      </div>
-                    </div>
-                    <div className='start-name'>
-                      <h2 className='kick-h'>Manage with Ease</h2>
-                      <p className='kick-t'>Control your turf hassle-free, all in one place</p>
-                    </div>
-                    <div className='start-btn'>
-                      <button className='btn-str'>Start</button>
-                    </div>
-                  </div>
-
-                </div>
-              </>
-            )}
-            {user && user.role === 'admin' && (
-              <>
-                <div className='start'>
-                  <div className='start-div'>
-                    <div className='start-img'>
-                      <div className='trophy'>
-                        <span className='tro-span'><img src={check} alt="tro" className='tro' /></span>
-                      </div>
-                    </div>
-                    <div className='start-name'>
-                      <h2 className='kick'>Streamline Approvals  </h2>
-                      <p className='kick-p'>Quickly review and approve turf requests with just a click</p>
-                    </div>
-                    <div className='start-btn'>
-                      <button className='btn-str'>Start</button>
-                    </div>
-
-                  </div>
-                </div>
-                <div className='start'>
-                  <div className='start-div'>
-                    <div className='start-img'>
-                      <div className='trophy '>
-                        <span><img src={bar} alt="c" className='coach' /></span>
-                      </div>
-                      <div>
-
-                      </div>
-                    </div>
-                    <div className='start-name'>
-                      <h2 className='kick-h'>Track Performance</h2>
-                      <p className='kick-t'>Monitor bookings, revenue, and turf usage in real time</p>
-                    </div>
-                    <div className='start-btn'>
-                      <button className='btn-str'>Start</button>
-                    </div>
-                  </div>
-
-                </div>
-              </>
-            )}
+      </div>
+      <h2 className='popular'>Popular Sports</h2>
+      <div className='home-game-cards'>
+        {games && games.map((game)=>{
+        return (
+          <div
+          className='home-game-card'
+          key={game._id}>
+            <img src={game.poster} alt="gmae" className='home-game-img' /> 
+            <span className='home-game-name'>{game.name}</span>
+          </div>
+        )
+      })}
+      </div>
+      <div className='home-blog-cards'>
+        <h2 className='home-blog-text'>Blogs</h2>
+        {blogs && blogs.map((blog)=>{
+          return (
+            <div
+            className='home-blog-card'
+            key={blog._id}
             
-          </div>
-        </section>
-        <section className='blogs-cont'>
-          <span>Blogs</span>
-          {blogs && blogs.map((blog)=>{
-            return (
-              <div
-              key={blog._id}
-              className='blogs-home'
-              onClick={()=>{
-                navigate(`/blog/${blog._id}`)
-              }}>
-              <div>
-                <img src={blog.image} alt="blog"
-                className='blogs-img-home' />
-              </div>
-               <div className='blogs-title-cont'> 
-                <h3 className='blog-title-div'>{truncateTitle(blog.title)}</h3>
-                <span className='blog-span'>{blog.author.name}</span> </div>
-              </div>
-         
-            )
-          })}
-        </section>
-        <div className='sports-cont'>
-          {sport && sport.map((game) => {
-            return (
-              <div
-                key={game._id}
-                className='sport-wrapper'
-              >
-                <img src={game.image} alt="game" />
-                <span className='game-name'>{game.name}</span>
-              </div>
-            )
-          })}
+            >
+              <img src={blog.image} alt="blogs" className='home-blog-img'onClick={()=>{
+              navigate(`blog/${blog._id}`)
+            }} />
+              <span className='home-blog-title'>{trimTitle(blog.title)}</span>
+             <div className='author-wrap'>
+               <span className='home-blog-author'>{blog.author.name}    |</span>
+              <span className='home-created'>
+  {new Date(blog.createdAt).toLocaleDateString("en-US", {
+    year: "numeric",
+    month: "long",
+    day: "numeric"
+  })}
+</span>
+             </div>
+</div>
+          )
+        })}
+      </div>
+      
+      </div>
+      
+    </section>
 
+    <section className='home-about'>
+      <div className='about-wrap'>
+        <div className='about-div-cont'>
+          <p className='about-para'>We help people easily find and book sports grounds while bringing players and communities together</p>
+          <button className='about-btn'
+          onClick={()=>{
+            navigate('/about')
+          }} >Know About Us</button>        
         </div>
-<Footer/>
-      </main>
+        <div className='about-img-div'>
+          <img src={field} alt="field"  className="about-img"/>
+        </div>
+      </div>
+    </section>
+
+      </div>
+      <Footer/>
+    </main>
+    
     </>
   )
 }

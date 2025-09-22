@@ -1,4 +1,5 @@
 .user-cont {
+
     height: 1400px;
     width: 100vw;
     display: flex;
@@ -14,7 +15,7 @@
     border: 2px solid rgb(238, 230, 230);
     margin: 50px;
     width: 400px;
-    border-radius: 10px;
+    border-radius: 10px
 }
 
 .profile-wrap {
@@ -36,11 +37,13 @@
 }
 
 .booking-cont {
+
     height: 50px;
     width: 100%;
 }
 
 .booking-wrap {
+
     margin: 10px;
     height: 20px;
     display: flex;
@@ -59,6 +62,7 @@
     width: 70%;
     border-radius: 10px;
     height: 90%;
+
 }
 
 .display-main {
@@ -82,20 +86,17 @@
     justify-content: center;
     align-items: center;
 }
-
 .allbooking {
     background-color: rgb(35, 110, 35);
     height: 40px;
     width: 250px;
     border-radius: 10px;
 }
-
 .title-div {
     margin: 10px;
     height: 90%;
     width: 100%;
 }
-
 .banner-div-pro {
     height: 200px;
     display: flex;
@@ -103,12 +104,10 @@
     align-items: center;
     gap: 10px;
 }
-
 .banner-div-one {
     border: 2px solid rgb(238, 230, 230);
     width: 300px;
 }
-
 .banner-div-two {
     height: 100px;
     width: 100px;
@@ -117,19 +116,16 @@
     justify-content: center;
     align-items: center;
 }
-
 .banner-div-three {
     border: 2px solid rgb(238, 230, 230);
     width: 300px;
 }
-
 .form-div {
     display: flex;
 }
-
 .book-main {
-    height: 100vh;
-    background-color: rgb(224, 233, 236);
+    height: 300vh;
+    background-color: rgb(230, 235, 236);
 }
 
 .book-div-cont {
@@ -137,7 +133,24 @@
     display: flex;
     flex-direction: column;
 }
-
+.bookable{
+    background-color: rgb(9, 151, 68);
+    height: 40px;
+    width: 120px;
+    position: relative;
+    left: 210px;
+    bottom: 110px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: "Poppins", sans-serif;
+}
+.bookable-text{
+    color: white;
+    font-size: medium;
+    letter-spacing: 0.6px;
+    
+}
 .book-name-sect {
     height: 80px;
     background-color: white;
@@ -146,23 +159,19 @@
 .book-name-wrap {
     height: 90px;
 }
-
 .book-name-cont {
     display: flex;
     width: 100%;
-    border-right: 1px solid rgb(219, 227, 230);
-    border-bottom: 1px solid rgb(219, 227, 230);
+    border-right: 1px solid lightblue;
+    border-bottom: 1px solid lightblue;
     border-top: 1px solid rgb(219, 227, 230);
-    background-color:white;
 }
-
 .book-name-h1 {
     margin-left: 30px;
     font-size: 30px;
     position: relative;
     left: 40px;
 }
-
 .book-search-cont {
     width: 40%;
     margin-top: 13px;
@@ -172,12 +181,10 @@
     position: relative;
     left: 50px;
 }
-
 .book-search-input {
     width: 50%;
     display: flex;
 }
-
 .book-search-input input {
     width: 300px;
     height: 35px;
@@ -186,7 +193,6 @@
     border-radius: 5px;
     text-align: center;
 }
-
 .seach-input {
     margin-top: 20px;
     margin-left: 10px;
@@ -195,12 +201,10 @@
     top: 4px;
     color: rgb(223, 216, 216);
 }
-
 .book-select {
     z-index: 2;
     width: 45%;
 }
-
 .book-select-cont {
     border: 1px solid rgb(223, 211, 211);
     margin: 10px;
@@ -209,214 +213,200 @@
     gap: 15px;
     border-radius: 5px;
 }
-
 .whistle {
     margin-left: 10px;
     height: 30px;
     margin-top: 5px;
 }
-
+.whistle-icon{
+    width: 100%;
+}
 .all-sport {
     margin-top: 10px;
 }
-
 .down {
     margin-left: auto;
     height: 30px;
     margin-top: 5px;
+    width: 100%;
 }
-
 .sports-dropdown {
     width: 300px;
     height: 350px;
     border: 1px solid rgb(207, 223, 228);
     border-radius: 10px;
 }
-
-.sport-drop {
+.sport-drop{    
     height: 100%;
     margin: 0;
     padding: 0;
 }
-
-.sports-cont {
+.sports-cont{
     height: 19%;
     width: 100%;
     margin: 0;
     cursor: pointer;
 }
+.check-box{
+margin-left: 10px;
+width: 20px;
 
-.check-box {
-    margin-left: 10px;
-    width: 20px;
 }
-
-.sport-name-wrap {
-    width: 200px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: large;
-    font-weight: 500;
-    font-family: "Poppins", sans-serif;
+.sport-name-wrap{
+width: 200px;
+display: flex;
+justify-content: center;
+align-items: center;
+font-size: large;
+font-weight: 500;
+font-family: "Poppins", sans-serif;
 }
-.sport-img-wrap {
+.sport-img-wrap{
     height: 40%;
     margin-top: 15px;
     position: relative;
     right: 70px;
 }
-.venue-nav-bar {
-    border-bottom: 1px solid lightblue;
-    background-color: white;
-    height: 80px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    background-color: red;
-    display: flex;
-
+.venue-nav-bar{
+  border-bottom: 1px solid lightblue;
+  background-color: white;
+  height: 80px;               
+  display: flex;              
+  align-items: center;        
+  padding: 0 20px;            
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
-.venue-nav-wrap {
-    height: 90%;
-    border-top: 1px solid rgb(219, 227, 230);
-    display: flex;
+.venue-nav-wrap{
+    display: flex;           
+  align-items: center;       
+  height: 100%;             
+  width: 100%;
 }
-.venue-disp {
+.venue-disp{
     height: 100%;
     width: 50%;
-    
+    display: flex;
 }
-.venue-wrap {
+.venue-wrap{
     width: 50%;
     height: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
+    cursor: pointer;
+
 }
-.venue-text {
+.venue-text{
     font-size: large;
     font-family: "Poppins", sans-serif;
     letter-spacing: 0.5px;
+}
+.tour-wrap{
+    width: 50%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     cursor: pointer;
 }
+.tour-text{
+    font-size: large;
+    font-family: "Poppins", sans-serif;
+    letter-spacing: 0.5px;
+}
 .turflist-card-sect{
-    height: auto;
-    width: 100%;
-    margin: 10px;
+    height: 50%;
     position: relative;
-    top: 30px;
+    top: 20px;
+    margin: 15px;
 }
 .turflist-card-cont{
+    margin: 10px;
     display: grid;
-  
+    height: auto;
     grid-template-columns: repeat(3,1fr);
-    margin: 30px;
-    
-    gap: 20px;
+    gap: 10px;
+    overflow: hidden;
 }
-
 .turflist-cards{
-width: 300px;
-height: 200px;
-flex-direction: column;
-display: flex;
-background-color: red;
+   display: flex;
+   width: 350px; 
+   height: 400px;
+   flex-direction: column;
+   margin: 20px;
+   border-radius: 20px;
+   background-color: white;
+   cursor: pointer;
+   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+transition: transform 0.3s ease-in-out;
+}
+.turflist-cards:hover {
+  transform: scale(1.05); 
 }
 
-@media screen and (max-width: 768px) {
-    .user-cont {
-        flex-direction: column;
-        height: auto;
-    }
-
-    .user-div-cont {
-        flex-direction: column;
-        gap: 20px;
-    }
-
-    .user-pro-div {
-        width: 90%;
-        margin: 20px auto;
-    }
-
-    .display-container {
-        width: 95%;
-        margin: 20px auto;
-        height: auto;
-    }
-
-    .banner-div-pro {
-        flex-direction: column;
-        height: auto;
-    }
-
-    .banner-div-one,
-    .banner-div-three {
-        width: 90%;
-    }
-
-    .book-name-cont {
-        flex-direction: column;
-        align-items: flex-start;
-    }
-
-    .book-name-h1 {
-        font-size: 22px;
-        left: 0;
-        margin: 10px 0;
-    }
-
-    .book-search-cont {
-        width: 100%;
-        left: 0;
-        margin: 10px 0;
-    }
-
-    .book-search-input input {
-        width: 100%;
-    }
-
-    .venue-disp,
-    .venue-wrap {
-        width: 100%;
-    }
-
-    .venue-text {
-        font-size: 16px;
-    }
+.turf-img{
+    height: 60%;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
 }
-
-@media screen and (max-width: 480px) {
-    .user-pro-div {
-        width: 100%;
-        margin: 10px 0;
-    }
-    .book-wrap {
-        width: 90%;
-        margin: 10px auto;
-    }
-    .allbooking {
-        width: 100%;
-    }
-    .book-name-h1 {
-        font-size: 18px;
-    }
-    .book-search-cont {
-        flex-direction: column;
-        gap: 5px;
-    }
-    .book-search-input input {
-        width: 100%;
-        font-size: 14px;
-    }
-    .sports-dropdown {
-        width: 100%;
-    }
-    .venue-text {
-        font-size: 14px;   
-    }
-
-    .banner-div-two {
-        height: 80px;
-        width: 80px;
-    }
+.turf-name-book{
+    height: 30%;
+    display: flex;
+    flex-direction: column;
+    margin: 20px;
+}
+.turf-span-name{
+    font-size: large;
+    letter-spacing: 0.5px;
+    margin-top: px;
+    margin-left: 10px;
+    text-transform: capitalize;
+    font-weight: 500;
+    font-family:"Poppins", sans-serif ;
+    color: rgb(36, 23, 23);
+    
+}
+.turf-address-book{
+    font-size: medium;
+    font-weight:lighter;
+    text-transform: capitalize;
+    margin-top: 10px;
+    margin-left: 10px;
+}
+.turf-game-icon{
+    width: 100px;
+    height: 30px;
+    display: flex;
+    gap: 10px;
+    margin-left: 10px;
+    position: relative;
+    bottom: 40px;
+}
+.turf-img-icon{
+    width: 20px;
+    height: 30px;
+    margin-top: 30px;
+}
+.show-more-div{
+    height: 100px;
+    margin-top: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.show-more-btn{
+    height: 40px;
+    width: 150px;
+    background-color: rgb(5, 172, 75);
+    border: none;
+    border-radius: 10px;
+    color: white;
+    letter-spacing: 0.3px;
+    font-size: medium;
+    font-weight: bold;
+    cursor: pointer;
+    transition: transform 0.3s ease-in-out;
+}
+.show-more-btn:hover{
+    transform: scale(1.05); 
 }

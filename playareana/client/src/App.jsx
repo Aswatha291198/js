@@ -17,6 +17,7 @@ import SingleTurf from './pages/Bookings/SingleTurf'
 import About from './pages/about/About'
 import UserList from './pages/admin/UserList'
 import Blogs from './pages/admin/blogs/Blogs'
+import './App.css'
 import SingleBlog from './pages/admin/blogs/SingleBlog'
 const App = () => {
     return (

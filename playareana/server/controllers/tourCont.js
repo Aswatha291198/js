@@ -37,5 +37,18 @@ const tournamentById=async(req,res)=>{
         return res.status(500).send("Something Went Wrong")  
     }
 }
+const AllTournaments=async (req,res)=>{
+    try {
+        const allTournnaments=await tournament.find()
+        res.send({
+            success:true,
+            data:allTournnaments
+        }) 
+        
+    } catch (error) {
+        console.log(error.message)
+        return res.status(500).send("Something Went Wrong")  
+    }
+}
 
-module.exports={createTournament,updateTournament,tournamentById}
+module.exports={createTournament,updateTournament,tournamentById,AllTournaments}

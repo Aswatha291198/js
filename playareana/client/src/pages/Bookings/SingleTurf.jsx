@@ -5,6 +5,11 @@ import { useNavigate, useParams } from 'react-router-dom'
 import { getTurfbyId } from '../../api/turf'
 import { message } from 'antd'
 import './single.css'
+import bat from "../../assets/cricket-bat.png";
+import football from "../../assets/football.png";
+import tennis from "../../assets/tennis.png";
+import pickle from "../../assets/pickle.png";
+import shuttle from "../../assets/shuttle-cock.png";
 import moment from 'moment'
 
 const SingleTurf = () => {
@@ -14,8 +19,16 @@ const SingleTurf = () => {
   const [data, setDate] = useState(moment().format('YYYY-MM-DD'))
   const dispatch = useDispatch()
   const params = useParams()
+  const sportIcons = {
+          Cricket: bat,
+          Football: football,
+          Tennis: tennis,
+          "Pickle Ball": pickle,
+          Shuttle: shuttle,
+      }
   const getData = async () => {
     console.log('coming to the singleturf page');
+
     
     try {
       dispatch(showLoading())
@@ -62,9 +75,13 @@ const SingleTurf = () => {
                   </div>
                   <div className='sports-name-cont'>
                     <div className='sport-cont'>
-                      <div className='sports-div'><span>
-                        </span>
+                    {turf?.AddSport?.map((sport)=>{
+                      return (
+                          <div className='sports-div'>
+                          
                         </div>
+                      )
+                    })}
                     </div>
                   </div>
                 <div>

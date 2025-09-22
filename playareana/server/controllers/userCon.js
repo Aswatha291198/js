@@ -35,7 +35,9 @@ const loginUser = async (req, res) => {
 
         const isMatch = await bcrypt.compare(req.body.password, user.password);
 
+         
         const token = jwt.sign({ userid: user._id }, process.env.JWT_SECRET, { expiresIn: "1d" })
+
         return res.status(201).send({ message: "Welocome user", success: true, data: token })
     } catch (error) {
         return res.status(500).send({ message: "Something went wrong", success: false })

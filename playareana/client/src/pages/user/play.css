@@ -1,46 +1,40 @@
-.play-container {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    height: 1300px;
-    background-color: rgb(243, 238, 238);
-}
+.book-container{
+    height: 400vh;
 
-.play-cont{
+}
+.book-wrapper{
+    height: 100%;
     display: flex;
     flex-direction: column;
-}
-.play-section-cont{
-    height: 1000px;
-   
-}
-.text-div{
-    display: block;
     
-    margin-top: 8px;
-    margin-left: 30px;
 }
-.play-1{
-    display: block;
-    width:260px;
-    margin-top: 30px;
-    margin-left: 39px;
-    height: 60px;   
+.discover-container{
+    height: 100px;
+    
 }
-.games{
-    margin-left: 20px;
-}
-.items-div{
-    display: block;
-    width: 100%;
-    border: 2px solid yellow;
-    height: 70px;
-}
-.items-wrap{
+.discover-wrapper{
+    margin: 5px;
+    height: 90%;
+    border-bottom: 1px solid lightblue;
+    border-top: 1px solid lightblue;
     display: flex;
-    margin-left: 20px;
+}
+.discover-text-cont{
+    width: 50%;
+    margin: 10px;
+    display: flex;
+    position: relative;
+    left: 40px;
+    align-items: center;
+    height: 70%;
+}
+.discover-text{
+   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+   letter-spacing: 0.4px;
+}
+.search-container{
     border: 2px solid red;
-    margin-right: 20px;
-    margin-top: 10px;
-    height: 80%;
+    width: 50%;
+    display: flex;
+    justify-content: space-around;
 }

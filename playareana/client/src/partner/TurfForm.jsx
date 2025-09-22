@@ -22,12 +22,16 @@ const TurfForm = ({
       let response = null
       if (formType === 'add') {
         response = await addTurf({ ...values, owner: user._id })
+
       }
       else {
         console.log(values);
         values.turfId = selectedTurf._id
         response = await updateTurf(values)
+        
       }
+       setIsModalOpen(false)
+        setSelectedTurf(null)
       dispatch(hideLoading())
     } catch (error) {
       console.log(error.message);

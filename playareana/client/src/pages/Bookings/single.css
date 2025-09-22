@@ -42,22 +42,35 @@
     height: 35%;
 }
 .sports {
-    font-size: x-large;
+    font-size: larger;
     font-weight: 600;
+    margin-left: 20px;
 }
 .sports-name-cont {
     height: 65%;
 }
+.sport-cont{
+      
+}
 .sports-div {
     height: 75px;
-    border: 2px solid lightblue;
+    border: 1px solid lightblue;
     width: 80px;
     margin-left: 20px;
-    
+    display: flex;
     box-shadow: 0 4px 10px rgba(173, 216, 230, 0.6);
+}
+.sport-icon-div{
+    height: 20px;
+    width: 100%;
+    display: flex;
 }
 .facilities-cont{
     border: 2px solid red;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+
 }
 .single-disp-right{
     margin: 30px;
@@ -75,7 +88,7 @@
     height: 40px;
     border: none;
     border-radius: 10px;
-    background-color: rgb(33, 168, 33);
+    background-color: rgb(6, 167, 73);
     color: white;
     font-size: medium;
     font-weight: 600;

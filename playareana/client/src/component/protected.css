@@ -1,87 +1,113 @@
-body{
-    padding: 0;
-    margin: 0;
-}
-.header-cont{
-    height: 75px;
-    display: flex;
-}
-.space{
-    height: 100%;
-    width: 100px;
-}
-.logo{ 
-    margin-left: 10px;
-    
-}.image{
-    text-align: center;
-    margin: 8px;
-}
-img{
-    width: 100%;
-    height: 100%;
-    cursor: pointer;
-}
-.nav-cont{
-    margin-left: 200px;
-    width: 450px;
-   }
-.nav-div{
-    width: 90%;
-    height: 70%;
-}
-.ul-nav{
-    
-    display: flex;
-    height: 50px;
-    list-style: none;
-    text-align: center;
-    gap: 30px;
-    width: 400px;    
-}
-.li-nav{
-    cursor: pointer;
-    width: 40%;
-    height: 35px;
-    margin-top: 2px;
-    padding-top: 2%;
-    display: flex;
-    gap: 10px;    
-}
-.li-nav:hover .lin-div {
-    color: rgb(31, 182, 57);
+.nav-cont {
+  height: 90px;
+  background: white; 
+  
 }
 
-.li-nav:hover .icon img {
-  filter: brightness(0) saturate(100%) invert(67%) sepia(81%) saturate(355%) hue-rotate(68deg) brightness(93%) contrast(90%);
+.nav-header {
+  margin: 5px;
+  height: 100%;
+  display: flex;
+  align-items: center; 
+  padding: 0 20px;
+  justify-content: space-between;
 }
-.icon{
-      width: 30px;  
+
+.logo-cont {
+  display: flex;
+  align-items: center;
+  height: 100%;
+}
+
+.logo-wrap {
+  height: 100%;
+  margin: 20px;
+  
+}
+
+.logo-div {
+  height: 100%;
+}
+
+.logo {
+  height: 100%; 
+  width: auto; 
+  cursor: pointer;
+}
+.link-logo{
+    text-decoration: none;
+}
+.logo-text{
+    font-family:'Gill Sans', 'Gill Sans MT', 'Calibri', 'Trebuchet MS', sans-serif;
+    color: rgb(13, 134, 68);
+    letter-spacing: 1.9px;
+    margin-left: 20px;
+    font-weight: 600;
+}
+.nav-items{
+    width: 50%;
+    height: 100%;
+    margin-left: 10px;
+}
+.nav{
+    display: flex;
+    margin: 5px;
+    height: 90%;
+    position: relative;
+    left: 50px;
+}
+.nav-ul{
+    display: flex;
+    gap: 20px ;
+    align-items: center;
+    width: 100%;
+    list-style: none;
+    margin-left: 20px;
+}
+.nav-li{
+    width: 30%;
+    height: 100%;
+    display: flex;
+    cursor: pointer;
+    gap: 15px;
+}
+.nav-span{
+height: 100%;
 }
 .shoot{
-    width: 100%;
+    height: 90%;
 }
-.lin-div{
+.nav-link{
+    text-decoration: none;
     color: black;
-    text-decoration: none;  
+    font-size: x-large;
+    margin-top: 5px;
     font-weight: 600;
-    font-size: larger; 
-    margin-top: 4px; 
 }
-.user-div{  
-    margin-left: 50px;
-    width: 400px;    
-    margin-top: 20px; 
-    display: flex;
-    justify-content: space-around;
-}
-.user-wrap{  
-    text-align: center;
-    width: 50px;
-    height: 40px;
-    margin-left: 100px;
+.nav-li:hover .nav-link {
+    color: rgb(9, 153, 57);
 }
 
+.nav-li:hover .shoot {
+  filter: brightness(0) saturate(100%) invert(47%) sepia(80%) 
+          saturate(544%) hue-rotate(96deg) brightness(95%) contrast(91%);
+}
+.user-div{
+    height: 90%;
+    width: 15%;
+}
+.user-logo{
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.profile{
+    width: 30%;
+    position: relative;
+    left: 30px;
+    cursor: pointer;
+}
 .dropdown {
   position: absolute;
   top: 70px;
