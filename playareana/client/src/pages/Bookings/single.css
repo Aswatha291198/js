@@ -1,130 +1,149 @@
-.single-cont {
-    height: 1000px;
+.single-main{
+    
+    height: 300vh;
 }
-
-.single-wrapper {
+.single-cont{
     height: 100%;
-    display: flex;
-    gap: 10px;
-}
-
-.single-disp {
-    width: 60%;
-    margin: 30px;
-}
-
-.single-disp-name {
-    margin-left: 10px;
-}
-
-.turf-name-single {
-    margin-left: 12px;
-}
-
-.single-turf-img {
-    margin-left: 20px;
-    border-radius: 20px;
-}
-
-.single-poster {
-    border-radius: 10px;
-}
-
-.poster-div {
-    margin-top: 20px;
-    margin-left: 20px;
-    height: 180px;
-    border-radius: 10px;
-    border: 2px solid rgb(215, 218, 219);
-}
-.sports-wrap {
-    margin-left: 10px;
-    height: 35%;
-}
-.sports {
-    font-size: larger;
-    font-weight: 600;
-    margin-left: 20px;
-}
-.sports-name-cont {
-    height: 65%;
-}
-.sport-cont{
-      
-}
-.sports-div {
-    height: 75px;
-    border: 1px solid lightblue;
-    width: 80px;
-    margin-left: 20px;
-    display: flex;
-    box-shadow: 0 4px 10px rgba(173, 216, 230, 0.6);
-}
-.sport-icon-div{
-    height: 20px;
-    width: 100%;
-    display: flex;
-}
-.facilities-cont{
-    border: 2px solid red;
-    width: 100%;
     display: flex;
     flex-direction: column;
-
 }
-.single-disp-right{
-    margin: 30px;
-    width: 40%;
+.single-wrapper{
     height: 100%;
+    display: flex;
+    flex-direction: column; 
+    position: relative;
 }
-.book-now-div{
-    margin: 20px;
+
+.turf-name-section{
+   
     height: 100px;
+    display: flex; 
+    width: 90%; 
+    
 }
-.book-now-btn{
-    margin-top: 40px;
-    margin-left: 20px;
-    width: 400px;
-    height: 40px;
-    border: none;
-    border-radius: 10px;
-    background-color: rgb(6, 167, 73);
-    color: white;
-    font-size: medium;
-    font-weight: 600;
-    letter-spacing: 0.3px;
-    cursor: pointer;
+.turf-name-div{
+    margin: 10px;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    position: relative;
+    top: 30px;
+    gap: 20px;
+    flex-direction: column
 }
-.turf-time-cont{
-    width: 390px;
-    height: 80px;
+.turf-name-text{
+    text-transform: capitalize;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    position: absolute;
+    left: 50px;
+    bottom: 20px;
+    
+}
+.turf-address-text{
+    position: absolute;
+    top: 80px;
+    left: 50px;
+    font-size: large;
+    color: rgb(44, 43, 43);
+}
+
+.book-img-sect{
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+    height: 50%;
+    position: relative;
+    top: 80px;
+    width: 100%;
+}
+.book-img-div{
+  
+    position: absolute;
+    margin: 20px;
+    height: 60%;
+    left: 25px;
+    width: 60%;
+    display: block;
+}
+.book-div{
+    margin: 5px;
+    width: 100%;
+    display: block;
+}
+.turf-poster{
+    width: 100%;
+    height: 100%;
     border-radius: 10px;
-    border: 1px solid rgb(207, 223, 228);
-    margin-left: 40px;
+}
+.timing-cont{
+   
+   width: 30%;
+  display: flex;
+   position:absolute;
+   left: 900px;
+   top: 5px;
+   flex-direction: column;
+   height: 50%;   
+}
+.timing-div{
     display: flex;
     flex-direction: column;
-}
-.timing{
-    margin: 15px;
-    font-size: larger;
-    font-weight: 600;
-}
-.timing-wrap{
-    margin-left: 15px;
-}
-.address-div{
-    border:1px solid rgb(207, 223, 228);
-    width: 390px;
-    height: 80px;
-    margin-left: 40px;
+    border: 1px solid rgb(183, 211, 223);
+    margin: 20px;
+    height: 20%;
     border-radius: 10px;
-    margin-top: 25px;
+    width: 90%;
+    gap: 5px;
+   
+}
+.timing-text{
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-weight: 600;
+    font-size: larger;
+    margin: 10px;
+}
+.timings{
+    margin: 10px;
+    font-weight: 600;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+.location-div{
+    display: flex;
+    flex-direction: column;
+    border: 1px solid rgb(183, 211, 223);
+    margin: 20px;
+    height: 20%;
+    border-radius: 10px;
+    width: 90%;
+    gap: 5px;   
+}
+.location-text{
+     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-weight: 600;
+    font-size: large;
+    margin: 10px;
+}
+.address-text{
+      margin: 10px;
+    font-weight: 600;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+.book-now{
+    
+    width: 90%;
+    margin: 20px;
+    height: 10%;
+    border-radius: 10px;
+    background-color: rgb(11, 153, 70);
     display: flex;
     justify-content: center;
     align-items: center;
 }
-.address{
+.book-now-span{
     font-size: large;
-    text-transform: capitalize;
+    letter-spacing: 0.3px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: white;
     font-weight: 600;
 }

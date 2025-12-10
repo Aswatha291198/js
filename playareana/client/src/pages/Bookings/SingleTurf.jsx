@@ -1,128 +1,85 @@
 import React, { useEffect, useState } from 'react'
-import { hideLoading, showLoading } from '../../../redux/slice/userSlice'
-import { useDispatch } from 'react-redux'
-import { useNavigate, useParams } from 'react-router-dom'
-import { getTurfbyId } from '../../api/turf'
-import { message } from 'antd'
 import './single.css'
-import bat from "../../assets/cricket-bat.png";
-import football from "../../assets/football.png";
-import tennis from "../../assets/tennis.png";
-import pickle from "../../assets/pickle.png";
-import shuttle from "../../assets/shuttle-cock.png";
-import moment from 'moment'
+import { useParams } from 'react-router-dom'
+import { getTurfbyId } from '../../api/turf'
+import { useDispatch } from 'react-redux'
+import { hideLoading,showLoading } from '../../../redux/slice/userSlice'
+import { message } from 'antd'
+
 
 const SingleTurf = () => {
-  console.log('singleturf');
+  const [turf,setTurf]=useState(null)
+  const params=useParams()
+  const dispatch=useDispatch()
+  const getTurf=async()=>{
+try {
+  dispatch(showLoading())
+  const response=await getTurfbyId(params.id)
+  if(response.success){
+    setTurf(response.data)
+    message.success(response.message)
 
-  const [turf, setTurf] = useState(null)
-  const [data, setDate] = useState(moment().format('YYYY-MM-DD'))
-  const dispatch = useDispatch()
-  const params = useParams()
-  const sportIcons = {
-          Cricket: bat,
-          Football: football,
-          Tennis: tennis,
-          "Pickle Ball": pickle,
-          Shuttle: shuttle,
-      }
-  const getData = async () => {
-    console.log('coming to the singleturf page');
-
-    
-    try {
-      dispatch(showLoading())
-      const response = await getTurfbyId(params.id)
-      console.log(response);
-
-      if(response.success){
-        setTurf(response.data)
-      }
-      else {
-        message.error(response.message)
-      }
-      dispatch(hideLoading())
-    } catch (error) {
-      console.log(error.message);
-      dispatch(hideLoading())
-    }
   }
-  useEffect(() => {
-   console.log('useeeffecr triggered');
-   
-    getData()
-  }, [])
+  dispatch(hideLoading())
+
   
+} catch (error) {
+  console.log(error.message);
+  dispatch(hideLoading())
+  
+}
+  }
+
+  useEffect(()=>{
+    getTurf()
+  },[])
 
   return (
     <>
-    <main className='single-cont'>
-      <div className='single-wrapper'>
-        <section className='single-disp'>
+    <main className='single-main'>
+      <div className='single-cont'>
+        <div className='single-wrapper'>
           {turf && (
             <>
-            <div className='single-disp-name'> 
-              <h1 className='turf-name-single'>{turf.name}</h1>
-              <span>RATING</span>
+            <section className='turf-name-section'>
+              <div className='turf-name-div'>
+                <h2 className='turf-name-text'>
+                  {turf.name}
+                </h2>
+               <span className='turf-address-text'>{turf.address}</span>
               </div>
-              <div className='single-turf-img'>
-                <img src={turf.poster} alt="poster" className='single-poster' />
-              </div>
-              <div className='poster-div'>
-                <div className='sports-wrap'>
-                  <h1 className='sports'>Sports Available</h1>
-                  <span></span>
-                  </div>
-                  <div className='sports-name-cont'>
-                    <div className='sport-cont'>
-                    {turf?.AddSport?.map((sport)=>{
-                      return (
-                          <div className='sports-div'>
-                          
-                        </div>
-                      )
-                    })}
-                    </div>
-                  </div>
-                <div>
-
+              
+            </section>
+           <section className='book-img-sect'>
+              <div className='book-img-div'>
+                <div className='book-div'>
+                  <img src={turf.poster} alt="turf" className='turf-poster' />
                 </div>
               </div>
-              <div classNames='facilities-cont'>
-                <h1>Facilities</h1>
+              <div className='timing-cont'>
+                <div className='timing-div'>
+                  <span className='timing-text'>Timing</span>
+                  <span className='timings'>{turf.open} : {turf.close}</span>
+                </div>
+                <div className='location-div'>
+                  <span className='location-text'>Location</span>
+                  <span className='address-text'>{turf.address}</span>
+                </div>
+                <div className='book-now'>
+                  <span className='book-now-span'>
+                    Book Now
+                  </span>
+                </div>
               </div>
-              <div>
-
-              </div>
-              </>
+              
+           </section>
+          
+            </>
           )}
-        </section>
-        <section className='single-disp-right'>
-          <div className='book-now-div'>
-            <button className='book-now-btn'
-            
-            >Book Now</button>
-          </div>
-          {turf && (
-           <>
-            <div className='turf-time-cont'>
-              <span className='timing'>Timing</span>
-            <div className='timing-wrap'>
-              <span>{turf.open} - {turf.close} </span>
-            </div>
-          </div>
-          <div className='address-div'>
-            <span className='address'>{turf.address}</span>
-          </div>
-           </>
-          )}
-          <div>
-            <div>
-            </div>
-            </div>
-        </section>
+        </div>
       </div>
     </main>
+    
     </>
   )
 }

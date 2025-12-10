@@ -15,6 +15,7 @@ const Login = () => {
       localStorage.setItem("token",response.data)
       message.success(response.message)
       navigate('/')
+      
     }
     else{
       message.error(response.message)

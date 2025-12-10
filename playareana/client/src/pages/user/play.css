@@ -1,25 +1,28 @@
-.book-container{
+.book-container {
     height: 400vh;
 
 }
-.book-wrapper{
+
+.book-wrapper {
     height: 100%;
     display: flex;
     flex-direction: column;
-    
+    background-color: rgb(220, 232, 236);
 }
-.discover-container{
-    height: 100px;
-    
+
+.discover-container {
+    height: 90px;
+    background-color: white;
 }
-.discover-wrapper{
-    margin: 5px;
+
+.discover-wrapper {  
     height: 90%;
     border-bottom: 1px solid lightblue;
     border-top: 1px solid lightblue;
     display: flex;
 }
-.discover-text-cont{
+
+.discover-text-cont {
     width: 70%;
     margin: 10px;
     display: flex;
@@ -28,30 +31,35 @@
     align-items: center;
     height: 70%;
 }
-.discover-text{
-   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
-   letter-spacing: 0.4px;
+
+.discover-text {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    letter-spacing: 0.4px;
 }
-.search-container{
-   
+
+.search-container {
+
     width: 50%;
     display: flex;
-    align-items:center ;
+    align-items: center;
     gap: 30px;
 }
-.search-wrapper{
+
+.search-wrapper {
     position: relative;
     left: 50px;
     width: 60%;
     height: 40px;
 }
-.search{
+
+.search {
     position: relative;
     left: 30px;
     font-size: large;
-    color:rgb(134, 127, 127);
+    color: rgb(134, 127, 127);
 }
-.venue-search{
+
+.venue-search {
     height: 80%;
     width: 90%;
     text-align: center;
@@ -60,5 +68,129 @@
     border-radius: 10px;
     outline: none;
     border: 1px solid rgb(194, 204, 207);
-   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+.venue-nav {
+    background-color: white;
+    display: flex;
+    align-items: center;
+    height: 80px;
+}
+.venue-div {
+display: flex;
+height: 90%;
+width: 50%;
+}
+
+.venue-cont {
+    display: flex;
+    justify-content: space-around;
+    gap: 20px;
+    width: 90%;
+    height: 80%;
+    align-items: center;
+}
+.venue-wrapper{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    cursor: pointer;
+}
+.venue-name{
+letter-spacing: 0.5px;
+font-size: large;
+font-weight: 500;
+font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.tour-wrapper{
+    display: flex;
+     justify-content: center;
+    align-items: center;
+    height: 100%;
+    cursor: pointer;
+}
+.tour-name{
+    letter-spacing: 0.5px;
+font-size: large;
+font-weight: 500;
+font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+.venue-cards-cont {
+    height: 40%;
+}
+
+.venue-card {
+    margin: 10px;
+    position: relative;
+    left: 20px;
+    bottom: 30px;
+    top: 50px;
+    height: auto;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat((3, 1fr));
+    gap: 1.75rem;    
+}
+
+.venue-cards {
+    height: 320px;
+    margin: 10px;
+    width: 380px;
+    background-color: white;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    cursor: pointer; 
+}
+
+.venue-img-div {
+    height: 60%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    position: relative;   
+}
+
+.venue-img {
+    height: 100%;
+    width: 100%;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+.bookable{
+   width: 120px;
+   background-color: rgb(0, 200, 93); 
+   height: 40px;
+   position: absolute;
+   top: 152px;
+   left: 260px;
+   bottom: 20px;
+   
+   
+}
+.bookable-text{
+    font-size: small;
+    font-family: 'Poppins', sans-serif;
+    letter-spacing: 0.4px;
+    font-weight: 600;
+}
+.turf-info{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin: 20px;
+}
+.turf-name{
+    font-family: 'Figtree', sans-serif;
+  font-weight: 600;   
+  font-size: large;  /* Adjust as needed */
+  color: #353434;
+    text-transform: capitalize;
+    letter-spacing: 0.4px;
+}
+.turf-loco{
+    text-transform: capitalize;
+    color: rgb(71, 69, 69);
 }

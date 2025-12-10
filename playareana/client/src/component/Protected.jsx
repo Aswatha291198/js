@@ -1,127 +1,123 @@
-import React, { useEffect,useState } from 'react'
-import './protected.css'
-import {GetCurrentUser} from '../../src/api/user'
-import{message} from 'antd'
-import shoot from '../assets/shoot.png'
-import book from '../assets/agenda.png'
-import profile from '../assets/profile.png'
-import {Link,useNavigate} from 'react-router-dom'
-import{useSelector,useDispatch} from 'react-redux'
-import {hideLoading,showLoading,setUser} from '../../redux/slice/userSlice'
+  import { useEffect, useState } from "react";
+  import { useDispatch, useSelector } from "react-redux";
+  import { useNavigate,Link, } from "react-router-dom";
+  import { GetCurrentUser } from "../api/user";
+  import { message } from "antd";
+  import { hideLoading, showLoading, setUser } from "../../redux/slice/userSlice";
 
-const Protected = ({children}) => {
-  const{user}=useSelector(state=>state.users)
-  const dispatch=useDispatch()
-  const navigate=useNavigate()
-  const[dropDown,setOpenDropDown]=useState(false)
-  console.log(user?.role);
-  console.log(user);
+  const Protected = ({children}) => {
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+    const { user } = useSelector((state) => state.users)
+    const[profileIcon,setProfileIcon]=useState(false)
 
-  const handleToggle=()=>{
-    setOpenDropDown(prev=>!prev)
-  }
-  const handleProfile=()=>{
-    if(user && user?.role==='player'){
-      navigate('/userprofile')
-    }
-    else if(user && user?.role==='owner'){
-      navigate('/owner')
-    }
-    else if(user && user?.role==='admin'){
-      navigate('/admin')
-    }
-  }
-  const handleLogout=()=>{
-    console.log('clicked');
-    
-    localStorage.removeItem("token")
-    navigate('/login')
-  }
+    const getData = async () => {
+      try {
+        dispatch(showLoading());
+        const response = await GetCurrentUser();
 
-  const getData=async()=>{
-    try {
-      dispatch(showLoading())
-      const res=await GetCurrentUser()
-      if(res.success){
-        message.success(res.message)
-        dispatch(setUser(res.data))
+        if (response.success) {
+          dispatch(setUser(response.data));
+        } else {
+          message.error(response.message);
+          navigate("/login");
+        }
+
+        dispatch(hideLoading());
+      } catch (error) {
+        dispatch(hideLoading());
+        navigate("/login");
       }
-      dispatch(hideLoading())
-    } catch (error) {
-      console.log(error.message);
-      dispatch(hideLoading())
-    }
-  }
-  useEffect(()=>{
-    if(localStorage.getItem('token')){
-      getData()
-    }
-    else{
-      navigate('/login')
-    }
-  
-  },[])
-  
-  return (
-   <>
-   <div className='nav-cont'>
-    <header className='nav-header'>
-      <div className='logo-cont'>
-        <div className='logo-wrap'>
-          <div className='logo-div'><Link to='/'className='link-logo'><h1 className='logo-text'>TURFO</h1></Link></div>
-        </div>
-      </div>
-      <div className='nav-items'>
-        <nav className="nav">
-          <ul className="nav-ul">
-            {user&&user?.role === 'player' && (
-              <>
-               <li className='nav-li'>
-                 <span className='nav-span'><img src={shoot} alt="shoot" className='shoot' /></span> <Link to='/play' className='nav-link'>Play</Link></li> 
-              <li className='nav-li'> 
-                <span className='nav-span'>
-                  <img src={book} alt="shoot" className='shoot' /></span> <Link to='/book' className='nav-link'>Book</Link>
-
-              </li>
-              </>
-            )}
-             {user && user.role==='owner' && (
-                <>
-                 <li className='nav-li'>
-                  <span className='nav-span'>
-                    <img src={trophy} alt="trophy"  className='shoot' />
-                    </span><Link className='nav-link'>Tournament</Link></li> 
-              <li className='nav-li'>
-                <span className='nav-span'><img src={income} alt="income"  className='shoot' /></span>
-                <Link  className='nav-link'>Incoming </Link></li>
-                </>
-              )}
-          </ul>
-        </nav>
-      </div>
-      <div className='user-div'>
-     <div className='user-logo'>
-      <div>
-        <img src={profile} alt="pro" className='profile' onClick={handleToggle} />
-      </div>
-     </div>
-     {dropDown && (
-      <>
-      <div className='dropdown'>
-        <ul>
-              <li onClick={handleProfile}><span  >My Profile</span></li>
-              <li onClick={handleLogout}><span >Logout</span></li>
-            </ul>
-      </div>
-      </>
-
-     )}
-      </div>
-    </header>
-   </div>
-   <div className=''>{children}</div>
-   </>
-  )
+    };
+    console.log(user?.name);
+const handleProfile=()=>{
+if(user && user?.role==='player'){
+  navigate('/player')
+}
+ else if(user && user.role==='admin'){
+  navigate('/admin')
+}
+else{
+  navigate('/owner')
+}
 }
 
-export default Protected
+const handleLogout=()=>{
+localStorage.removeItem('token')
+navigate('/login')
+}
+    
+    useEffect(() => {
+      
+      if (!user) {
+        getData();
+      }
+    }, []);
+
+    
+    
+
+    
+    return (
+      <>
+      <header className='app-header'>
+        <nav className='app-nav'>
+          <div className='logo-cont'>
+            <h2 className='logo font-style'>Turfo</h2>
+          </div>
+          <ul>
+            {user?.role==='player' && (
+              <>
+              <li><Link to='play'><i className="fa-solid fa-futbol"
+                   style={{ fontSize: "30px", marginTop: "10px" }} ></i> 
+                   <span className='font-style'>Play</span></Link></li>
+              <li><Link to='book'><i className="fa-solid fa-book"
+              style={{ fontSize: "30px", marginTop: "10px" }}></i>
+               <span className='font-style'>Book</span> </Link>
+               </li>
+               <li><Link to='help'><i className="fa-solid fa-headset"
+                style={{ fontSize: "30px", marginTop: "10px" }}></i>
+                <span className='font-style'>Help</span>
+                </Link> </li>
+
+              </>
+            )}
+          </ul>
+
+          <div className='profile-div d-flex'>
+            <div className='d-flex border-5 cursor-pointer'
+            onClick={()=>{
+              console.log('hi');
+              console.log(profileIcon);
+              
+              setProfileIcon((prev)=>!prev)
+            }}
+            >
+              <i className="fa-regular fa-user"
+              style={{fontSize:'20px'}}></i>
+            </div>
+
+          </div>
+        </nav>
+{profileIcon && (<>
+<div className='profile-bar' >
+  <ul>
+    <li onClick={handleProfile} className='profile-li'>
+    <span >Profile</span>
+  </li>
+  
+    <li onClick={handleLogout}>
+    <span>Logout</span>
+  
+    </li></ul>
+</div>
+</>)}
+      </header>
+      <div style={{ minHeight: 380, background: 'white' }}>
+            {children}
+          </div>
+      </>
+    );
+  };
+
+  export default Protected;
