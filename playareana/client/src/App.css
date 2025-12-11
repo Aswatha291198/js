@@ -118,10 +118,11 @@ width: 100px;
 }
 .home-cont{
     width: 100vw;
-    height: 400vh;
+    height: 450vh;
     display: flex;
     margin-top: 10px; 
     flex-direction: column;
+    gap: 20px;
     }
 .home-div{
     width: 100%;
@@ -205,10 +206,8 @@ justify-content: space-evenly;
     height: 100%; 
 }
 .banner-text{
-
     width: 50%;
     display: flex;
-    
     flex-direction: column;
     align-items: center;
 }
@@ -221,11 +220,11 @@ justify-content: space-evenly;
     display: inline-block;
 }
 .banner-text span::after{
-    border: 1px solid green;
+   
     content: "";
     width: 95px;
-    height: 1px;
-    background-color: rgb(94, 180, 43);
+    height: 2px;
+    background-color: rgb(68, 138, 28);
     position: absolute;
     top: 25px;
     right: 120px;
@@ -246,13 +245,11 @@ justify-content: space-evenly;
     height: 40%;
 }
 .e-cont{
-height: 20%;
-
+height: 18%;
 }
 .e-div{
-   
     height: 90%;
-    margin-left: 20px;
+    margin-left: 30px;
     margin-right: 10px;
     display: flex;
     flex-direction: column;
@@ -304,11 +301,79 @@ width: 80%;
     font-weight: 600;
 }
 .choose{
-    border: 2px solid red;
-    height: 50vh;
+    height: 60vh;
     display: flex;
 }
+.choose-div{
+    display: flex;
+    width: 100%;
+    margin: 10px;
+}
 .choose-cont{
-    border: 2px solid red;
+   display: flex;
     width: 50%;
+    position: relative;  
+}
+.choose-cont .why{
+    color:black;
+    font-weight: 700;
+    position: absolute;
+    top: 80px;
+    left: 120px;
+    font-size: x-large;  
+}
+.choose-cont h1{
+    position:absolute;
+    top: 100px;
+    left:120px;
+    font-size: 2.1rem;
+    width: 230px;
+}
+.choose-cont p{
+    position:absolute;
+    top: 220px;
+    left:120px;
+    width: 400px;
+    font-size: large;
+    color: rgb(59, 55, 55);
+}
+.span-cont{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    position: absolute;
+    top: 380px;
+    left: 120px;
+}
+.span-div{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+.span-cont span{
+    margin-left: 10px;
+    width: 300px;
+    font-size: x-large;
+    font-weight: 600;
+    color: rgb(46, 45, 45);
+}
+
+.stadium-cont{  
+    width: 50%;
+    height: 500px;
+    display: flex;
+    justify-content: center;
+}
+.stadium-cont img{
+    position: relative;
+    top: 100px;
+    width: 500px;
+    border-radius: 10px;
+}
+.h-book{
+    border: 2px solid red;
+    position: relative;
+    top: 220px;
+    height: 50vh;
 }

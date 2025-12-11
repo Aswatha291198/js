@@ -2,8 +2,8 @@ import React from 'react'
 import { useSelector } from 'react-redux';
 import x from '../../assets/X.png'
 import {useNavigate} from 'react-router-dom'
-import stadium from '../../assets/soccer-field.png'
-
+import stadium from '../../assets/turf-ground.png'
+import Footer from '../footer/Footer';
 const Home = () => {
 
   const {user}=useSelector(store=>store.users)
@@ -122,29 +122,62 @@ console.log(user?.role);
         </div>
       </div>
       <div className="choose">
-        <div className="choose-cont">
-          <h2>
+        <div className="choose-div">
+          <div className="choose-cont">
+          <span className='font-poppins why '>
             Why Choose Us
-          </h2>
-        <span>Always Find a Game</span>
-        <span>
+          </span>
+          <h1 className='font-poppins'>Sports Social Advantage</h1>
+          <p className='font-poppins'>
+            At Turfo, we help you get connected with a thriving community where you’ll always find people to play with, no matter the day, time, or sport.
+          </p>
+       <div className="span-cont">
+         <div className="span-div">
+          <i className="fa-solid fa-check"
+          style={{
+            fontSize:'20px'
+          }}></i>
+          <span className='font-poppins'>Always Find a Game</span>
+         </div>
+       <div className="span-div">
+        <i className="fa-solid fa-check"
+        style={{
+            fontSize:'20px'
+          }}
+        ></i>
+         <span className='font-poppins'>
+         
           Play With Anyone, Anytime
         </span>
-        <span>
+       </div>
+    <div className="span-div">
+      <i className="fa-solid fa-check"
+      style={{
+            fontSize:'20px'
+          }}></i>  
+              <span className='font-poppins'>
           A Real Sports Community
         </span>
+    </div>
+       </div>
         </div>
 <div className="stadium-cont">
   <img src={stadium }
-  style={{ transform: "rotate(90deg)",
-    position:'relative',
-    bottom:'40px'
-   }}
+  
   alt="" />
 </div>
+        </div>
       </div>
 
+<div className="h-book">
+  <div>
+    <h2></h2>
+    <div></div>
+  </div>
+</div>
     </main>
+    
+<Footer/>
     </>
   )
 }
