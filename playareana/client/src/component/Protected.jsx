@@ -63,19 +63,20 @@ navigate('/login')
       <header className='app-header'>
         <nav className='app-nav'>
           <div className='logo-cont'>
-            <h2 className='logo font-style'>Turfo</h2>
+            <h2 className='logo font-style cursor-pointer'
+            onClick={()=>navigate('/')}>Turfo</h2>
           </div>
           <ul>
             {user?.role==='player' && (
               <>
-              <li><Link to='play'><i className="fa-solid fa-futbol"
+              <li><Link to='/play'><i className="fa-solid fa-futbol"
                    style={{ fontSize: "30px", marginTop: "10px" }} ></i> 
                    <span className='font-style'>Play</span></Link></li>
-              <li><Link to='book'><i className="fa-solid fa-book"
+              <li><Link to='/book'><i className="fa-solid fa-book"
               style={{ fontSize: "30px", marginTop: "10px" }}></i>
                <span className='font-style'>Book</span> </Link>
                </li>
-               <li><Link to='help'><i className="fa-solid fa-headset"
+               <li><Link to='/help'><i className="fa-solid fa-headset"
                 style={{ fontSize: "30px", marginTop: "10px" }}></i>
                 <span className='font-style'>Help</span>
                 </Link> </li>
@@ -113,7 +114,7 @@ navigate('/login')
 </div>
 </>)}
       </header>
-      <div style={{ minHeight: 380, background: 'white' }}>
+      <div style={{ paddingTop:124,minHeight: 380, background: 'white' }}>
             {children}
           </div>
       </>

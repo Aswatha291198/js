@@ -1,39 +1,34 @@
-import React, { useEffect, useState } from 'react'
-import { showLoading, hideLoading } from '../../../redux/slice/userSlice'
-import { useDispatch, useSelector } from 'react-redux'
-import { useNavigate } from 'react-router-dom'
-import { getAllTurf } from '../../api/turf'
-import { message } from 'antd'
-
+import React, { useState } from 'react'
+import './play.css'
 
 
 const Play = () => {
-  const [allTurf, setAllTurf] = useState(null)
-  const dispatch = useDispatch()
-  const getData = async () => {
-    try {
-      dispatch(showLoading())
-      const response = await getAllTurf()
-      if (response.success) {
-        setAllTurf(response.data)
-        message.success(response.message)
-      }
-      dispatch(hideLoading())
-    } catch (error) {
-      message.error(response.message)
-      error.message()
-    }
-  }
-  useEffect(() => {
-    getData()
-  }, [])
+  const [game,setGameType]=useState('All')
   return (
     <>
-
-      {allTurf && allTurf.map((turf) => {
-        <div>{turf.name}hi </div>
-      })}
-
+    <main className='play-cont'>
+      <div className="play-div">
+        <div className='play-head'>
+          <div className='join-div'>
+            <h1 className='font-style'>Join a Game</h1>
+          </div> 
+        </div>
+        <div className='play-now'>
+          <div className='game-arr'>
+            <div className='game-list'>
+              <ul>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+    
     </>
   )
 }
