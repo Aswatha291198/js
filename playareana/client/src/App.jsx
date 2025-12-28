@@ -10,6 +10,11 @@ import Home from './pages/home/Home'
 import Play from './pages/user/Play'
 import Book from './pages/user/Book'
 import SingleTurf from './pages/Bookings/SingleTurf'
+import Admin from './pages/admin'
+import TurfList from './pages/admin/TurfList'
+import GameList from './pages/admin/GameList'
+import Edit from './pages/admin/Edit'
+import City from './pages/admin/City'
 
 const App = () => {
     return (
@@ -22,7 +27,12 @@ const App = () => {
                 <Route path='/play' element={<Protected><Play/></Protected>}></Route>
                 <Route path='/book' element={<Protected><Book/></Protected>}></Route>
                 <Route path='/turf/:id' element={<Protected><SingleTurf/></Protected>}></Route>
-                
+                <Route path='/admin' element={<Protected><Admin/></Protected>}>
+                <Route path='turfs' element={<Protected><TurfList/></Protected>}/>
+                <Route path='game' element={<Protected><GameList/></Protected>}/>
+                <Route path='city' element={<Protected><City/></Protected>}/>
+                <Route path='edit-profile' elemet={<Protected><Edit/></Protected>}/>
+                </Route>
             </Routes>      
         </Provider>
             

@@ -29,7 +29,7 @@
 .logo{
     letter-spacing: 0.4px;
     font-size: xx-large;
-    color: rgb(75, 156, 75);
+    color: rgb(0, 181, 98);
 }
 
 .font-style{
@@ -224,7 +224,7 @@ justify-content: space-evenly;
     content: "";
     width: 95px;
     height: 2px;
-    background-color: rgb(68, 138, 28);
+    background-color: rgb(0, 181, 98);
     position: absolute;
     top: 25px;
     right: 120px;
@@ -377,3 +377,292 @@ width: 80%;
     top: 220px;
     height: 50vh;
 }
+
+.single-div{
+width: 100vw;
+    display: flex;  
+    height: 150vh; 
+    
+}
+.single-left{
+    
+    display: flex;
+    flex-direction: column;
+    width: 60%;
+    position: relative;
+}
+.name-cont{
+    
+    height: 100px;
+    position: relative;
+}
+.name-div{
+    
+    display: flex;
+    position: absolute;
+    left: 120px;
+    top: 20px;
+}
+.name-div span{
+    font-size: 2.4rem;
+    font-weight: 600;
+    color:  rgb(54, 51, 51);
+}
+.turf-img{
+    position: relative;
+}
+.turf-img img{
+    position: relative;
+    left: 120px;
+    width:90%;
+    border-radius: 10px;
+}
+.sport-available{
+    border: 1px solid lightblue;
+    position: relative;
+    left: 120px;
+    display: flex;
+    flex-direction: column;
+    top: 20px;
+    width: 90%;
+    border-radius: 10px;   
+}
+.sport-list{
+   
+    margin: 10px;
+}
+.sport-cont{
+  
+  display: flex;
+  gap: 20px;
+}
+
+    .sport-icon {
+  font-size: x-large;      
+         
+}
+
+.turf-game{
+    display: flex;
+    flex-direction: column;
+    border: 1px solid rgb(73, 77, 78);
+    width: 100px;
+    margin-left: 10px;
+    justify-content: center;
+    align-items: center;
+    height: 80px;
+    border-radius: 10px;
+    gap: 5px;
+}
+.turf-game span{
+    font-weight: 600;
+    letter-spacing: 0.4px;
+}
+.sport-available h2{
+    margin-left: 20px;
+    font-size: 1.1rem;
+    color:rgb(49, 47, 47);   
+    padding: 0;
+    margin: 10px;
+}
+.sport-contain{  
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+.single-right{
+    width: 30%;
+    position: relative;
+    left: 100px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+.book-now-cont{
+background-color: rgb(0, 181, 98);
+font-size: large;
+display: flex;
+justify-content: center;
+align-items: center;
+width: 100%;
+position: relative;
+top: 100px;
+right: 30px;
+border-radius: 10px;
+color: white;
+height: 2.8rem;
+font-weight: 600;
+letter-spacing: 0.3px;
+}
+.timing-cont{
+    border: 1px solid lightblue;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    top: 100px;
+    justify-content: space-around;
+    right: 30px;
+    height: 100px;
+    width: 100%;
+    border-radius: 10px;
+}
+.timing-cont span{
+font-size: large;
+font-weight: 600;
+margin-left: 20px;
+}
+.location-div{
+    border: 1px solid lightblue;
+    border-radius: 10px;
+    position: relative;
+    top: 100px;
+    right: 30px;
+    height: 80px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding: 10px;
+}
+.location-div span{
+    text-transform: capitalize;
+    font-size: large;
+    font-weight: 600;
+
+}
+.main-cont{
+    margin: 0;
+
+}
+.main-div{
+   
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+.book-head{
+    height: 120px;
+    background-color: rgb(75,156,75)
+}
+.book-game{
+   
+    margin-left: 10px;
+    margin-right: 10px;
+    display: flex;
+    justify-content:space-around;
+    gap: 20px;
+    align-items: center;
+}
+.all-games{
+    height: 70px;
+    display: flex; 
+    flex-direction:row-reverse; 
+}
+.search-game{
+    width: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.search-game input{
+    height: 40px;
+    width: 400px;
+    font-size: larger;
+    border-radius: 20px;
+    border: none;
+    background-color: rgb(250, 243, 243);
+    text-align: center;
+    font-weight: 600;
+}
+.glass-div{
+    position: relative;
+    right: 40px;
+    background-color: rgb(29, 175, 78);
+    height: 40px;
+    width: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-bottom-right-radius: 10px;
+    border-top-right-radius: 10px;
+}
+.glass{
+    color: white;
+}
+.turf-list{
+       
+}
+.turf-cont{
+    margin-left: 20px;
+    margin-right: 20px;
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+    padding: 10px;
+    gap:20px;
+    
+}
+.turf-div{
+    height: 350px;
+    width: 90%;
+    display: flex;
+    flex-direction: column;
+    border-radius: 10px;
+    box-shadow:  0 4px 10px rgba(0, 0, 0, 0.12);
+    
+}
+.turf-div img{
+    height: 200px;
+}
+.turf-details{
+    margin-left: 10px;
+    margin-right: 10px;
+
+    display: flex;
+    flex-direction: column;
+}
+.turf-details h2{
+    color: rgb(66, 54, 54);
+    font-size: x-large;
+    margin-left: 10px;
+    position: relative;
+    bottom: 10px;
+    text-transform: capitalize;
+}
+.turf-loc{
+   
+    display: flex;
+    gap: 10px;
+}
+.turf-loc span{
+    text-transform: capitalize;
+    font-size: large;
+    position: relative;
+    bottom: 30px;
+    left: 10px;
+    font-weight: 600;
+    color: rgb(75, 69, 69);    
+}
+.sport-list-cont{
+   display: flex; 
+   gap: 10px;
+   position: relative;
+   bottom: 25px;
+   left: 10px;
+   font-size: large;
+   font-weight: 600;
+  
+}
+.book-now{
+    background-color: rgb(75, 156, 75);
+    height: 30px;
+    position: relative;
+    bottom: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.book-now{
+    font-size: large;
+    font-weight: 600;
+    color: white;
+}
+

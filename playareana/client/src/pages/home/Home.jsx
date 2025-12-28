@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { useSelector } from 'react-redux';
 import x from '../../assets/X.png'
 import {useNavigate} from 'react-router-dom'
@@ -8,6 +8,7 @@ const Home = () => {
 
   const {user}=useSelector(store=>store.users)
   const navigate=useNavigate()
+  const[location,setLocation]=useState('')
 console.log(user?.role);
 
   return (

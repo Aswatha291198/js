@@ -3,6 +3,7 @@ import './play.css'
 import { getAllGame } from '../../api/game'
 import { hideLoading, showLoading } from '../../../redux/slice/userSlice'
 import { getAllTurf } from '../../api/turf'
+import { GiCricketBat } from "react-icons/gi"
 import {useNavigate} from 'react-router-dom'
 
 const Book = () => {
@@ -71,7 +72,9 @@ const Book = () => {
                 return(
                   <div
                   key={turf._id}
-                  className='turf-div'
+                  className='turf-div cursor-pointer'
+                    onClick={()=>window.open(`/turf/${turf._id}`, '_blank')
+}
                   >
                     <img src={turf.poster} alt="" />
                     <div className='turf-details'>
@@ -88,7 +91,7 @@ const Book = () => {
                       ))}
                       </div>
                       <div className="book-now"
-                      onClick={()=>navigate(`/turf/${turf._id}`)}
+                      
                       >
                         <span className='font-poppins cursor-pointer'>Book Now</span>
                       </div>

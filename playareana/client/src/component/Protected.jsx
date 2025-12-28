@@ -41,6 +41,7 @@ else{
   navigate('/owner')
 }
 }
+console.log(user);
 
 const handleLogout=()=>{
 localStorage.removeItem('token')

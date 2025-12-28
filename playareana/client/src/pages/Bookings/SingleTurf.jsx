@@ -1,87 +1,108 @@
-import React, { useEffect, useState } from 'react'
-import './single.css'
-import { useParams } from 'react-router-dom'
-import { getTurfbyId } from '../../api/turf'
-import { useDispatch } from 'react-redux'
-import { hideLoading,showLoading } from '../../../redux/slice/userSlice'
-import { message } from 'antd'
-
-
-const SingleTurf = () => {
-  const [turf,setTurf]=useState(null)
-  const params=useParams()
+ import React, { useEffect } from 'react'
+ import {useDispatch} from 'react-redux'
+ import {useParams} from 'react-router-dom'
+ import {getTurfbyId} from '../../api/turf'
+ import {message }from 'antd'
+ import {hideLoading ,showLoading} from '../../../redux/slice/userSlice'
+import { useState } from 'react'
+import { LiaTableTennisSolid } from "react-icons/lia"
+import { MdOutlineSportsSoccer } from "react-icons/md";
+import { MdSportsCricket } from "react-icons/md";
+ import Footer from '../footer/Footer'
+ import { TbCricket } from "react-icons/tb";
+ import { PiSoccerBallBold } from "react-icons/pi";
+ import { GiShuttlecock } from "react-icons/gi"
+import BookModel from './BookModel'
+ const SingleTurf = () => {
   const dispatch=useDispatch()
-  const getTurf=async()=>{
-try {
-  dispatch(showLoading())
-  const response=await getTurfbyId(params.id)
-  if(response.success){
+  const parmas=useParams()
+  const[turf,setTurf]=useState({})
+  const[bookModel,setBookModel]=useState(false)
+  console.log(parmas.id)
+  console.log(parmas)
+
+const getData=async()=>{
+  try {
+    dispatch(showLoading())
+    const response=await getTurfbyId(parmas.id)
+    if(response.success){
     setTurf(response.data)
     message.success(response.message)
-
+    dispatch(hideLoading())
+    }
+  } catch (error) {
+    console.log(error.message);
+    dispatch(hideLoading()) 
   }
-  dispatch(hideLoading())
-
-  
-} catch (error) {
-  console.log(error.message);
-  dispatch(hideLoading())
-  
 }
-  }
+useEffect(()=>{
+getData()
+},[])
+console.log(turf);
+if(turf.poster){
+  console.log('its is there')
+}
 
-  useEffect(()=>{
-    getTurf()
-  },[])
 
-  return (
-    <>
-    <main className='single-main'>
-      <div className='single-cont'>
-        <div className='single-wrapper'>
-          {turf && (
-            <>
-            <section className='turf-name-section'>
-              <div className='turf-name-div'>
-                <h2 className='turf-name-text'>
-                  {turf.name}
-                </h2>
-               <span className='turf-address-text'>{turf.address}</span>
-              </div>
-              
-            </section>
-           <section className='book-img-sect'>
-              <div className='book-img-div'>
-                <div className='book-div'>
-                  <img src={turf.poster} alt="turf" className='turf-poster' />
-                </div>
-              </div>
-              <div className='timing-cont'>
-                <div className='timing-div'>
-                  <span className='timing-text'>Timing</span>
-                  <span className='timings'>{turf.open} : {turf.close}</span>
-                </div>
-                <div className='location-div'>
-                  <span className='location-text'>Location</span>
-                  <span className='address-text'>{turf.address}</span>
-                </div>
-                <div className='book-now'>
-                  <span className='book-now-span'>
-                    Book Now
-                  </span>
-                </div>
-              </div>
-              
-           </section>
-          
-            </>
-          )}
+   return (
+     <>
+     <main className='single-cont'>
+       <div className='single-div'>
+        <div className="single-left">
+          <div className="name-cont">
+            <div className="name-div">
+              <span className='font-poppins'>{turf.name}</span>
+            </div>
+            
+          </div>
+        <div className="turf-img">
+          <img src={turf.poster} alt="x" />
         </div>
-      </div>
-    </main>
-    
-    </>
-  )
-}
+        <div className='sport-available'
+        >
+          <div className="sport-list">
+            <h2 className='font-poppins'>Sport Available</h2>
+            <div className="sport-cont">
+              {turf.AddSport?.map((turf)=>{
+                return (
+                  <div className="turf-game">
+                    {turf ==='Cricket' && <TbCricket
+                    className='sport-icon'/>}
+                    {turf==='Football' && <PiSoccerBallBold
+                    className='sport-icon'/>}
+                    {turf==='Shuttle' && <GiShuttlecock/>}
+                    {turf==='Pickle Ball' && <LiaTableTennisSolid
+                    className='sport-icon'/>}
+                    <span>{turf}</span>
+                  </div>
+                )
+              })}
+            </div>
+          </div>
+        </div>
+        </div>
+        <div className="single-right">
+          <div className="book-now-cont font-poppins cursor-pointer"
+          onClick={()=>setBookModel(prev=>!prev)}
+          >
+            Book Now
+          </div>
+          <div className="timing-cont">
+            <span className='font-poppins'>Timing</span>
+            <span className='font-poppins'>{turf.open} - {turf.close}</span>
+          </div>
+          <div className="location-div">
+            <span className='font-poppins'>Location</span>
+            <span className='font-poppins'>{turf.address}</span>
+          </div>
+        </div>
+       </div>
 
-export default SingleTurf
+      </main>
+      {bookModel &&(<BookModel bookModel={bookModel} setBookModel={setBookModel}/>)}
+     
+      </> 
+   )
+ }
+ 
+ export default SingleTurf;
