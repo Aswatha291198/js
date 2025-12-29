@@ -15,7 +15,8 @@ const turfSchema = mongoose.Schema({
         required: true
     },
     location: {
-        type: String,
+        type: mongoose.Schema.Types.ObjectId,
+        ref:'city',  
         required: true
     },
     open: {

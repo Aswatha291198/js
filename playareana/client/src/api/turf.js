@@ -32,6 +32,8 @@ export const deleteTurf = async (id) => {
     }
 }
 export const getAllTurf = async () => {
+    console.log('coming to all turd');
+    
     try {
         const response = await axiosInstance.get('/turfo/turfs/all-turf')
         return response.data
