@@ -1,5 +1,5 @@
-import React, { useState } from 'react'
-import './admin.css'
+ import React, { useEffect, useState } from 'react'
+import '../admin/admin.css'
 import {Outlet,useNavigate} from 'react-router-dom'
 import { useSelector } from 'react-redux'
 import { MdOutlineStadium } from "react-icons/md"
@@ -9,9 +9,11 @@ import { IoGameControllerOutline } from "react-icons/io5"
 
 const index = () => {
   const { user } = useSelector(store => store.users)
-  const[active,setActive]=useState('turf')
+  const[active,setActive]=useState('turfs')
   const navigate=useNavigate()
 
+
+  
   return (
     <main className='admin-main'>
       <div className="admin-div">
@@ -31,9 +33,10 @@ const index = () => {
               </div>
             </div>
 
-            <div className="admin-info">
-              <div className={`admin-manage cursor-pointer ${active === 'turf' ? 'active' : ''}`}
-              onClick={() => {setActive('turf')
+           
+             <div className="admin-info">
+              <div className={`admin-manage cursor-pointer ${active === 'turfs' ? 'active' : ''}`}
+              onClick={() => {setActive('turfs')
                 navigate('turfs')
               }      
               }>
@@ -66,6 +69,8 @@ const index = () => {
               </div>
 
             </div>
+          
+           
 
           </div>
           <div className="admin-right">

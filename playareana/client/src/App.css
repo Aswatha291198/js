@@ -3,6 +3,7 @@
 }
 .app-header{
  position: fixed;
+ border: 2px soild red;
  top: 0;
  left: 0;
  z-index: 1;
@@ -531,6 +532,8 @@ margin-left: 20px;
 }
 .main-cont{
     margin: 0;
+    position: relative;
+    top: 100px;
 
 }
 .main-div{

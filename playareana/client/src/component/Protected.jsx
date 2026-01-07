@@ -4,6 +4,8 @@
   import { GetCurrentUser } from "../api/user";
   import { message } from "antd";
   import { hideLoading, showLoading, setUser } from "../../redux/slice/userSlice";
+  import { GoTrophy } from "react-icons/go";
+  import { VscRequestChanges } from "react-icons/vsc";
 
   const Protected = ({children}) => {
     const dispatch = useDispatch();
@@ -29,7 +31,7 @@
         navigate("/login");
       }
     };
-    console.log(user?.name);
+   
 const handleProfile=()=>{
 if(user && user?.role==='player'){
   navigate('/player')
@@ -41,7 +43,7 @@ else{
   navigate('/owner')
 }
 }
-console.log(user);
+
 
 const handleLogout=()=>{
 localStorage.removeItem('token')
@@ -50,9 +52,10 @@ navigate('/login')
     
     useEffect(() => {
       
-      if (!user) {
-        getData();
+      if(localStorage.getItem('token')){
+        getData()
       }
+    
     }, []);
 
     
@@ -81,6 +84,19 @@ navigate('/login')
                 style={{ fontSize: "30px", marginTop: "10px" }}></i>
                 <span className='font-style'>Help</span>
                 </Link> </li>
+
+              </>
+            )}
+            {user?.role==='owner' && (
+              <>
+               <li><Link to='/play'><GoTrophy
+                   style={{ fontSize: "30px", marginTop: "10px" }} />
+                   <span className='font-style'>Tournament</span></Link></li>
+              <li><Link to='/book'><VscRequestChanges
+              style={{ fontSize: "30px", marginTop: "10px" }}/>
+               <span className='font-style'>Incoming</span> </Link>
+               </li>
+              
 
               </>
             )}
@@ -115,7 +131,7 @@ navigate('/login')
 </div>
 </>)}
       </header>
-      <div style={{ paddingTop:124,minHeight: 380, background: 'white' }}>
+      <div style={{ minHeight: 380, background: 'white' }}>
             {children}
           </div>
       </>

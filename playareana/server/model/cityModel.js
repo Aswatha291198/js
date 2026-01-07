@@ -2,11 +2,9 @@ const mongoose=require('mongoose')
 
 const citySchema=new mongoose.Schema({
     name:{
-        type:{
-            type:String,
-            required:true,
-            active:true
-        }
+       type:String,
+       required:true,
+        
     }
 },{timestamp:true})
 

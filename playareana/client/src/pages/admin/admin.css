@@ -16,10 +16,12 @@
 .admin-left{
     border: 2px solid rgb(188, 209, 216);
     position: relative;
-    left: 100px;
-    height: 700px;
+    left: 150px;
+    height: 600px;
     width: 25%;
+    top: 100px;
     border-radius: 10px;
+    
 }
 
 .admin-profile{
@@ -83,19 +85,21 @@
 }
 
 .admin-right{
-    border: 2px solid blue;
+    border: 2px solid rgb(188, 209, 216);
     position: relative;
-    left: 150px;
-    top: 5px;
+    left: 180px;
+    top: 100px;
+    height: 400px;
+    
     display: flex;
     flex-direction: column;
-    width: 60%;
+    width: 50%;
     border-radius: 10px;
 }
 .turf-main{
 height: 100%;
 position: relative;
-bottom: 120px;
+
 }
 .turf-list h2{
     margin-left: 20px;
@@ -111,8 +115,85 @@ bottom: 120px;
 
 }
 .city-main{
-    border: 2px solid red;
+    
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+
+}
+.city-head{
+    
+    height: 100px;
+}
+.city-head span{
+    font-size: xx-large;
+    font-weight: 600;
+    margin: 20px;
+
+}
+.city-head::after{
+    content: "";
+    border-top: 3px solid rgb(0, 189, 78);
+    height: 3px;
     position: relative;
-bottom: 120px;
-height: 100%;
+    left: 20px;
+   width: 100px;  
+    display: flex;
+}
+.add-city{
+    
+    position: relative;
+    bottom: 30px;
+}
+.add-city button{
+    border: none;
+    position: absolute;
+    left: 20px;
+    height: 40px;
+    color: white;
+    font-weight: 600;
+    border-radius: 10px;
+    background-color: rgb(0, 189, 78);
+}
+.city-input{
+    width: 50%;
+    position: relative;
+    top: 20px;
+    left: 20px;
+    outline: none;
+    height: 40px;
+    text-align: center;
+}
+.city-list{
+ border: 2px solid yellow;
+ position: relative;
+ top: 30px;   
+ display: flex;
+ flex-direction: column;
+ gap: 10px;
+}
+.city-div{
+    border: 2px solid red;
+    display: flex;
+    height: 40px;
+    width: 30%;
+   display: flex;
+   margin-left: 20px;  
+   align-items: center;
+}
+.city-div span{
+    text-transform: capitalize;
+    position: relative;
+    left: 0px;
+    font-weight: 600;
+}
+.icon-div{
+    display: flex;
+    gap: 10px;
+}
+.city-icon{
+position: relative;
+left: 20px;
+font-size: x-large;
+color:rgb(0, 189, 78);
 }

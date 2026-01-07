@@ -1,7 +1,4 @@
 import React, { useState } from 'react'
-import './play.css'
-
-
 const Play = () => {
   const [game,setGameType]=useState('All')
   return (

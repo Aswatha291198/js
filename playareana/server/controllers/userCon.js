@@ -4,10 +4,6 @@ const bcrypt = require('bcrypt');
 const { message } = require('antd');
 
 const registerUser = async (req, res) => {
-    console.log('error in backend register');
-    console.log(req.body);//it is coming to this line
-
-
     try {
         const user = await User.findOne({ email: req.body.email })
         if (user) {
