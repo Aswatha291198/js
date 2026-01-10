@@ -37,7 +37,7 @@ export const getAllTurf = async () => {
     try {
         const response = await axiosInstance.get('/turfo/turfs/all-turf')
         return response.data
-    } catch (error) {
+    } catch (error) {x  
         console.log(error);
 
     }
@@ -46,6 +46,8 @@ export const getTurfbyId = async (id) => {
     console.log('comong to the turf');
     
     try {
+        console.log('inside ');
+        
         const response = await axiosInstance.get(`/turfo/turfs/turf/${id}`)
          console.log("Raw response:", response.data);
         return response.data

@@ -18,6 +18,7 @@ import City from './pages/admin/City'
 import UserProfile from './pages/user/UserProfile'
 import Bookings from './pages/user/Bookings/Bookings'
 import Owner from './partner/index' 
+import Turf from './partner/Turf'
 
 const App = () => {
     return (
@@ -33,16 +34,19 @@ const App = () => {
                 <Route path='/admin' element={<Protected><Admin/></Protected>}>
                <Route index element={<Navigate to="turfs" replace />} />
         
-                <Route path='turfs' element={<Protected><TurfList/></Protected>}/>
-                <Route path='game' element={<Protected><GameList/></Protected>}/>
-                <Route path='city' element={<Protected><City/></Protected>}/>
-                <Route path='edit-profile' element={<Protected><Edit/></Protected>}/>
+                <Route path='turfs' element={<TurfList/>}/>
+                <Route path='game' element={<GameList/>}/>
+                <Route path='city' element={<City/>}/>
+                <Route path='edit-profile' element={<Edit/>}/>
                 </Route>
                 <Route path ='/player' element={<Protected><UserProfile/></Protected>}>
                 <Route path='bookings' element={<Protected><Bookings/></Protected>}/>
                 <Route path='edit-profile' element ={<Protected><Edit/></Protected>}/>
                 </Route>
-                <Route path='/owner' element={<Protected><Owner/></Protected>}></Route>
+                <Route path='/owner' element={<Protected><Owner/></Protected>}>
+                <Route index element={<Turf/>}/>
+                <Route path='turf/:id' element={<Turf/>}/>
+                </Route>
             </Routes>      
         </Provider>
             
