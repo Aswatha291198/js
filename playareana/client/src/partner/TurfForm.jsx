@@ -1,12 +1,48 @@
-import { Col, Form, Input, Modal, Row, Select } from 'antd'
+  import { Button, Col, Form, Input, message, Modal, Row, Select } from 'antd'
 import React, { useEffect,useState } from 'react'
 import { useSelector,useDispatch } from 'react-redux'
 import { hideLoading,showLoading } from '../../redux/slice/userSlice'
 import { getAllGame } from '../api/game'
-const TurfForm = ({ formType, addModel, setAddModel }) => {
+import { getAllCity } from '../api/city'
+import TextArea from 'antd/es/input/TextArea'
+import { addTurf, updateTurf } from '../api/turf'
+const TurfForm = ({ formType,
+   addModel,
+   setAddModel,
+   getTurfs,
+   form,
+   selectedTurf,
+   setSelectedTurf  
+  }) => {
+
     const dispatch=useDispatch()
     const{user}=useSelector(store=>store.users)
     const [games, setGames] = useState([])  
+    const [city,setCity]=useState([])
+    const onFinish=async(values)=>{
+      try {
+        let response=null
+        if(form==='add'){
+          response=await addTurf({...values,owner:user?._id})
+        }
+        else{
+          response=await updateTurf({
+            ...values,
+            turfId:selectedTurf._id
+          })
+        }
+        if(response.success){
+          message.success(response.message)
+          setAddModel(false)
+          getTurfs()
+          setSelectedTurf(null)
+
+        }
+      } catch (error) {
+        console.log(error.message);
+        
+      }
+    }
   const handleCancel = () => {
     setAddModel(false)
   }
@@ -14,10 +50,15 @@ const TurfForm = ({ formType, addModel, setAddModel }) => {
   const getData=async()=>{
     try {
         dispatch(showLoading())
-        const response=await getAllGame()
-        if(response.success){
-            setGames(response.data)
+        const gameResponse=await getAllGame()
+        if(gameResponse.success){
+            setGames(gameResponse.data)
             dispatch(hideLoading())
+        }
+        const cityRes=await getAllCity()
+        if(cityRes.success){
+          setCity(cityRes.data)
+          dispatch(hideLoading())
         }
 
         
@@ -32,12 +73,15 @@ getData()
   return (
     <Modal
       open={addModel}
+      title={form==='add'?'Add Turf':"Edit Turf"}
       onCancel={handleCancel}
       width={800}
-      destroyOnClose
+      destroyOnHidden
       footer={null}
     >
-      <Form layout="vertical">
+      <Form layout="vertical"
+      initialValues={form==='edit'? selectedTurf:""}
+      onFinish={onFinish}>
         <Row gutter={16}>
           <Col span={8}>
             <Form.Item
@@ -69,38 +113,68 @@ getData()
             </Form.Item>
           </Col>
         </Row>
-        <Row justify='space-between'>
-            <Col span={10}>
+        <Row>
+          <Col span={24}>
+          
             <Form.Item 
-            label='Address'>
+            label='Address'
+            name='address'
+              rules={[{ required: true, message: 'Please enter address' }]}>
+                <TextArea/>
+            </Form.Item>
+            
+          </Col>
+        </Row>
+        <Row gutter={16}>
+            
+            <Col span={8}>
+            <Form.Item 
+            label='City'
+            name='city'>
+                <Select 
+                
+                allowClear
+                style={{
+                  textTransform:'capitalize'
+                }}
+                >
+           {city.map(city => (
+      <Select.Option key={city._id} value={city._id}>
+        {city.name}
+      </Select.Option>
+    ))}
+
+                </Select>
+            </Form.Item>
+            </Col>
+            <Col span={8}>
+            <Form.Item 
+            label='Open-time'
+            name='open'>
                 <Input/>
             </Form.Item>
             </Col>
-            <Col span={10}>
+            <Col span={8}>
             <Form.Item 
-            label='City'>
+            label='Closing'
+            name='close'>
                 <Input/>
             </Form.Item>
             </Col>
         </Row>
-        <Row justify='space-between'>
-            <Col span={8}>
+        <Row gutter={16}>
+            
+            <Col span={16}>
             <Form.Item 
-            label='Location'>
+            label='Rules'
+            name='rules'>
                 <Input/>
             </Form.Item>
             </Col>
-            <Col span={10}>
-            <Form.Item 
-            label='Rules'>
-                <Input/>
-            </Form.Item>
-            </Col>
-        </Row>
-        <Row justify='space-between'>
             <Col span={8}>
             <Form.Item 
-            label='Add Sport'>
+            label='Add Sport'
+            name='AddSport'>
                 <Select 
                 mode='multiple'
                 allowClear
@@ -114,13 +188,39 @@ getData()
                 </Select>
             </Form.Item>
             </Col>
-            <Col span={10}>
+        </Row>
+        <Row justify='space-between'>
+            
+            <Col span={12}>
+            
             <Form.Item 
-            label='Rules'>
+            label='Poster'
+            name='poster'>
                 <Input/>
             </Form.Item>
             </Col>
+             <Col span={10}>
+            <Form.Item 
+            label='Price'
+            name='price'>
+               <Input/>
+              
+              </Form.Item></Col>
+           
         </Row>
+        <Row gutter={16}>
+           
+             <Col span={8}>
+            <Form.Item
+            >
+              <Button
+              type='primary'
+              htmlType='submit'
+              className='form-btn'
+              >Save</Button>
+            </Form.Item>
+            </Col>
+           </Row>
         
       </Form>
     </Modal>

@@ -1,3 +1,145 @@
+.main-cont{
+    margin: 0;
+    position: relative;
+    top: 100px;
+
+}
+.main-div{
+   
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+.book-head{
+    height: 120px;
+    background-color: rgb(75,156,75)
+}
+.book-game{
+   
+    margin-left: 10px;
+    margin-right: 10px;
+    display: flex;
+    justify-content:space-around;
+    gap: 20px;
+    align-items: center;
+}
+.all-games{
+    height: 70px;
+    display: flex; 
+    flex-direction:row-reverse; 
+}
+.search-game{
+    width: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.search-game input{
+    height: 40px;
+    width: 400px;
+    font-size: larger;
+    border-radius: 20px;
+    border: none;
+    background-color: rgb(250, 243, 243);
+    text-align: center;
+    font-weight: 600;
+}
+.glass-div{
+    position: relative;
+    right: 40px;
+    background-color: rgb(29, 175, 78);
+    height: 40px;
+    width: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-bottom-right-radius: 10px;
+    border-top-right-radius: 10px;
+}
+.glass{
+    color: white;
+}
+.turf-list{
+       
+}
+.turf-cont{
+    margin-left: 20px;
+    margin-right: 20px;
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+    padding: 20px;
+    position: relative;
+    left: 30px;
+    gap:20px;
+    
+}
+.turf-div{
+    height: 350px;
+    width: 90%;
+    display: flex;
+    flex-direction: column;
+    border-radius: 10px;
+    box-shadow:  0 4px 10px rgba(0, 0, 0, 0.12);
+    
+}
+.turf-div img{
+    height: 200px;
+}
+.turf-details{
+    margin-left: 10px;
+    margin-right: 10px;
+
+    display: flex;
+    flex-direction: column;
+}
+.turf-details h2{
+    color: rgb(66, 54, 54);
+    font-size: x-large;
+    margin-left: 10px;
+    position: relative;
+    bottom: 10px;
+    text-transform: capitalize;
+}
+.turf-loc{
+   
+    display: flex;
+    gap: 10px;
+    flex-direction: column;
+    position: relative;
+    
+}
+.turf-loc span{
+    text-transform: capitalize;
+    font-size: large;
+    position: relative;
+    bottom: 30px;
+    left: 20px;
+    font-weight: 600;
+    color: rgb(75, 69, 69);    
+}
+.sport-list-cont{
+   display: flex; 
+   gap: 10px;
+   position: relative;
+   left: 10px;
+   font-size: large;
+   font-weight: 600; 
+}
+.book-now{
+    background-color: rgb(0, 189, 78);
+    border: none;
+    height: 50px;
+    position: relative;
+    bottom: 20px;
+    font-size: medium;
+    width: 40%;
+    
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: all 0.3s ease-in;
+}
+
 .user-main {
     width: 100vw;
     position: relative;
@@ -80,12 +222,4 @@
     width: 50%;
     bottom: 20px;
     height: 400px;
-}
-.edit-btn{
-    background-color: rgb(0, 189, 78);
-    font-size: large;
-    font-weight: 600;
-    position: relative;
-    left: 350px;
-    top: 20px;
-}
+}   

@@ -5,37 +5,37 @@ import { useDispatch } from 'react-redux'
 import { deleteTurf } from '../api/turf'
 
 const DeleteModal = ({
-    getData,
+    getTurfs,
     selectedTurf,
     setSelectedTurf,
     isDeleteModal,
-    setDeleteModal
+    setIsDeleteModal
 }) => {
     const dispatch=useDispatch()
     const handleOk=async ()=>{
         try {
             dispatch(showLoading())
-            const turfId=selectedTurf._id
-            const response=await deleteTurf(turfId)
+            
+            const response=await deleteTurf(selectedTurf)
             if(response.success){
                 message.success(response.message)
-                getData()
+                getTurfs()
             }
             else{
                 message.error(response.message)
             }
             setSelectedTurf(null)
-            setDeleteModal(false)
-            dispatch(hideLoading)
+            setIsDeleteModal(false)
+            dispatch(hideLoading())
         } catch (error) {
             console.log(error.message);
             dispatch(hideLoading())
-            setDeleteModal(false)
+            setIsDeleteModal(false)
             
         }
     }
     const handleCancel=()=>{
-        setDeleteModal(false)
+        setIsDeleteModal(false)
         setSelectedTurf(null)
     }
   return (

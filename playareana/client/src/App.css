@@ -378,6 +378,10 @@ width: 80%;
     top: 220px;
     height: 50vh;
 }
+.single-cont{
+    position: relative;
+    top: 120px;
+}
 
 .single-div{
 width: 100vw;
@@ -530,142 +534,57 @@ margin-left: 20px;
     font-weight: 600;
 
 }
-.main-cont{
-    margin: 0;
-    position: relative;
-    top: 100px;
 
-}
-.main-div{
-   
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-}
-.book-head{
-    height: 120px;
-    background-color: rgb(75,156,75)
-}
-.book-game{
-   
-    margin-left: 10px;
-    margin-right: 10px;
-    display: flex;
-    justify-content:space-around;
-    gap: 20px;
-    align-items: center;
-}
-.all-games{
-    height: 70px;
-    display: flex; 
-    flex-direction:row-reverse; 
-}
-.search-game{
-    width: 50%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-.search-game input{
-    height: 40px;
-    width: 400px;
-    font-size: larger;
-    border-radius: 20px;
-    border: none;
-    background-color: rgb(250, 243, 243);
-    text-align: center;
+.book-now{
+    font-size: large;
     font-weight: 600;
-}
-.glass-div{
-    position: relative;
-    right: 40px;
-    background-color: rgb(29, 175, 78);
-    height: 40px;
-    width: 40px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-bottom-right-radius: 10px;
-    border-top-right-radius: 10px;
-}
-.glass{
     color: white;
 }
-.turf-list{
-       
+.form-btn{
+    background-color: rgb(0, 189, 78);
+    position: relative;
+    top: 30px;
+    left: 300px;
+    font-family: 'poppins';
+    font-weight: 600;
+    transition: all 0.3 ease-in;
 }
-.turf-cont{
-    margin-left: 20px;
-    margin-right: 20px;
-    display: grid;
-    grid-template-columns: repeat(3,1fr);
-    padding: 10px;
-    gap:20px;
-    
-}
-.turf-div{
-    height: 350px;
-    width: 90%;
-    display: flex;
-    flex-direction: column;
+.rules-cont{
+    border: 1px solid lightblue;
     border-radius: 10px;
-    box-shadow:  0 4px 10px rgba(0, 0, 0, 0.12);
-    
-}
-.turf-div img{
-    height: 200px;
-}
-.turf-details{
-    margin-left: 10px;
-    margin-right: 10px;
-
-    display: flex;
-    flex-direction: column;
-}
-.turf-details h2{
-    color: rgb(66, 54, 54);
-    font-size: x-large;
-    margin-left: 10px;
     position: relative;
-    bottom: 10px;
-    text-transform: capitalize;
-}
-.turf-loc{
+    top: 30px;
+    left: 120px;
+    width: 90%;
+    height: 10%;
    
-    display: flex;
-    gap: 10px;
 }
-.turf-loc span{
-    text-transform: capitalize;
-    font-size: large;
-    position: relative;
-    bottom: 30px;
-    left: 10px;
+.rules-cont span{
+    font-family: 'poppins';
     font-weight: 600;
-    color: rgb(75, 69, 69);    
+    margin-left: 20px;
+    font-size: larger;
 }
-.sport-list-cont{
-   display: flex; 
-   gap: 10px;
-   position: relative;
-   bottom: 25px;
-   left: 10px;
-   font-size: large;
-   font-weight: 600;
-  
+.rules-cont p{
+    font-family: 'poppins';
+   
+    margin-left: 20px;
+    font-size: larger;
 }
-.book-now{
-    background-color: rgb(75, 156, 75);
-    height: 30px;
-    position: relative;
-    bottom: 20px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-.book-now{
-    font-size: large;
-    font-weight: 600;
-    color: white;
+@media screen and (max-width: 768px) {
+  ul {
+    width: 100%;
+    flex-direction: column;
+  }
+
+  .hero-div,
+  .choose-div,
+  .single-div {
+    flex-direction: column;
+  }
+
+  .stadium-cont img {
+    width: 90%;
+  }
 }
 

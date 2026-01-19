@@ -8,6 +8,7 @@ const gameRouter = require("./route/gameRoute");
 const blogRouter = require("./route/blogRoute");
 const tourRouter = require("./route/tourRoute");
 const cityRouter = require("./route/cityRoute");
+const bookRouter=require('./route/bookRoute')
 
 connectDB() 
 app.use(express.json())
@@ -17,6 +18,7 @@ app.use('/turfo/game',gameRouter)
 app.use('/turfo/blog',blogRouter)
 app.use('/turfo/city',cityRouter)
 app.use('/turfo/tournament',tourRouter)
+app.use('/turfo/booking',bookRouter)
 const port=8082
 app.listen(port,()=>{
     console.log(`Server is Running on the http://localhost:${port}`);

@@ -3,8 +3,10 @@ import './play.css'
 import { getAllGame } from '../../api/game'
 import { hideLoading, showLoading } from '../../../redux/slice/userSlice'
 import { getAllTurf } from '../../api/turf'
+import { IoMdFootball } from "react-icons/io";
 import { GiCricketBat } from "react-icons/gi"
 import {useNavigate} from 'react-router-dom'
+import { MdOutlineSportsCricket } from "react-icons/md"
 
 const Book = () => {
   const [gameType, setGameType] = useState('All')
@@ -77,24 +79,27 @@ const Book = () => {
 }
                   >
                     <img src={turf.poster} alt="" />
+                      <button className='book-now cursor-pointer  '>Book-now</button>     
                     <div className='turf-details'>
                       <h2 className='font-style'>
                         {turf.name}
                       </h2>
                      <div className="turf-loc">
-                       <span>{turf.location}</span>
+                       <span>{turf.city.name}</span>
                       <span>{turf.address}</span>
                      </div>
                       <div className="sport-list-cont">
                         {turf.AddSport.map((sport)=>(
-                        <span className='sport=-list'>{sport}</span>
+                       <div className="sport-name"
+                       key={sport._id}
+                       >
+                        
+                          {sport.name==='Football' && <IoMdFootball className='book-icn'/>}
+                          {sport.name==='Cricket' && <MdOutlineSportsCricket   className='book-icn'/>}
+                       </div>
                       ))}
                       </div>
-                      <div className="book-now"
-                      
-                      >
-                        <span className='font-poppins cursor-pointer'>Book Now</span>
-                      </div>
+                    
                     </div>
                   </div>
                 )

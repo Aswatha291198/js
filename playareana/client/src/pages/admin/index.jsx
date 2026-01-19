@@ -11,10 +11,7 @@ const index = () => {
   const { user } = useSelector(store => store.users)
   const[active,setActive]=useState('turfs')
   const navigate=useNavigate()
-
-
-  
-  return (
+ return (
     <main className='admin-main'>
       <div className="admin-div">
         <div className="admin-cont">

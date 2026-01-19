@@ -8,5 +8,5 @@ const citySchema=new mongoose.Schema({
     }
 },{timestamp:true})
 
-const cityModal=mongoose.model('City',citySchema)
+const cityModal=mongoose.model('city',citySchema)
 module.exports=cityModal

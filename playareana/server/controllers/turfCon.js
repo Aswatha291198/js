@@ -34,9 +34,11 @@ const getAllTurf =async(req,res)=>{
     console.log('getallturf');
     
     try {
-        const allturf=await turf.find()
+        const allturf=await turf.find().populate('city').populate('AddSport')
         res.status(201).send({success:true,data:allturf})
     } catch (error) {
+        console.log(error.message);
+        
         return res.status(500).send("Something Went Wrong")
     }
 }
@@ -55,35 +57,39 @@ const deleteTurf = async (req, res) => {
         res.send({
             message: 'error loading',
             success: false,
-            data: allTurf
+            data: deleteTurf
         })
         console.log(error.message);
         
     }
 }
 const getTurfByIdowner=async(req,res)=>{
-    console.log('turf');
+    console.log(req.params.id,'from the city cont ownid');
+    
     
     try {
-        const find=await turf.find({ owner: req.params.id })
+        const find=await turf.find({ owner: req.params.id }).populate('city')
         res.send({
             message:'turf',
             success:true,
             data:find
         })
+        console.log(find,'from the controller ownerturfid');
+        
     } catch (error) {
+        console.log(error.message);
         res.send({
             message:"something went wrong",
             success:false
         })
-        console.log(error.message);
+        
         
     }
 }
 const getTurfById=async(req,res)=>{
     console.log('coming to the id');
     try {
-        const turfById=await turf.findById(req.params.id)
+        const turfById=await turf.findById(req.params.id).populate('AddSport')
         console.log(turfById,'trufid');
         
         res.send({
@@ -93,6 +99,8 @@ const getTurfById=async(req,res)=>{
         
         
     } catch (error) {
+        console.log(error.message);
+        
         res.send({
             success:false,
             message:error.message

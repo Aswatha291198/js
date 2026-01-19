@@ -8,7 +8,10 @@ import { Outlet,useNavigate } from 'react-router-dom';
 const Owner = () => {
   const {user}=useSelector(store=>store.users)
   const navigate=useNavigate()
-  const[active,setActive]=useState('review')
+  const[active,setActive]=useState('turfs')
+  console.log(user?._id ,'from the owner');
+
+  
   return (
    <>
   <main className='owner-main'>
@@ -36,6 +39,14 @@ const Owner = () => {
           }}>
             <GoCodeReview/>
             <span>Review</span>
+          </div>
+          <div className={`owner-turf cursor-pointer ${active==='edit'?'active':""}`}
+          onClick={()=>{
+            setActive('edit')
+             navigate('edit-profile') 
+         }}>
+            <GoCodeReview/>
+            <span>Edit</span>
           </div>
         </div>
       </div>

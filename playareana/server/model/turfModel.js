@@ -14,7 +14,7 @@
             type: String,
             required: true
         },
-        location: {
+        city: {
             type: mongoose.Schema.Types.ObjectId,
             ref:'city',  
             required: true
@@ -50,9 +50,12 @@
             type:Boolean,
             default:false
         },
-        AddSport:{
-            type:[String],
-        },
+        AddSport: [
+  {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'games'
+  }
+],
         price:{
             type:String,
             required:true
@@ -60,6 +63,14 @@
         address:{
             type:String,
             required:true 
+        },
+        rules:{
+            type:String,
+            required:true
+        },
+        bookedBy:{
+            type:mongoose.Schema.Types.ObjectId,
+            ref:'users'
         }
 
     },{timestamps:true})

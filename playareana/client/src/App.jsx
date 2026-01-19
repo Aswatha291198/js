@@ -46,6 +46,7 @@ const App = () => {
                 <Route path='/owner' element={<Protected><Owner/></Protected>}>
                 <Route index element={<Turf/>}/>
                 <Route path='turf/:id' element={<Turf/>}/>
+                <Route path='edit-profile' element={<Edit/>}/>
                 </Route>
             </Routes>      
         </Provider>

@@ -8,7 +8,7 @@ const { addTurf, updateTurf, deleteTurf, getAllTurf, getTurfById, getTurfBySearc
     router.delete('/delete/:id',deleteTurf)
     router.get('/all-turf',getAllTurf)
     router.get('/turf/owner/:id',getTurfByIdowner)
-    router.get('turf',getTurfBySearch)
+    router.get('/turf',getTurfBySearch)
     router.get('/turf/:id',getTurfById)
 
     module.exports=router
