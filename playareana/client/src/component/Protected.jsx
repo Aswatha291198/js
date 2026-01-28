@@ -1,141 +1,99 @@
-  import { useEffect, useState } from "react";
-  import { useDispatch, useSelector } from "react-redux";
-  import { useNavigate,Link, } from "react-router-dom";
-  import { GetCurrentUser } from "../api/user";
-  import { message } from "antd";
-  import { hideLoading, showLoading, setUser } from "../../redux/slice/userSlice";
-  import { GoTrophy } from "react-icons/go";
-  import { VscRequestChanges } from "react-icons/vsc";
+import React, { useEffect } from 'react'
+import { Layout, message } from 'antd'
+import { useSelector,useDispatch } from 'react-redux'
+import { showLoading,hideLoading,setUser } from '../../redux/slice/userSlice'
+import { useNavigate } from 'react-router-dom'
+import { GetCurrentUser } from '../api/user'
+import { GiSoccerKick } from "react-icons/gi";
+import { MdSportsVolleyball } from "react-icons/md";
+const Protected = ({children}) => {
+  const dispatch=useDispatch()
+  const navigate=useNavigate()
+  const{user}=useSelector(store=>store.users)
+const {Header}=Layout
 
-  const Protected = ({children}) => {
-    const dispatch = useDispatch();
-    const navigate = useNavigate();
-    const { user } = useSelector((state) => state.users)
-    const[profileIcon,setProfileIcon]=useState(false)
+const getUser=async()=>{
+  try {
+    dispatch(showLoading())
+    const response=await GetCurrentUser()
+    if(response.success){
+      dispatch(setUser(response.data))
 
-    const getData = async () => {
-      try {
-        dispatch(showLoading());
-        const response = await GetCurrentUser();
+    }
+    else{
+      message.error(response.message)
+      navigate('/login')
+      dispatch(hideLoading())
+    }
+  } catch (error) {
+    console.log(error.message);
+     dispatch(hideLoading()) 
+  }
+  finally{
+    dispatch(hideLoading())
+  }
+}
+useEffect(()=>{
+  getUser()
+},[])
 
-        if (response.success) {
-          dispatch(setUser(response.data));
-        } else {
-          message.error(response.message);
-          navigate("/login");
-        }
-
-        dispatch(hideLoading());
-      } catch (error) {
-        dispatch(hideLoading());
-        navigate("/login");
-      }
-    };
+const menuRoles={
+  player:[
    
-const handleProfile=()=>{
-if(user && user?.role==='player'){
-  navigate('/player')
-}
- else if(user && user.role==='admin'){
-  navigate('/admin')
-}
-else{
-  navigate('/owner')
-}
-}
-
-
-const handleLogout=()=>{
-localStorage.removeItem('token')
-navigate('/login')
-}
+     {label:'Book',path:'/book',icon:<MdSportsVolleyball/>},
+     {label:'Play',path:'/play',icon:<GiSoccerKick/>} 
     
-    useEffect(() => {
-      
-      if(localStorage.getItem('token')){
-        getData()
-      }
+  ],
+  partner:[
+   
+    // { label:'',path:'/book'},
+    //  {label:'Play',path:'/play'} 
     
-    }, []);
-
+  ],
+  admin:[
+   
+    //  {label:'Book',path:'/book'},
+    //  {label:'Play',path:'/play'} 
     
-    
+  ]
 
-    
-    return (
-      <>
-      <header className='app-header'>
-        <nav className='app-nav'>
-          <div className='logo-cont'>
-            <h2 className='logo font-style cursor-pointer'
-            onClick={()=>navigate('/')}>Turfo</h2>
-          </div>
-          <ul>
-            {user?.role==='player' && (
-              <>
-              <li><Link to='/play'><i className="fa-solid fa-futbol"
-                   style={{ fontSize: "30px", marginTop: "10px" }} ></i> 
-                   <span className='font-style'>Play</span></Link></li>
-              <li><Link to='/book'><i className="fa-solid fa-book"
-              style={{ fontSize: "30px", marginTop: "10px" }}></i>
-               <span className='font-style'>Book</span> </Link>
-               </li>
-               <li><Link to='/help'><i className="fa-solid fa-headset"
-                style={{ fontSize: "30px", marginTop: "10px" }}></i>
-                <span className='font-style'>Help</span>
-                </Link> </li>
+}
+console.log(user?.role,'role');
+console.log(user?.name,'name');
 
-              </>
-            )}
-            {user?.role==='owner' && (
-              <>
-               <li><Link to='/play'><GoTrophy
-                   style={{ fontSize: "30px", marginTop: "10px" }} />
-                   <span className='font-style'>Tournament</span></Link></li>
-              <li><Link to='/book'><VscRequestChanges
-              style={{ fontSize: "30px", marginTop: "10px" }}/>
-               <span className='font-style'>Incoming</span> </Link>
-               </li>
-              
 
-              </>
-            )}
-          </ul>
 
-          <div className='profile-div d-flex'>
-            <div className='d-flex border-5 cursor-pointer'
-            onClick={()=>{
-              console.log('hi');
-              console.log(profileIcon);
-              
-              setProfileIcon((prev)=>!prev)
-            }}
-            >
-              <i className="fa-regular fa-user"
-              style={{fontSize:'20px'}}></i>
-            </div>
+  return (
+    <>
+  <Layout>
+    <Header>
+      <section>
+        <h2 className='f-p color-g  c-p   f-size font-s py-3 p-left'
+        
+        onClick={()=>navigate('/')}>Turfo</h2>
+      </section>
+    <div className='d-flex  h-100 '>
+      <ul className='d-flex  c-p  h-100 justify-content-between w-200 ls'>
+        {menuRoles[user?.role]?.map((item)=>
+        <li className='d-flex none  w-100 m-item  py-3 px-3'
+        onClick={()=>navigate(item.path)}
+        key={item.path}>
+          <span className='menu-label f-size f-6 '>{item.label}</span>
+  <span className='menu-icon f-size f-p f-6 py-3'
+  style={{
+    marginTop:5
+  }}
+  >{item.icon}</span>
+          
+        </li>
+        )}
+      </ul>
+    </div>
+    </Header>
+  </Layout>
+  <div>{children}</div>
+    </>
+  )
+}
 
-          </div>
-        </nav>
-{profileIcon && (<>
-<div className='profile-bar' >
-  <ul>
-    <li onClick={handleProfile} className='profile-li'>
-    <span >Profile</span>
-  </li>
-  
-    <li onClick={handleLogout}>
-    <span>Logout</span>
-  
-    </li></ul>
-</div>
-</>)}
-      </header>
-      <div style={{ minHeight: 380, background: 'white' }}>
-            {children}
-          </div>
-      </>
-    );
-  };
-
-  export default Protected;
+export default Protected

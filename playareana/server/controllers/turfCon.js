@@ -90,6 +90,7 @@ const getTurfById=async(req,res)=>{
     console.log('coming to the id');
     try {
         const turfById=await turf.findById(req.params.id).populate('AddSport')
+        .populate('city')
         console.log(turfById,'trufid');
         
         res.send({

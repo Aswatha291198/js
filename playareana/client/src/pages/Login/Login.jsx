@@ -1,77 +1,83 @@
+import { Button, Form, Input, message } from 'antd'
 import React from 'react'
-import { Form, Button, Input, message ,Radio } from 'antd'
-import { Link, useNavigate } from "react-router-dom"
-import './login.css'
-import { loginUser } from '../../api/user';
-
+import {useNavigate,Link} from 'react-router-dom'
+import { loginUser } from '../../api/user'
+import { useDispatch } from 'react-redux'
+import { hideLoading,showLoading } from '../../../redux/slice/userSlice'
 const Login = () => {
-  const navigate=useNavigate()
-  const onFinish=async(values)=>{
-    console.log('login fronten');
-    
-    try {
-      const response=await loginUser(values)
-    if(response.success){
-      localStorage.setItem("token",response.data)
-      message.success(response.message)
-      navigate('/')
-      
-    }
-    else{
-      message.error(response.message)
-    }
-    } catch (error) {
-      message.error(response.message)
-      console.log('error');
-      
-    }
+const navigate=useNavigate()
+const dispatch=useDispatch()
+const onFinish=async(values)=>{
+try {
+  dispatch(showLoading())
+  const response=await loginUser(values)
+  if(response.success){
+    localStorage.setItem('token',response.data)
+    message.success("User is successfully logged In")
+    navigate('/')
   }
+  else{
+    message.error(response.message)
+    dispatch(hideLoading())
+  }
+} catch (error) {
+  console.log(error.message);
+  dispatch(hideLoading())
+}
+finally{
+  dispatch(hideLoading())
+}
+}
+
+
 
   return (
-    <>
-      <div className='container'>
-        <div className='login-wrap'>
-          <div className='login-box'>
-            <h2>Turfo</h2>
-            <Form onFinish={onFinish}>
-              <Form.Item
-                
-                name="email"
-                htmlFor='email'
-                className="form"
-                rules={[{ required: true, message: "Email is required" }]}>
+    <main className="d-f">
+      <section>
+        <h2 className="color-g font-poppins ls">Login to Turfo</h2>
+      </section>
 
-                <Input id="email" type="text" placeholder="Enter your Email" className='custom-input'/></Form.Item>
-              <Form.Item
-               
-                name="password"
-                htmlFor='password'
-                className="form"
-                rules={[{ required: true, message: "Password is required" }]}>
+      <section className="py-3">
+        
+        <div style={{ width: 320, margin: '0 auto' }}>
+          <Form
+            layout="vertical"
+            size="large"
+            onFinish={onFinish}
+          >
+            <Form.Item
+              label="Email"
+              name="email"
+            >
+              <Input />
+            </Form.Item>
 
-                <Input id="email" type="password" placeholder="Enter your password" className='custom-input' />
-              </Form.Item>
+            <Form.Item
+              label="Password"
+              name="password"
+            >
+              <Input.Password />
+            </Form.Item>
 
-              <Form.Item>
-                <Button type="primary" className="button" htmlType='submit'>
-                  Login
-                </Button>
-              </Form.Item>
-            <h2 className='text'>
-              New to Turfo ?<Link to='/register' className='li'>
-              Register Here
-              </Link>
-            </h2>
-
-            </Form>
-
-          </div>
+            <Form.Item style={{ textAlign: 'center' }}>
+              <Button
+                type="primary"
+                size="large"
+                shape="round"
+                htmlType="submit"
+                style={{ width: 120 }}
+              >
+                Login
+              </Button>
+            </Form.Item>
+          </Form>
         </div>
-      </div>
-      l
-    </>
-
+      </section>
+      <section>
+        <span className='font-poppins py-3 c-p'><Link to='/register'>New User ?</Link> </span>
+      </section>
+    </main>
   )
-};
+}
 
-export default Login;
+export default Login

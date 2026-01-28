@@ -1,71 +1,101 @@
-const Stripe=require('stripe')(process.env.STRIPE_Key)
-const turf=require('../model/turfModel')
-const book=require('../model/BookModel')
+const Stripe = require('stripe')(process.env.STRIPE_Key)
+const turf = require('../model/turfModel')
+const book = require('../model/BookModel')
 
+/**
+ * MAKE PAYMENT
+ */
+const makePayment = async (req, res) => {
+  try {
+    
+    const { amount, token } = req.body
+    console.log(token.email,'email');
+   
+    
+    
+    // 1️⃣ Check if customer already exists
+    const customers = await Stripe.customers.list({
+      email: token.email,
+      limit: 1,
+    })
+ console.log(customers,'customers');
 
-const makePayment=async(req,res)=>{
-    try {
-        const{amount,token}=req.body
+    let currCustomer
 
-        const customers=await Stripe.customers.list(
-            {
-                email:token.email,
-                limit:1
-            }
-        )
-        console.log(customers.data);
+    if (customers.data.length > 0) {
+      currCustomer = customers.data[0]
+    } else {
+      // 2️⃣ Create customer (NO token here)
+      currCustomer = await Stripe.customers.create({
+        email: token.email,
+      })
+    }
 
-        let currCustomer=null
-        if(customers.data.length>0){
-                currCustomer=customers.data[0]
-        }
-        else{
-            const createCustomer=async()=>{
-                return await Stripe.create({
-                    source:token.id,
-                    email:token.email
-                })
-            }
-            currCustomer=createCustomer()
-        }
-        const paymentIntent=await Stripe.paymentIntent.create({
-            amount:amount,
-            currency:"usd",
-            customer:currCustomer.id,
-            payment_method_types:['card'],
-            receipt_email:token.email,
-            descriptions:'Token has been assigned'
-        })
-        const transactionId=paymentIntent.id
-          res.send({
+    // 3️⃣ Convert TOKEN → PAYMENT METHOD (VERY IMPORTANT)
+    const paymentMethod = await Stripe.paymentMethods.create({
+      type: 'card',
+      card: {
+        token: token.id, // token used ONLY ONCE here
+      },
+    })
+
+    // 4️⃣ Attach payment method to customer
+    await Stripe.paymentMethods.attach(paymentMethod.id, {
+      customer: currCustomer.id,
+    })
+
+    // 5️⃣ Create & CONFIRM payment intent
+    const paymentIntent = await Stripe.paymentIntents.create({
+      amount: amount * 100, 
+      currency: 'usd',
+      customer: currCustomer.id,
+      payment_method: paymentMethod.id,
+      confirm: true,
+      receipt_email: token.email,
+      description: 'Turf booking payment',
+    })
+
+    res.status(200).json({
       success: true,
-      message: "Payment Successfull, !Tickets Booked",
-      data: transactionId,
-    });     
-    } catch (error) {
-        console.log(error.message);
-        res.send({
+      message: 'Payment successful',
+      transactionId: paymentIntent.id,
+    })
+  } catch (error) {
+    console.log(req.body,'errororo');
+    
+    console.log(error.message,'error')
+
+    res.status(500).json({
       success: false,
       message: error.message,
-    });    
-    }}
-    const bookTurf = async (req, res) => {
+    })
+  }
+}
+
+/**
+ * BOOK TURF
+ */
+const bookTurf = async (req, res) => {
   try {
-    const { turf, date, startTime, endTime, user } = req.body;
+    const { turf, date, startTime, endTime, user, pricePerHour } = req.body
+
     const checkTime = await book.findOne({
       turf,
       date,
       startTime: { $lt: endTime },
       endTime: { $gt: startTime },
-    });
-if (checkTime) {
+    })
+
+    if (checkTime) {
       return res.status(400).json({
         success: false,
-        message: "This turf is already booked for the selected time",
-      });
-    } 
-    const duration = endTime - startTime;
-    const totalPrice = duration * req.body.pricePerHour;
+        message: 'This turf is already booked for the selected time',
+      })
+    }
+
+    const duration = endTime - startTime
+    const totalPrice = duration * pricePerHour
+
     const booking = await book.create({
       turf,
       user,
@@ -74,17 +104,22 @@ if (checkTime) {
       endTime,
       duration,
       totalPrice,
-    });
+    })
+
     res.status(201).json({
       success: true,
-      message: "Booking successful",
+      message: 'Booking successful',
       booking,
-    });
+    })
+  } catch (error) {
+    console.log(error.message)
+    res.status(500).json({
+      success: false,
+      message: error.message,
+    })
+  }
 }
-catch(err){
-    console.log(err.message);  
-}
-    }
-  
 
-module.exports={bookTurf,makePayment}
+module.exports = { makePayment, bookTurf }
+
+    

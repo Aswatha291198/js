@@ -91,7 +91,7 @@ const SingleTurf = () => {
             </div>
 
             <div className="location-div">
-              <span className='font-poppins'>Location</span>
+              <span className='font-poppins'>Location-{turf.city?.name}</span>
               <span className='font-poppins'>{turf.address}</span>
             </div>
           </div>

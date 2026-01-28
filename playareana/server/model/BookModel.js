@@ -25,6 +25,10 @@ const BookSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    transcationId:{
+        type:String,
+        required:true
+    },
     totalPrice: {
         type: Number,
         required: true

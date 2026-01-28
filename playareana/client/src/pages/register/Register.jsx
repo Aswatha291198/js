@@ -1,95 +1,82 @@
 import React from 'react'
-import { Form, Button, Input, message, Radio } from 'antd'
-import { Link, useMatch, useNavigate } from "react-router-dom"
-import './register.css'
-import { registerUser } from '../../api/user';
-
+import { Input,Form,Button } from 'antd'
+import { Link } from 'react-router-dom'
 const Register = () => {
-  const navigate = useNavigate()
-  const onFinish = async (values) => {
-    console.log('register');
-
-    try {
-      const response = await registerUser(values)
-      console.log(response.data);
-
-      if (response.success) {
-        navigate('/login')
-        message.success(response.message)
-      }
-      else {
-        message.error(response.message)
-      }
-    } catch (error) {
-
-      console.log('error');
-    }
-  }
+  
+const onFinish=()=>{}
 
   return (
-    <>
-      <div className='container'>
-        <div className='login-wrap'>
-          <div className='login-box'>
-            <h2>Turfo</h2>
-            <Form onFinish={onFinish}>
-              <Form.Item
+    <main className='d-f'>
+    <section>
+      <h2 className='color-g f-p'>Welcome To Turfo</h2>
+    </section>
+    <section className="py-3">
+        
+        <div style={{ width: 320, margin: '0 auto' }}>
+          <Form
+            layout="vertical"
+            size="large"
+            onFinish={onFinish}
+          >
+            
+             <Form.Item
+              label="Username"
+              name="name"
+              rules={[{
+                required:true,
+                message:'Username is required'
+              }]}
+            >
+              <Input />
+            </Form.Item>
 
-                name="name"
+            <Form.Item
+              label="Email"
+              name="email"
+               rules={[{
+                required:true,
+                message:'email is required'
+              }]}
+            >
+              <Input />
+            </Form.Item>
 
-                className="form"
-                rules={[{ required: true, message: "name is required" }]}>
+            <Form.Item
+              label="Password"
+              name="password"
+               rules={[{
+                required:true,
+                message:'password is required'
+              }]}
+            >
+              <Input.Password />
+            </Form.Item>
 
-                <Input type="text" placeholder="Enter your Name" className='custom-input' /></Form.Item>
-
-              <Form.Item
-
-                name="email"
-
-                className="form"
-                rules={[{ required: true, message: "Email is required" }]}>
-
-                <Input type="text" placeholder="Enter your Email" className='custom-input' /></Form.Item>
-              <Form.Item
-                name="password"
-                className="form"
-                rules={[{ required: true, message: "Password is required" }]}>
-
-                <Input type="password" laceholder="Enter your password" className='custom-input' />
-              </Form.Item>
-
-              <Form.Item>
-                <Button type="primary" className="button" htmlType="submit">
-                  Register
-                </Button>
-              </Form.Item>
-              <Form.Item
-                label="Register as a Partner"
-                htmlFor="role"
-                name="role"
-                className="d-block text-center"
-                initialValue={false}
-                rules={[{ required: true, message: "Please select an option" }]}
-
-              ><Radio.Group name="radiogroup" className="flex-start">
-                  <Radio value={"owner"}>Yes</Radio>
-                  <Radio value={"player"}>No</Radio>
-                </Radio.Group></Form.Item>
-              <h2 className='text'>
-                Already a user ?<Link to='/login' className='li'>
-                  Click here
-                </Link>
-              </h2>
-
-            </Form>
-
-          </div>
+            <Form.Item style={{ textAlign: 'center' }}>
+              <Button
+                type="primary"
+                size="large"
+                shape="round"
+                htmlType="submit" 
+                className='f-p ls '
+                style={{ width: 120,
+                  fontSize:'large',
+                  fontWeight:600
+                 }}
+              >
+                Login
+              </Button>
+            </Form.Item>
+          </Form>
         </div>
-      </div>
-      l
-    </>
-
+      </section>
+      <section 
+      >
+        <span className='f-p f-6 ls'>Already User</span>
+        <Link  className='py-3'to='/login'> Click Here</Link>
+      </section>
+    </main>
   )
-};
+}
 
-export default Register;
+export default Register
