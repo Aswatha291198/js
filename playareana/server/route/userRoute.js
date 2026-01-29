@@ -8,4 +8,5 @@ userRoute.post('/register',registerUser)
 userRoute.get('/current',auth,getCurrentUser)
 userRoute.post('/update-user',UpdateUser)
 userRoute.get('/all-users',GetAllUser)
+
 module.exports=userRoute

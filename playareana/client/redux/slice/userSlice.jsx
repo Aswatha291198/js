@@ -4,7 +4,8 @@ const userSlice=createSlice({
     name:'users',
     initialState:{
         user:null,
-        loader:false
+        loader:false,
+        location:null
     },
     reducers:{
         setUser:(state,action)=>{
@@ -18,9 +19,13 @@ const userSlice=createSlice({
         },
         hideLoading:(state)=>{
             state.loader=false
+        },
+        setLocation:(state,action)=>{
+            state.location=action.payload
         }
+        
     }
     
 })
 export default userSlice.reducer
-export const{setUser,showLoading,hideLoading,clearUser}=userSlice.actions
+export const{setUser,showLoading,hideLoading,clearUser,setLocation}=userSlice.actions

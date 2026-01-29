@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 import { Layout, message } from 'antd'
 import { useSelector,useDispatch } from 'react-redux'
 import { showLoading,hideLoading,setUser } from '../../redux/slice/userSlice'
-import { useNavigate } from 'react-router-dom'
+import { NavLink, useNavigate } from 'react-router-dom'
 import { GetCurrentUser } from '../api/user'
 import { GiSoccerKick } from "react-icons/gi";
 import { MdSportsVolleyball } from "react-icons/md";
@@ -32,6 +32,17 @@ const getUser=async()=>{
   finally{
     dispatch(hideLoading())
   }
+}
+
+const handleProfile=()=>{
+if(user?.role==='player'){
+  navigate('/player')
+}else if(user?.role==='admin'){
+navigate('/admin')
+}
+else{
+  navigate('/partner')
+}
 }
 useEffect(()=>{
   getUser()
@@ -72,26 +83,35 @@ console.log(user?.name,'name');
         
         onClick={()=>navigate('/')}>Turfo</h2>
       </section>
-    <div className='d-flex  h-100 '>
-      <ul className='d-flex  c-p  h-100 justify-content-between w-200 ls'>
-        {menuRoles[user?.role]?.map((item)=>
-        <li className='d-flex none  w-100 m-item  py-3 px-3'
-        onClick={()=>navigate(item.path)}
-        key={item.path}>
-          <span className='menu-label f-size f-6 '>{item.label}</span>
-  <span className='menu-icon f-size f-p f-6 py-3'
-  style={{
-    marginTop:5
-  }}
-  >{item.icon}</span>
-          
-        </li>
-        )}
+    <div className='d-flex  h-100 p-left '>
+      <ul className='d-flex p-left g-4 justify-content-between'
+      >
+        {menuRoles[user?.role]?.map((item,index)=>(
+          <li className='menu-item none p-left  f-size py-3 mt ' key={index}>
+            <NavLink
+            to={item.path}
+            className={({isActive})=>
+              isActive ?' menu-item active':'menu-item'}>
+              
+            <span className='f-6 ls'>{item.label}</span>
+            <span className='py-3 px-3'>{item.icon}</span>
+            
+            </NavLink>
+          </li>
+      ))}
       </ul>
     </div>
+    <section className='d-flex end w-200 px-3 mt'>
+      <span
+      className='c-p'
+       onClick={handleProfile}>{user?.name}</span>
+    </section>
     </Header>
   </Layout>
-  <div>{children}</div>
+  <div
+  style={{minHeight: 380, background: "#e9e5e5" }}
+  
+  >{children}</div>
     </>
   )
 }

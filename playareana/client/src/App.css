@@ -10,13 +10,29 @@
     display: flex;
     justify-content: center;
     align-items: center;
+   
+}
+.w-100{
+    width: 100%;
+    border: 2px solid red;
 }
 .c-p{
     cursor: pointer;
 }
+.pr-3{
+    padding-right: 1rem;
+}
+.w-50{
+    width: 50%;
+    
+}
+.w-color{
+    background-color: white;
+}
 .px-3{
     padding-top: 1rem;
 }
+
 .f-size{
     font-size: xx-large;
 }
@@ -32,7 +48,9 @@
 .gap{
     gap: 20px;
 }
-
+.b-color{
+    color:rgb(59, 69, 64)
+}
 .font-p{
     font-family: 'poppins';
     
@@ -44,19 +62,24 @@
     justify-content: space-evenly;
 }
 
-.w-100{
-    width: 15%;
-}
+
 .w-200{
     width: 800px;
 }
 
 .none{
     list-style: none;
+    text-decoration: none;
 }
 .d-flex{
     display: flex;
       
+}
+.end{
+    justify-content: end;
+}
+.m-auto{
+    margin: 0 auto;
 }
 
 .mt{
@@ -68,41 +91,60 @@
 .h-100{
     height: 100%;
 }
+.h-50{
+    height: 50%;
+}
 .flex-c{
+    display: flex;
     flex-direction: column;
 }
 .font-s{
     font-family:  "Science Gothic";
 }
 
+
 .p-left{
     position: relative;
     left: 100px;
+    
 }
 .ant-layout-header{
-    background-color: white !important;
-    display: flex !important;    
+    background-color:white !important;
+    display: flex !important;  
+height: 100px !important;  
+
 }
-.m-item{
+.menu-item{
     display: flex;
-    justify-content: center;
-    
-}
-.mb{
-    margin-bottom: 1rem;
-    
-}
-.m-item:hover{
-    background-color: green;
-    border-radius: 10px;
-    width: 18%;
-    
+    align-items: center;
+    color: black;   
     
 }
 
-.m-item:hover .menu-label,
-.m-item:hover .menu-icon {
-    color: white !important; /* forces override */
+.g-4{
+    gap: 40px;
+}
+.mb{
+    margin-bottom: 1rem;   
+}
+
+.menu-item .active{
+    border-radius: 10px; 
+    color: rgb(0, 189, 78);
+}
+.home-input{
+    background-color: rgb(240, 233, 233);
+    width: 250px;
+    height: 40px;
+   border-radius: 10px;
+   margin-right: 50px;
+   display: flex;
+   justify-content: end;
+   align-items: center;
+}
+.home-input input{
+    background-color: rgb(240, 233, 233);
+    outline: none;
 }
 
 
