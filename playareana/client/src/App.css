@@ -1,3 +1,51 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+.d-grid{
+    display: grid;
+    grid-template-rows: repeat(1fr,3);
+}
+.center{
+    justify-content: center;
+    align-items: center;
+}
+.max-h{
+    max-height: 400px;
+}
+.ant-layout-sider{
+    background-color: white !important;
+    }
+ .ant-layout-sider-children{
+    display: flex;
+    width: 300px;
+    border: 2px solid rgb(233, 235, 236);
+    border-radius: 10px;
+ }   
+.custom-input{
+border: 2px solid lightgray;
+margin-top: 25px;
+width: 250px;
+text-align: center;
+border-radius: 10px;
+font-size: large;
+}
+body {
+  background-color:rgb(229, 231, 235);
+}
+.b-top{
+    border-top: 2px solid rgb(225, 230, 231);
+}
+.h-1{
+    height: 100px;
+}
+.mx-45{
+    max-height: 45px;
+}
+.ant-card{
+    background-color:rgb(229, 231, 235) !important ;
+}
 .d-f{
     display: flex;
     justify-content: center;
@@ -9,12 +57,15 @@
 .d-f-center{
     display: flex;
     justify-content: center;
-    align-items: center;
-   
+    align-items: center;    
+}
+.p-top{
+    position: relative;
+    top: 100px;
 }
 .w-100{
     width: 100%;
-    border: 2px solid red;
+   
 }
 .c-p{
     cursor: pointer;
@@ -26,11 +77,29 @@
     width: 50%;
     
 }
+.red{
+    border: 1px solid rgb(240, 232, 232);
+}
+.w-7{
+    width: 70%;
+}
+.font-larger{
+    font-size: larger;
+}
+.font-large{
+    font-size: large;
+}
 .w-color{
-    background-color: white;
+    background-color:white;
 }
 .px-3{
     padding-top: 1rem;
+}
+.border{
+    border: 2px solid rgb(233, 235, 236);
+}
+.ant-layout-has-sider{
+    background-color: white !important;
 }
 
 .f-size{
@@ -47,6 +116,9 @@
 }
 .gap{
     gap: 20px;
+}
+.m-20{
+    margin: 30px;
 }
 .b-color{
     color:rgb(59, 69, 64)
@@ -81,15 +153,23 @@
 .m-auto{
     margin: 0 auto;
 }
+.cap{
+    text-transform: capitalize;
+}
+.pb-5{    
+padding-bottom: 50px;}
 
 .mt{
     margin-top: 1rem;
 }
 .bor{
-    border: 2px solid red;
+    border-radius: 10px;
 }
 .h-100{
     height: 100%;
+}
+.mh-1{
+    max-height: 100px;
 }
 .h-50{
     height: 50%;

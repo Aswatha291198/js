@@ -1,11 +1,11 @@
   import { Button, Col, Form, Input, message, Modal, Row, Select } from 'antd'
 import React, { useEffect,useState } from 'react'
 import { useSelector,useDispatch } from 'react-redux'
-import { hideLoading,showLoading } from '../../redux/slice/userSlice'
-import { getAllGame } from '../api/game'
-import { getAllCity } from '../api/city'
+import { hideLoading,showLoading } from '../../../redux/slice/userSlice'
+import { getAllGame } from '../../api/game'
+import { getAllCity } from '../../api/city'
 import TextArea from 'antd/es/input/TextArea'
-import { addTurf, updateTurf } from '../api/turf'
+import { addTurf, updateTurf } from '../../api/turf'
 const TurfForm = ({ formType,
    addModel,
    setAddModel,

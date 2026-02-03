@@ -6,6 +6,7 @@ import { NavLink, useNavigate } from 'react-router-dom'
 import { GetCurrentUser } from '../api/user'
 import { GiSoccerKick } from "react-icons/gi";
 import { MdSportsVolleyball } from "react-icons/md";
+import { GiIncomingRocket } from "react-icons/gi"
 const Protected = ({children}) => {
   const dispatch=useDispatch()
   const navigate=useNavigate()
@@ -18,7 +19,6 @@ const getUser=async()=>{
     const response=await GetCurrentUser()
     if(response.success){
       dispatch(setUser(response.data))
-
     }
     else{
       message.error(response.message)
@@ -41,11 +41,16 @@ if(user?.role==='player'){
 navigate('/admin')
 }
 else{
-  navigate('/partner')
+  navigate('/owner')
 }
 }
 useEffect(()=>{
-  getUser()
+  if(localStorage.getItem('token')){
+    getUser()
+  }
+  else{
+    navigate('/login')
+  }
 },[])
 
 const menuRoles={
@@ -55,10 +60,10 @@ const menuRoles={
      {label:'Play',path:'/play',icon:<GiSoccerKick/>} 
     
   ],
-  partner:[
+  owner:[
    
-    // { label:'',path:'/book'},
-    //  {label:'Play',path:'/play'} 
+     {label:'Incoming',path:'/incoming',icon:<GiIncomingRocket/>},
+     {label:'sfksdnk',path:'/play'} 
     
   ],
   admin:[
@@ -79,7 +84,7 @@ console.log(user?.name,'name');
   <Layout>
     <Header>
       <section>
-        <h2 className='f-p color-g  c-p   f-size font-s py-3 p-left'
+        <h2 className='f-p color-g  c-p   f-size font-s py-3 px-3 mt p-left'
         
         onClick={()=>navigate('/')}>Turfo</h2>
       </section>
