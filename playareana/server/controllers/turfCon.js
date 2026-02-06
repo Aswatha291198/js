@@ -34,7 +34,9 @@ const getAllTurf =async(req,res)=>{
     console.log('getallturf');
     
     try {
-        const allturf=await turf.find().populate('city').populate('AddSport')
+        const allturf=await turf.find().populate('city')
+        .populate('AddSport')
+        .populate('owner')
         res.status(201).send({success:true,data:allturf})
     } catch (error) {
         console.log(error.message);

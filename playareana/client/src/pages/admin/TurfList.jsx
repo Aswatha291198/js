@@ -1,61 +1,84 @@
+import { Table } from 'antd'
 import React, { useEffect, useState } from 'react'
-import './admin.css'
-import { message, Table } from 'antd'
-import { getAllTurf } from '../../api/turf'
-import{useDispatch} from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { hideLoading,showLoading } from '../../../redux/slice/userSlice'
+import { getAllTurf } from '../../api/turf'
 const TurfList = () => {
-  console.log('coming to the turflist');
-  
+  const[turf,setTurfs]=useState([])
 const dispatch=useDispatch()
- const[turf,setTurf]=useState([])
-  const getData=async()=>{
+  const getData=async ()=>{
     try {
+      dispatch(showLoading())
       const response=await getAllTurf()
       if(response.success){
-        const allturf=response.data
-        setTurf(
-          allturf.map((turf)=>{
-              return{...turf,key:`turf${turf._id}`}
-          })
-        )
-        message.success(response.message)
+        setTurfs(response.data)
+
       }
     } catch (error) {
-      console.log(error.message);
-      message.error(error.message)
+     console.log(error.message);
+     
+
+    }finally{
+ dispatch(hideLoading())
+ 
     }
   }
-  console.log(turf);
-  
-  useEffect(()=>{
-    getData()
-  },[])
-  return (
-    <>
-    <main className='turf-main'>
-    <div className="turf-list">
-      <h2 className='font-poppins'>Turf List</h2>
 
-</div>
-<div className="turf-cont-list">
-  {turf && turf.map((venue)=>{
-    return (
-      <div
-       className='turf-container'
-       key={venue._id}
-       >
-        <div>{venue?.name}</div>
-        <div>{venue?.address}</div>
-        <div>{venue.email}</div>
-        <div>isActive</div>
-       </div>
-    )
-  })}
-</div>
-    </main>
-    
-    </>
+useEffect(()=>{
+getData()
+},[])
+
+  const columns=[
+    {
+      key:'poster',
+      title:'Poster',
+      dataIndex:'poster',
+      render:(text,data)=>{
+        return <img src={data.poster}
+        style={{
+          width:100
+        }} alt="poster" />
+      }
+    },
+
+    {
+      key:"turf",
+      title:'Turf Name',
+      dataIndex:'name',
+     
+    },
+    {
+      key:'email',
+      title:'Email',
+      dataIndex:'email',
+      
+    },
+    {
+      key:'num',
+      title:'Number',
+      dataIndex:'phone'
+    },
+    {
+      key:'city',
+      title:'City',
+      dataIndex:'city',
+      render:(text,data)=>{
+        return <span>{data.city?.name}</span>  
+      }
+    },
+    {
+      key:'owner',
+      title:'Owner',
+      dataIndex:'owner',
+      render:(text,data)=>{
+        return <span>{data.owner?.name}</span>
+      }
+    }
+  ]
+  return (
+   <>
+   <Table columns={columns} dataSource={turf}/>
+   </>
   )
 }
 

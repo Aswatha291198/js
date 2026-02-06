@@ -114,7 +114,7 @@ console.log(user?.name,'name');
     </Header>
   </Layout>
   <div
-  style={{minHeight: 380, background: "#e9e5e5" }}
+  style={{minHeight: 380, background: "white" }}
   
   >{children}</div>
     </>

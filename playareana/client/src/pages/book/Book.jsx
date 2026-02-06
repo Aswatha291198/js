@@ -72,13 +72,15 @@ const Book = () => {
       <span>Venues({turfs.length})</span>
       </section>
       <section className='mt'> 
-        <div className='d-grid' >
+        <div className='d-grid gap m-20' >
           {turfs && turfs.map((turf)=>(
             <Card
             key={turf._id}
-            className='red py-3 px-3'
+            className='red py-3 h-100 flex-c w-50 c-p'
             > 
-            <img src={turf.poster} alt="d" />      
+            <img src={turf.poster} alt="d" className='w-50 h-100' />     
+            <span>{turf.name}</span> 
+            <span>{turf.email}</span>
             </Card>
           ))}
         </div>

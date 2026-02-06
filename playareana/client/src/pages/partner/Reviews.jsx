@@ -1,8 +1,19 @@
-import React from 'react'
+import { Tabs } from 'antd'
+import React, { Children } from 'react'
+import Turf from './Turf'
 
 const Reviews = () => {
+  const tab=[
+    {
+      key:'1',
+      lable:'turfs',
+      children:<Turf/>
+    }
+  ]
   return (
-    <div>Reviews</div>
+    <>
+    <Tabs/>
+    </>
   )
 }
 
