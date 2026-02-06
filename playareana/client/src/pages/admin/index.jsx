@@ -3,6 +3,7 @@ import React from 'react'
 import TurfList from './TurfList'
 import City from './City'
 import GameList from './GameList'
+import Edit from '../Edit-profile/Edit'
 
 const index = () => {
 const tabItems=[
@@ -20,7 +21,13 @@ const tabItems=[
     key:'games',
     label:'GameList',
     children:<GameList/>
+  },
+  {
+    key:'edit',
+    label:'Edit-Profile',
+    children:<Edit/>
   }
+
 
 ]
 
