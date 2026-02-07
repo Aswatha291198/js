@@ -64,6 +64,7 @@ getData()
   ]
   return (
    <>
+   <Button className='font-p f-6' type='primary'>Add Game</Button>
    <Table columns={columns} dataSource={game}/>
    </>
   )

@@ -235,7 +235,7 @@ height: 100px !important;
     background-color: rgb(240, 233, 233);
     outline: none;
 }
-.custom-table .ant-table-cell{
+.ant-table-cell{
     border-radius: 15px;
     font-family: 'poppins';
     text-transform: capitalize;
@@ -243,7 +243,7 @@ height: 100px !important;
 
 .ant-tabs{
     font-family: 'poppins';
-    font-weight: 600;
+    font-weight:600;
 }
 
 

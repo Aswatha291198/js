@@ -61,6 +61,8 @@ export const getAllturfOwner = async (id) => {
 
     try {
         const response = await axiosInstance.get(`/turfo/turfs/turf/owner/${id}`)
+        console.log(response,'raw');
+        
         return response.data
     } catch (error) {
         console.log(error.message);

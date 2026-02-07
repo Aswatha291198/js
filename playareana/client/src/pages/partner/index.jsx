@@ -1,46 +1,29 @@
+import { Tabs } from 'antd'
 import React from 'react'
-import { Layout } from 'antd'
-import { useSelector } from 'react-redux'
-import { FaRegUser } from "react-icons/fa"
-
-const Owner = () => {
-const{Sider}=Layout
-const{user}=useSelector(store=>store.users)
+import Turf from '../partner/Turf'
+import Edit from '../Edit-profile/Edit'
+const index = () => {
+  const tabItems=[
+    {
+      key:'turf',
+      label:'Turf',
+      children:<Turf/>
+    },
+    {
+      key:'edit',
+      label:'Edit-profile',
+      children:<Edit/>
+    }
+  ]
   return (
     <>
-    <main 
-    style={{
-      height:'100vh'
-    }}>
-      <Layout 
-      className='flex-c h-100'>
-        <Sider className='m-20 p-left  '>
-          <section className='h-50 flex-c center w-100'>
-            <div className=' m-20
-            h-1 w-50 d-f-center'
-            >
-              <div className='h-1 red w-50 d-f-center'
-              style={{
-                borderRadius:"50%",
-               
-              }}>
-                <FaRegUser
-                className='f-size'
-                /> </div>
-            </div>
-            <section className='flex-c mb-'>
-              <span className='cap f-6 py-3 font-p font-large'>{user?.name}</span>
-              <span className='cap f-6 mt py-3  font-p font-large'>{user?.email}</span>
-            </section>
-          </section>
-        </Sider>
-      </Layout>
-    </main>
-    
-    
+   <div className='m-20'>
+     <Tabs items={tabItems} style={{
+     margin:'5px'}}/>
+   </div>
     
     </>
   )
 }
 
-export default Owner
+export default index

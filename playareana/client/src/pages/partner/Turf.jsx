@@ -1,125 +1,118 @@
+import { Button, Table } from 'antd'
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { hideLoading, showLoading } from '../../redux/slice/userSlice'
-import { getAllturfOwner } from '../api/turf'
-import { useParams } from 'react-router-dom'
-import './owner.css'
-import { Button,message } from 'antd'
-import TurfForm from './TurfForm'
-import { MdDeleteForever } from "react-icons/md";
-import { FaEdit } from "react-icons/fa";
-import DeleteModal from './DeleteModal'
+import { hideLoading,showLoading } from '../../../redux/slice/userSlice'
+import { getAllturfOwner, getTurfbyId } from '../../api/turf'
+import { FiEdit } from "react-icons/fi";
+
 const Turf = () => {
-  console.log("TURF COMPONENT RENDERED")
-  const[addModel,setAddModel]=useState(false)
-  const [turfs, setTurfs] = useState([])
-  const[selectedTurf,setSelectedTurf]=useState(null)
-  const[isDeleteModal,setIsDeleteModal]=useState(false)
-  const[form,setForm]=useState('add')
+  const [turfs,setTurfs]=useState([])
   const{user}=useSelector(store=>store.users)
-  const dispatch = useDispatch()
-  const { id } = useParams()
-
- console.log(id,'form the turf');
- 
-
-  const getTurfs = async () => {
+  const dispatch=useDispatch()
+  const[turfModal,setTurfModal]=useState(false)
+  const[selectedTurd,setSelectedTurf]=useState(null)
+  const[formType,setFormType]=useState('add')
+  
+  const getData=async()=>{
+    console.log('inside fu');
+    
     try {
-      if(id){
-        dispatch(showLoading())
-      const response = await getAllturfOwner(id)
-      if (response.success) {
-        message.success(response.message)
-        setTurfs(response.data)
-       dispatch(hideLoading())
-      }
-      }
+      dispatch(showLoading())
+      const response=await getAllturfOwner(user?._id)
+      console.log(user?._id);
       
+        if(response.success){
+          setTurfs(response.data)
+        }    
     } catch (error) {
-      console.log(error.message)
+      console.log(error.messsage);
+      
+    }finally{
+    
       dispatch(hideLoading())
+
     }
   }
 
-  useEffect(() => {
-   getTurfs()
-  }, [])
+  useEffect(()=>{
+if(user?._id){
+  getData()
+}
+  },[user])
 
+const columns =[
+  {
+    key:'turf',
+    title:'Turf Name',
+    dataIndex:'name'
+  },
+  {
+    key:'email',
+    title:'Email',
+    dataIndex:'email'
+  },
+  {
+    key:'loc',
+    title:'Location',
+    dataIndex:'city',
+    render:(trxt,data)=>{
+      return <span>{data?.city?.name}</span>
+    }
+  },
+  {
+    key:'add',
+    title:'Address',
+    dataIndex:'address',
+  },
+  {
+    key:'price',
+    title:'Price',
+    dataIndex:'price',
+  },
+  {
+    key:'open',
+    title:'Opening Time',
+    dataIndex:'open'
+  },
+  {
+    key:'close',
+    title:'Closing Time',
+    dataIndex:'close'
+  },
+  {
+    key:'active',
+    title:'Status',
+    dataIndex:'isActive',
+    render:(text,data)=>{
+      return <span>{data?.isActive ? 'Approved':'Pending'}</span>
+    }
+  },
+  {
+    key:'actions',
+    title:'Actions',
+    render:(text,data)=>{
+      return <div>
+        <Button><FiEdit/></Button>
+        <Button></Button>
+      </div>
+    }
+  }
+]
 
   return (
     <>
-      <main className="owner-turf-cont">
-        <div className="turf-head-cont">
-          <h2 className='font-style'>Turfs</h2>
-        </div>
-        <Button 
-          type='primary'
-          className='add-turf-btn
-          font-poppins
-          '
-          onClick={()=>{setAddModel(prev=>!prev)
-          setForm('add')}}
-          >
-            Add Turf
-          </Button>
-          <div className="turf-card-own">
-            {turfs &&turfs.map((turf)=>{
-            console.log(turf.city?.name,'city');
-            
-           return ( <div
-           className='turf-card'
-           key={turf._id}>
-            <div className="turf-name-div">
-              <span>{turf.name}</span>
-              
-            </div>
-            
-           <div className="div-loc-cont">
-          <p>{turf.address}</p>
-          <span>{turf.city.name}</span>
-           </div>
-            <div className="icon-cont">
-              <MdDeleteForever
-                 className='own-icon'
-                 onClick={()=>{setIsDeleteModal(prev=>!prev)
-                setSelectedTurf(turf._id) 
-                }
-                 }
-                 />
-            <FaEdit
-            className='own-icon'
-            onClick={()=>{
-              console.log('dndjqsbdhb');
-              
-              setForm('edit')
-              setAddModel(prev=>!prev)
-              setSelectedTurf(turf)
-              console.log(selectedTurf,'null formnsjfnfj');
-              
-            }}
-            />
-            </div>
-           </div>
-         ) })}
-          </div>
-      </main>
-      {addModel && (
-        <TurfForm addModel={addModel}
-        setAddModel={setAddModel}
-        getTurfs={getTurfs}
-        form={form}
-        selectedTurf={selectedTurf}
-        setSelectedTurf={setSelectedTurf}
-        />
+    <div>
+      <Button  className='mt font-p f-6 ls'
+      onClick={()=>{
+        setFormType('add')
+      }}
+      type='primary'>Add Turf</Button>
+      {user && (
+        <Table columns={columns} dataSource={turfs}
+     className='py-3 px-3'
+     />
       )}
-      {isDeleteModal && (
-        <DeleteModal
-        setIsDeleteModal={setIsDeleteModal}
-        isDeleteModal={isDeleteModal}
-        selectedTurf={selectedTurf}
-        setSelectedTurf={setSelectedTurf}
-        getTurfs={getTurfs}/>
-      )}
+    </div>
     </>
   )
 }

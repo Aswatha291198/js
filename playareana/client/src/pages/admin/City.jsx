@@ -52,8 +52,9 @@ getData()
     
   return (
    <>
+   <Button>Add City</Button>
    <Table columns={columns} dataSource={city}
-   className='custom-table'/>
+   />
    </>
   )
 }
