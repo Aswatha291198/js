@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import x from '../../assets/X.png'
+import{Select} from 'antd'
 import { CiLocationOn } from "react-icons/ci"
 import { getAllCity } from '../../api/city'
 import{useDispatch,useSelector}from 'react-redux'
@@ -8,9 +9,9 @@ import { hideLoading,showLoading,setLocation } from '../../../redux/slice/userSl
 
 const Home = () => {
   
-  const[ selectedCity,setSelectedCity]=useState('')
-  const dispatch=useDispatch()
   
+  const dispatch=useDispatch()
+  const[city,SetCity]=useState([])
 
   return (
     <>
@@ -22,7 +23,9 @@ const Home = () => {
     }}
     > 
     <div className='d-f-center  flex-c w-50 '>
-    
+    <Select ></Select>
+
+
     <h1 className='font-p w-50 py-3 mb b-color '>
       Book sports venues.
 Join games.

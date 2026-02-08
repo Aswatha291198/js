@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { hideLoading,showLoading } from '../../../redux/slice/userSlice'
 import { getAllturfOwner, getTurfbyId } from '../../api/turf'
 import { FiEdit } from "react-icons/fi";
+import { MdDeleteOutline } from "react-icons/md";
 
 const Turf = () => {
   const [turfs,setTurfs]=useState([])
@@ -91,9 +92,9 @@ const columns =[
     key:'actions',
     title:'Actions',
     render:(text,data)=>{
-      return <div>
-        <Button><FiEdit/></Button>
-        <Button></Button>
+      return <div className='d-flex gap '>
+        <Button className='font-large'><FiEdit/></Button>
+        <Button danger className='font-large'><MdDeleteOutline/></Button>
       </div>
     }
   }
@@ -107,11 +108,11 @@ const columns =[
         setFormType('add')
       }}
       type='primary'>Add Turf</Button>
-      {user && (
+      
         <Table columns={columns} dataSource={turfs}
      className='py-3 px-3'
      />
-      )}
+      
     </div>
     </>
   )

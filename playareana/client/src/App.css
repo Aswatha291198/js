@@ -43,9 +43,7 @@ body {
 .mx-45{
     max-height: 45px;
 }
-.ant-card{
-    background-color:rgb(229, 231, 235) !important ;
-}
+
 .d-f{
     display: flex;
     justify-content: center;
@@ -83,11 +81,9 @@ body {
 .w-7{
     width: 70%;
 }
-.ant-card-body{
-    border: 2px solid red;
-    display: flex;
-    flex-direction: column;
-    
+
+.ml-3{
+    margin-left: 1rem;
 }
 .mb-5{
     margin-bottom: 50px;

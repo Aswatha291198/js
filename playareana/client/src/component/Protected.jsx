@@ -7,18 +7,25 @@ import { GetCurrentUser } from '../api/user'
 import { GiSoccerKick } from "react-icons/gi";
 import { MdSportsVolleyball } from "react-icons/md";
 import { GiIncomingRocket } from "react-icons/gi"
+import { getAllCity } from '../api/city'
+import { setCity } from '../../redux/slice/citySlice'
 const Protected = ({children}) => {
   const dispatch=useDispatch()
   const navigate=useNavigate()
   const{user}=useSelector(store=>store.users)
+  const{selectedCity}=useSelector(store=>store.users)
 const {Header}=Layout
-
+  
 const getUser=async()=>{
   try {
     dispatch(showLoading())
     const response=await GetCurrentUser()
     if(response.success){
       dispatch(setUser(response.data))
+      const cityRes=await getAllCity()
+      if(cityRes.success){
+        dispatch(setCity(cityRes.data))
+      }
     }
     else{
       message.error(response.message)
@@ -56,7 +63,13 @@ useEffect(()=>{
 const menuRoles={
   player:[
    
-     {label:'Book',path:'/book',icon:<MdSportsVolleyball/>},
+     {
+      label: 'Book',
+      path: selectedCity
+      ? `/book?city=${selectedCity}`
+      : '/book',
+    icon: <MdSportsVolleyball />
+  },
      {label:'Play',path:'/play',icon:<GiSoccerKick/>} 
     
   ],
