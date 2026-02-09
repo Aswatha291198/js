@@ -68,10 +68,7 @@
             type:String,
             required:true
         },
-        bookedBy:{
-            type:mongoose.Schema.Types.ObjectId,
-            ref:'users'
-        }
+        
 
     },{timestamps:true})
     const turfModel = mongoose.model('Turf', turfSchema);

@@ -23,7 +23,7 @@ const Home = () => {
     }}
     > 
     <div className='d-f-center  flex-c w-50 '>
-    <Select ></Select>
+   
 
 
     <h1 className='font-p w-50 py-3 mb b-color '>

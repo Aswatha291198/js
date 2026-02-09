@@ -1,5 +1,5 @@
-import React, { useEffect } from 'react'
-import { Layout, message } from 'antd'
+import React, { useEffect, useState } from 'react'
+import { Layout, message,Modal,Select } from 'antd'
 import { useSelector,useDispatch } from 'react-redux'
 import { showLoading,hideLoading,setUser } from '../../redux/slice/userSlice'
 import { NavLink, useNavigate } from 'react-router-dom'
@@ -8,24 +8,26 @@ import { GiSoccerKick } from "react-icons/gi";
 import { MdSportsVolleyball } from "react-icons/md";
 import { GiIncomingRocket } from "react-icons/gi"
 import { getAllCity } from '../api/city'
-import { setCity } from '../../redux/slice/citySlice'
+import { setCity,setCities,setCityModal } from '../../redux/slice/citySlice'
+import CityModal from './Modals/CityModal'
 const Protected = ({children}) => {
   const dispatch=useDispatch()
   const navigate=useNavigate()
   const{user}=useSelector(store=>store.users)
-  const{selectedCity}=useSelector(store=>store.users)
+  const{selectedCity,cities,isCityModal}=useSelector(store=>store.cities)
 const {Header}=Layout
-  
+
 const getUser=async()=>{
   try {
     dispatch(showLoading())
     const response=await GetCurrentUser()
     if(response.success){
       dispatch(setUser(response.data))
-      const cityRes=await getAllCity()
-      if(cityRes.success){
-        dispatch(setCity(cityRes.data))
-      }
+    }
+    const cityResponse=await getAllCity()
+    if(cityResponse.success){
+      dispatch(setCities(cityResponse.data))
+      
     }
     else{
       message.error(response.message)
@@ -59,14 +61,20 @@ useEffect(()=>{
     navigate('/login')
   }
 },[])
+useEffect(()=>{
+if(!localStorage.getItem('city')){
+ dispatch(setCityModal(true))
+}
+},[])
+
 
 const menuRoles={
   player:[
    
      {
       label: 'Book',
-      path: selectedCity
-      ? `/book?city=${selectedCity}`
+      path:localStorage.getItem('city')
+      ? `/book?city=${localStorage.getItem('city')}`
       : '/book',
     icon: <MdSportsVolleyball />
   },
@@ -126,6 +134,10 @@ console.log(user?.name,'name');
     </section>
     </Header>
   </Layout>
+ 
+ {
+  isCityModal && <CityModal isCityModal={isCityModal}/>
+ }
   <div
   style={{minHeight: 380, background: "white" }}
   
