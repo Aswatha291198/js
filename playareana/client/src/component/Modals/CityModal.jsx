@@ -11,7 +11,7 @@ const dispatch=useDispatch()
         const handleCity=(value)=>{
 localStorage.setItem('city',value) 
 dispatch(setCity(value))
-navigate(`/book?city=${selectedCity}`)
+navigate(`/book?city=${value}`)
 dispatch(setCityModal(false))
 }
 

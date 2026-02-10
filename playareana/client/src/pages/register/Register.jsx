@@ -1,9 +1,27 @@
 import React from 'react'
 import { Input,Form,Button } from 'antd'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
+import { useDispatch } from 'react-redux'
+import { hideLoading,showLoading } from '../../../redux/slice/userSlice'
+import { registerUser } from '../../api/user'
 const Register = () => {
-  
-const onFinish=()=>{}
+  const navigate=useNavigate()
+  const dispatch=useDispatch()
+const onFinish= async(values)=>{
+  try {
+dispatch(showLoading())
+    const response=await registerUser(values)
+    if(response.success){
+      navigate('/login')
+    }
+  } catch (error) {
+    console.log(error);
+    
+  }finally{
+dispatch(hideLoading())
+  }
+}
+
 
   return (
     <main className='d-f'>
@@ -64,7 +82,7 @@ const onFinish=()=>{}
                   fontWeight:600
                  }}
               >
-                Login
+                Register
               </Button>
             </Form.Item>
           </Form>

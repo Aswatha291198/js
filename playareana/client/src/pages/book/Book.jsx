@@ -14,6 +14,7 @@ const Book = () => {
   const[serachParams]=useSearchParams()
   const city=serachParams.get('city')
   const dispatch=useDispatch()
+  console.log(city);
   
 
   const getData=async()=>{
@@ -44,12 +45,12 @@ getData()
    <>
    <main className='flex-c'>
     <div className='m-20 h-1 d-f-center gap border bor'>
-      <h2 className='font-s b-color '>Book By Venue, Cities</h2>
+      <h2 className='font-p b-color '>Book By Venue, Cities</h2>
        <input type="text"
        style={{
         width:200,
         height:30,
-        textAlign:'center'
+        textAlign:'center',
        }}
        placeholder='Search By Venue' />
        <div className='border py-3 bor'
@@ -58,7 +59,7 @@ getData()
         height:30 
        }}
        onClick={()=>dispatch(setCityModal(true))}>
-        <span className='font-p f-6 ls cap'>{city}</span>
+        <span className='font-p c-p f- ls cap '>{city}</span>
        </div>
     </div>
     <Tabs items={tabItems}/>

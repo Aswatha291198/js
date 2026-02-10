@@ -34,6 +34,10 @@ const getUser=async()=>{
       navigate('/login')
       dispatch(hideLoading())
     }
+    if(response.status===401){
+      navigate('/login')
+      localStorage.removeItem('city')
+    }
   } catch (error) {
     console.log(error.message);
      dispatch(hideLoading()) 
@@ -131,6 +135,15 @@ console.log(user?.name,'name');
       <span
       className='c-p'
        onClick={handleProfile}>{user?.name}</span>
+    </section>
+    <section>
+      <span
+      
+      onClick={()=>{
+        localStorage.removeItem('city')
+        localStorage.removeItem('token')
+        navigate('/login')
+      }}>Logout</span>
     </section>
     </Header>
   </Layout>
