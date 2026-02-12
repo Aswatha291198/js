@@ -99,8 +99,6 @@ const menuRoles={
   ]
 
 }
-console.log(user?.role,'role');
-console.log(user?.name,'name');
 
 
 

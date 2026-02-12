@@ -6,4 +6,5 @@ cityRouter.post('/add-city',addCity)
 cityRouter.get('/all-city',AllCity)
 cityRouter.post('/update-city',updateCity)
 
+
 module.exports=cityRouter

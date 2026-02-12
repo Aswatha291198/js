@@ -4,6 +4,7 @@ const auth=(req,res,next)=>{
     try {
         
         const token=req.headers.authorization.split(" ")[1]
+    
         console.log(token,'from auth');
         const verifiedToken=jwt.verify(token,process.env.JWT_SECRET)
         console.log('verifiedToken',verifiedToken);
@@ -12,7 +13,7 @@ const auth=(req,res,next)=>{
         
     } catch (error) {
         console.error("JWT Verify Error:", error.message); 
-        return res.status(500).send("Something Went Wrong form auth")
+        return res.status(401).send("unauthorized")
     }
 
 }

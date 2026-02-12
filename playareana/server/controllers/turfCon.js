@@ -1,4 +1,5 @@
 const turf = require('../model/turfModel')
+const City=require('../model/cityModel')
 
 const addTurf = async (req, res) => {
     try {
@@ -111,18 +112,49 @@ const getTurfById=async(req,res)=>{
         
     }
 }
-const getTurfBySearch = async (req, res) => {
-    try {
-        const search = await turf.find(req.body)
-        if (!search) {
-            return res.status(404).send({ message: "No turf found", success: false })
-        }
-        res.send({
-            success: true,
-            data: search
-        })
-    } catch (error) {
-        return res.status(500).send('Something went wrtong')
+
+const getTurfByCity = async (req, res) => {
+  try {
+    const { city } = req.query
+
+    if (!city) {
+      return res.status(400).send({
+        success: false,
+        message: 'City is required'
+      })
     }
+
+    
+    const cityDoc = await City.findOne({
+      name: { $regex: `^${city}$`, $options: 'i' }
+    })
+
+    if (!cityDoc) {
+      return res.status(404).send({
+        success: false,
+        message: 'City not found'
+      })
+    }
+
+    // 2️⃣ Find turfs using city _id
+    const turfs = await turf.find({ city: cityDoc._id })
+      .populate('city')
+      .populate('owner')
+      .populate('AddSport')
+
+    return res.status(200).send({
+      success: true,
+      data: turfs
+    })
+  } catch (error) {
+    console.error(error)
+    return res.status(500).send({
+      success: false,
+      message: 'Something went wrong'
+    })
+  }
 }
-module.exports={addTurf,updateTurf,deleteTurf,getTurfByIdowner,getAllTurf,getTurfBySearch,getTurfById}
+
+
+
+module.exports={addTurf,updateTurf,deleteTurf,getTurfByIdowner,getAllTurf,getTurfById,getTurfByCity}

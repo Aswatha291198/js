@@ -1,5 +1,5 @@
 
-const { addTurf, updateTurf, deleteTurf, getAllTurf, getTurfById, getTurfBySearch, getTurfByIdowner } = require('../controllers/turfCon')
+const { addTurf, updateTurf, deleteTurf, getAllTurf, getTurfById ,getTurfByIdowner, getTurfByCity } = require('../controllers/turfCon')
 
     const router=require('express').Router()
 
@@ -7,8 +7,8 @@ const { addTurf, updateTurf, deleteTurf, getAllTurf, getTurfById, getTurfBySearc
     router.put('/update-turf',updateTurf)
     router.delete('/delete/:id',deleteTurf)
     router.get('/all-turf',getAllTurf)
+    router.get('/get-truf-by-city',getTurfByCity    )
     router.get('/turf/owner/:id',getTurfByIdowner)
-    router.get('/turf',getTurfBySearch)
     router.get('/turf/:id',getTurfById)
 
     module.exports=router

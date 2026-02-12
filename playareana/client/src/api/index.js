@@ -15,16 +15,14 @@ axiosInstance.interceptors.request.use(function(config){
     return config
 })
 axiosInstance.interceptors.response.use(
-  (response) => response,
-  (error) => {
+  response => response,
+  error => {
     if (error.response?.status === 401) {
-      localStorage.removeItem('token')
-      localStorage.removeItem('city')
-
-    
-      window.location.href = '/login'
+      // 🔥 token expired / invalid
+      localStorage.removeItem("token")
+      localStorage.removeItem("city")   // ✅ remove city here
+      window.location.href = "/login"
     }
-
     return Promise.reject(error)
   }
 )

@@ -1,74 +1,78 @@
-import React, { useEffect, useState } from 'react'
-import {Tabs} from 'antd'
-import {hideLoading,showLoading} from '../../../redux/slice/userSlice'
-import {useDispatch,useSelector}from 'react-redux'
-import {useNavigate, useSearchParams}from 'react-router-dom'
-import { setCity,setCities,setCityModal } from '../../../redux/slice/citySlice'
-import CityModal from '../../component/Modals/CityModal'
-import { getAllTurf } from '../../api/turf'
+  import React, { useEffect, useState } from 'react'
+  import {Tabs} from 'antd'
+  import {hideLoading,showLoading} from '../../../redux/slice/userSlice'
+  import {useDispatch,useSelector}from 'react-redux'
+  import {useNavigate, useSearchParams}from 'react-router-dom'
+  import { setCity,setCities,setCityModal } from '../../../redux/slice/citySlice'
+  import CityModal from '../../component/Modals/CityModal'
+  import { getAllTurf } from '../../api/turf'
 
 
-const Book = () => {
-  const{cities,isCityModal,selectedCity}=useSelector(store=>store.cities)
-  const[venues,setVenues]=useState([])
-  const[serachParams]=useSearchParams()
-  const city=serachParams.get('city')
-  const dispatch=useDispatch()
-  console.log(city);
-  
+  const Book = () => {
+    const{cities,isCityModal,selectedCity}=useSelector(store=>store.cities)
+    const[venues,setVenues]=useState([])
+    const[filteredVenues,setFilteredVenues]=useState([])
+    const[serachParams]=useSearchParams()
+    const city=serachParams.get('city')
+    const dispatch=useDispatch()
+    console.log(city);
+    
 
-  const getData=async()=>{
-    try {
-      const venueResponse=await getAllTurf()
-      if(venueResponse.success){
-        setVenues(venueResponse.data)
+    const getData=async()=>{
+      try {
+        const venueResponse=await getAllTurf()
+        dispatch(setCity(city))
+        if(venueResponse.success){
+          setVenues(venueResponse.data)
+          setFilteredVenues(venueResponse.data)
+        }
+      } catch (error) {
+        console.log(error.message);
+        
+      }finally{
+        dispatch(hideLoading())
       }
-    } catch (error) {
-      console.log(error.message);
-      
-    }finally{
-      dispatch(hideLoading())
     }
+
+  console.log(selectedCity,'from book')
+  const tabItems=[
+      {
+        key:'venues',
+        label:`Venues ${venues.length}`
+      }
+    ]
+
+  useEffect(()=>{
+  getData()
+  },[])
+    return (
+    <>
+    <main className='flex-c'>
+      <div className='m-20 h-1 d-f-center gap border bor'>
+        <h2 className='font-p b-color '>Book By Venue, Cities</h2>
+        <input type="text"
+        style={{
+          width:200,
+          height:30,
+          textAlign:'center',
+        }}
+        placeholder='Search By Venue' />
+        <div className='border py-3 bor'
+        style={{
+          width:200,
+          height:30 
+        }}
+        onClick={()=>dispatch(setCityModal(true))}>
+          <span className='font-p c-p f- ls cap '>{city}</span>
+        </div>
+      </div>
+      <div className='b-top'><Tabs items={tabItems} className='m-20'/></div>
+      {
+        isCityModal && <CityModal/>
+      }
+    </main>
+    </>
+    )
   }
- 
-const tabItems=[
-    {
-      key:'venues',
-      label:`Venues ${venues.length}`
-    }
-  ]
 
-useEffect(()=>{
-getData()
-},[])
-  return (
-   <>
-   <main className='flex-c'>
-    <div className='m-20 h-1 d-f-center gap border bor'>
-      <h2 className='font-p b-color '>Book By Venue, Cities</h2>
-       <input type="text"
-       style={{
-        width:200,
-        height:30,
-        textAlign:'center',
-       }}
-       placeholder='Search By Venue' />
-       <div className='border py-3 bor'
-       style={{
-        width:200,
-        height:30 
-       }}
-       onClick={()=>dispatch(setCityModal(true))}>
-        <span className='font-p c-p f- ls cap '>{city}</span>
-       </div>
-    </div>
-    <Tabs items={tabItems}/>
-    {
-      isCityModal && <CityModal/>
-    }
-   </main>
-   </>
-  )
-}
-
-export default Book
+  export default Book

@@ -15,11 +15,14 @@ navigate(`/book?city=${value}`)
 dispatch(setCityModal(false))
 }
 
+const handleCancel=()=>{
+  dispatch(setCityModal(false))
+}
   return (
     <Modal 
     centered
     open={isCityModal}
-    closable={false}
+    onCancel={handleCancel}
     footer={null}
     >
       <div className='flex-c'>
