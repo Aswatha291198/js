@@ -115,7 +115,11 @@ const getTurfById=async(req,res)=>{
 
 const getTurfByCity = async (req, res) => {
   try {
-    const { city } = req.query
+    console.log('comit to all cities');
+    
+    console.log(req.query.city);
+    
+    const { city } =req.query
 
     if (!city) {
       return res.status(400).send({

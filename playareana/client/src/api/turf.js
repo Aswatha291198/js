@@ -69,3 +69,16 @@ export const getAllturfOwner = async (id) => {
         throw error      
     }
 }
+
+export const getTurfByCity =async(city)=>{
+    try {
+        console.log('city api turf');
+        console.log(city ,'inisdie api');
+        
+        const response=await axiosInstance.get('/turfo/turfs/get-turf-by-city',{params:{city}})
+        return response.data
+    } catch (error) {
+        console.log(error.message);
+        
+    }
+}

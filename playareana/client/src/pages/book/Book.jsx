@@ -5,26 +5,37 @@
   import {useNavigate, useSearchParams}from 'react-router-dom'
   import { setCity,setCities,setCityModal } from '../../../redux/slice/citySlice'
   import CityModal from '../../component/Modals/CityModal'
-  import { getAllTurf } from '../../api/turf'
+import { getAllTurf, getTurfByCity } from '../../api/turf'
+import Venue from './Venue'
+
 
 
   const Book = () => {
     const{cities,isCityModal,selectedCity}=useSelector(store=>store.cities)
     const[venues,setVenues]=useState([])
-    const[filteredVenues,setFilteredVenues]=useState([])
-    const[serachParams]=useSearchParams()
-    const city=serachParams.get('city')
-    const dispatch=useDispatch()
-    console.log(city);
     
+    const[serachParams]=useSearchParams()
+    const cityFromUrl=serachParams.get('city')
+    const dispatch=useDispatch()
+    const city=cityFromUrl ?? selectedCity?? null
+   
 
-    const getData=async()=>{
+    const[book,setBook]=useState(false)
+
+  const getData=async()=>{
       try {
-        const venueResponse=await getAllTurf()
-        dispatch(setCity(city))
-        if(venueResponse.success){
-          setVenues(venueResponse.data)
-          setFilteredVenues(venueResponse.data)
+       let response =null
+       dispatch(showLoading())
+      if(city){    
+          dispatch(setCity(city))
+       response=await getTurfByCity(city)
+            setVenues(response.data)     
+        }
+        else {
+          response=await getAllTurf()
+        }
+        if(response.success){
+          setVenues(response.data)
         }
       } catch (error) {
         console.log(error.message);
@@ -38,13 +49,14 @@
   const tabItems=[
       {
         key:'venues',
-        label:`Venues ${venues.length}`
+        label:`Venues ${venues.length}`,
+        children:<Venue venues={venues}/> 
       }
     ]
 
   useEffect(()=>{
   getData()
-  },[])
+  },[city])
     return (
     <>
     <main className='flex-c'>
@@ -62,13 +74,16 @@
           width:200,
           height:30 
         }}
-        onClick={()=>dispatch(setCityModal(true))}>
+        onClick={()=>{
+          dispatch(setCityModal(true))
+          setBook(prev=>!prev)
+        }}>
           <span className='font-p c-p f- ls cap '>{city}</span>
         </div>
       </div>
       <div className='b-top'><Tabs items={tabItems} className='m-20'/></div>
       {
-        isCityModal && <CityModal/>
+        isCityModal &&  (<CityModal/>)
       }
     </main>
     </>

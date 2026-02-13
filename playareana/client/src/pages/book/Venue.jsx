@@ -1,16 +1,19 @@
 import { Card } from 'antd';
 import React from 'react'
 
-const Venue = ({venue}) => {
-    console.log((venue,'from'));
+const Venue = ({venues}) => {
+    console.log(venues,'from jshdjshdbj');
     
   return (
     <>
-    <div>
-        {venue &&venue.map((turf)=>{
+    <div className='d-flex gap'>
+        {venues &&venues.map((turf)=>{
             return(
-                <Card >
+                <Card 
+                className='d-flex gap' >
            {turf.name}
+           {turf.city.name}
+
         </Card>
             )
         })}

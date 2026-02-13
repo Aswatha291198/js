@@ -2,16 +2,21 @@ import React from 'react'
 import { Modal,Select } from 'antd'
 import { useDispatch, useSelector } from 'react-redux'
 import { setCity,setCities,setCityModal } from '../../../redux/slice/citySlice'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate,useLocation } from 'react-router-dom'
 
-const CityModal = () => {
+const CityModal = (
+ ) => {
+  const location=useLocation()
 const navigate=useNavigate()
+const bookpage=location.pathname==='/book'
 const{cities,isCityModal,selectedCity}=useSelector(store=>store.cities)
 const dispatch=useDispatch()
         const handleCity=(value)=>{
 localStorage.setItem('city',value) 
 dispatch(setCity(value))
-navigate(`/book?city=${value}`)
+if(bookpage){
+  navigate(`/book?city=${value}`)
+}
 dispatch(setCityModal(false))
 }
 
