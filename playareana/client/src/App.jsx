@@ -12,6 +12,7 @@ import Play from './pages/play/Play'
 import Book from './pages/book/Book'
 import Owner from './pages/partner'
 import UserProfile from './pages/user/UserProfile'
+import SingleTurf from './pages/Bookings/SingleTurf'
 
 const App = () => {
     return (
@@ -23,9 +24,9 @@ const App = () => {
                 <Route path='/register' element={<Register/>}></Route>
                 <Route path='/play' element={<Protected><Play/></Protected>}></Route>
                 <Route path='/book' element={<Protected><Book/></Protected>}></Route>
-                <Route path='/admin' element={<Protected><Admin/></Protected>}>
-               
-                </Route>
+                <Route path='/admin' element={<Protected><Admin/></Protected>}></Route>
+                <Route path='/turf/:id' element={<Protected><SingleTurf/></Protected>}></Route>
+
                 <Route path ='/player' element={<Protected><UserProfile/></Protected>}>
             
                 

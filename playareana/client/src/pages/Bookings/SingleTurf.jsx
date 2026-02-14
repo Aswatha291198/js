@@ -1,114 +1,158 @@
-import React, { useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { useParams } from 'react-router-dom';
-import { getTurfbyId } from '../../api/turf';
-import { message } from 'antd';
-import { hideLoading, showLoading } from '../../../redux/slice/userSlice';
-
-import { TbCricket } from "react-icons/tb";
-import { PiSoccerBallBold } from "react-icons/pi";
-import { GiShuttlecock } from "react-icons/gi";
-import { LiaTableTennisSolid } from "react-icons/lia";
-
-import Footer from '../footer/Footer';
-import BookModel from './BookModel';
+import React, { useEffect, useState } from 'react'
+import { useParams } from 'react-router-dom'
+import { hideLoading, showLoading } from '../../../redux/slice/userSlice'
+import { useDispatch } from 'react-redux'
+import { getTurfbyId } from '../../api/turf'
+import { MdOutlineSportsCricket } from "react-icons/md";
+import { BiFootball } from "react-icons/bi";
+import { GiTennisBall } from "react-icons/gi";
+import { IoBasketballOutline } from "react-icons/io5";
+import { useNavigate } from 'react-router-dom';
+import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
 
 const SingleTurf = () => {
-  const dispatch = useDispatch();
-  const params = useParams();
-  const [turf, setTurf] = useState({});
-  const [isBookModel, setIsBookModel] = useState(false);
+  const [turf,setTurf]=useState({})
+  const params=useParams()
+  const stripe = useStripe();
+  const elements = useElements();
+  const {id}=params
+  const dispatch=useDispatch()
+  const sportIconMap = {
+    Cricket: <MdOutlineSportsCricket />,
+    Football: <BiFootball />,
+    Tennis: <GiTennisBall />,
+    Basketball: <IoBasketballOutline />,
+  };   
 
-  const getData = async () => {
+  const getData=async()=>{
     try {
-      dispatch(showLoading());
-      const response = await getTurfbyId(params.id);
-      if (response.success) {
-        setTurf(response.data);
-        message.success(response.message);
-      }
-      dispatch(hideLoading());
+      dispatch(showLoading())
+      const response= await getTurfbyId(id)
+        if(response.success){
+          setTurf(response.data)
+        }
     } catch (error) {
       console.log(error.message);
-      dispatch(hideLoading());
+      
+    }finally{
+    dispatch(hideLoading())
     }
-  };
+  }
 
-  useEffect(() => {
-    getData();
-  }, []);
-
+  useEffect(()=>{
+    getData()
+  },[])
   return (
     <>
-      <main className='single-cont'>
-        <div className='single-div'>
-          <div className="single-left">
-            <div className="name-cont">
-              <div className="name-div">
-                <span className='font-poppins'>{turf.name}</span>
-              </div>
-            </div>
-
-            <div className="turf-img">
-              <img src={turf.poster} alt={turf.name} />
-            </div>
-
-            <div className='sport-available'>
-              <div className="sport-list">
-                <h2 className='font-poppins'>Sports Available</h2>
-                <div className="sport-cont">
-                  {turf.AddSport?.map((sport) => (
-                    <div className="turf-game" key={sport._id}>
-                      {sport.name === 'Cricket' && <TbCricket className='sport-icon' />}
-                      {sport.name === 'Football' && <PiSoccerBallBold className='sport-icon' />}
-                      {sport.name === 'Shuttle' && <GiShuttlecock className='sport-icon' />}
-                      {sport.name === 'Pickle Ball' && <LiaTableTennisSolid className='sport-icon' />}
-                      <span>{sport.name}</span>
-                    </div>
-                  ))}
-                </div>
-                
-              </div>
-             
-            </div>
-             <div className="rules-cont">
-                <span>Instructions</span>
-                <p>{turf.rules} </p>
-              </div>
+  <main className='d-flex gap'>
+<div className='flex-c ml-3'
+  style={{
+    width:'70%'
+  }}
+>
+  <section className=' m-20  flex-c'>
+  <h1 className='font-p b-color p-left ls'>{turf.name}</h1>
+    <span className='p-left  cap font-p f-6 ls b-color'>{turf.address}</span>
+</section>
+<section className='w-100 '>
+<div className=' w-100 p-left ml-3'>
+  <img src={turf.poster} alt="x"
+  className='bor '
+  style={{
+    height:500,
+    width:'85%'
+  }}
+   />
+</div>
+  </section>
+  <div>
+    <section className='w-100 '>
+  <div className='m-20 p-left  '>
+    <div className='border-black bor flex-c '
+    style={{
+      height:200,
+      width:'90%'
+    }}>
+    <div className=''>
+      <h3 className='font-p b-color py-3 px-3'>Sports Available</h3>
+    </div>
+    <div className=' mt '>
+      {turf.AddSport?.map((game)=>{
+        return(
+          <div className='flex-c center ml-3 gp-10'
+          style={{
+            height:90,
+            width:90,
+            border:'1px solid rgb(156,184,201)',
+            boxShadow:'0px 0px 0px 0px rgb(0,0,0)',
+            borderRadius:5
+          }}>
+           <span
+           className='font-large'
+           >{sportIconMap[game.name]}</span>
+           <span className='font-p f-6 ls font-small'>{game.name}</span>
           </div>
+        )
+      })}
+    </div>
+    </div>
+  </div>
+  </section>
+  <section className='flex-c'>
+    <div className=' p-left ' >
+      <div
+      className='border-black bor'
+      style={{
+      height:200,
+      width:'85%',
+      position:'relative',
+      left:25
+    }}>
+      <div>
+        <h2 className='mt ml-3 font-p b-color ls'>Rules</h2>
+        <h3 className='mt ml-3 font-p b-color ls'>{turf.rules} </h3>
+      </div>
+    </div>
+    </div>
+  </section>
+  </div>
+</div>
+<div className='red ml-3'
+ style={{
+    maxWidth:'400px',
+    display:'flex',
+    flexDirection:'column'
+  }}
+>
+  <div className='text-center d-f-center c-p '
+  style={{
+    width:350,
+    backgroundColor:'rgb(0,189,78)',
+    margin:'30px',
+    height:50,
+    borderRadius:'10px',
+    color:'white'
+  }}
+  >
+    <span className='font-p f-6 ls font-medium'>Book Now</span>
+  </div>
+ 
+ <div>
+  <span>
+    {turf.address}
+  </span>
 
-          <div className="single-right">
-            <div
-              className="book-now-cont font-poppins cursor-pointer"
-              onClick={() => setIsBookModel(prev => !prev)}
-            >
-              Book Now
-            </div>
+ </div>
+ <div>
+  <span>
+    {turf.city?.name}
+  </span>
 
-            <div className="timing-cont">
-              <span className='font-poppins'>Timing</span>
-              <span className='font-poppins'>{turf.open} - {turf.close}</span>
-            </div>
-
-            <div className="location-div">
-              <span className='font-poppins'>Location-{turf.city?.name}</span>
-              <span className='font-poppins'>{turf.address}</span>
-            </div>
-          </div>
-        </div>
-      </main>
-
-      {isBookModel && (
-        <BookModel
-          isBookModel={isBookModel}
-          setIsBookModel={setIsBookModel}
-          turf={turf}
-        />
-      )}
-
-      <Footer />
+ </div>
+</div>
+  </main>
     </>
-  );
-};
+  )
+}
 
-export default SingleTurf;
+export default SingleTurf

@@ -9,6 +9,11 @@ const BookSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'users'
     },
+    ownerId:{
+        type:mongoose.Schema.Types.ObjectId,
+        ref:'users'
+    },
+
     startTime: {
         type: Number,
         required: true
@@ -35,5 +40,5 @@ const BookSchema = new mongoose.Schema({
     },
 
 
-}, { timestamp: true })
+}, { timestamps: true })
 const bookingModal = mongoose.model('bookings', BookSchema)

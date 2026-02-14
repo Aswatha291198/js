@@ -59,7 +59,7 @@ import Venue from './Venue'
   },[city])
     return (
     <>
-    <main className='flex-c'>
+    <main className='flex-c venue-cont'>
       <div className='m-20 h-1 d-f-center gap border bor'>
         <h2 className='font-p b-color '>Book By Venue, Cities</h2>
         <input type="text"
@@ -67,7 +67,9 @@ import Venue from './Venue'
           width:200,
           height:30,
           textAlign:'center',
+          
         }}
+        
         placeholder='Search By Venue' />
         <div className='border py-3 bor'
         style={{

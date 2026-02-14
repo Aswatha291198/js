@@ -35,7 +35,9 @@ const tabItems=[
    <>
    <div className='m-20 w-color'>
     <h2 className='py-3 font-p'>Admin Dashboard</h2>
-   <Tabs items={tabItems}/>
+   <Tabs 
+   onChange={handleRoute}
+   items={tabItems}/>
    </div>
    </>
   )
