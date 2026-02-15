@@ -10,5 +10,5 @@ const { addTurf, updateTurf, deleteTurf, getAllTurf, getTurfById ,getTurfByIdown
     router.get('/get-turf-by-city',getTurfByCity    )
     router.get('/turf/owner/:id',getTurfByIdowner)
     router.get('/turf/:id',getTurfById)
-
+    
     module.exports=router

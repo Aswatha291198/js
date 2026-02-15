@@ -1,4 +1,5 @@
-        const mongoose = require('mongoose')
+        const { duration } = require('moment');
+const mongoose = require('mongoose')
 
 
     const turfSchema = mongoose.Schema({
@@ -27,13 +28,6 @@
         poster:{
             type:String,
         },
-        SlotTiming: {
-            type: String,
-        
-        },
-        facility:{
-            type:[String]
-        },
         owner: {
             type: mongoose.Schema.Types.ObjectId,
             ref: "users",
@@ -50,6 +44,11 @@
             type:Boolean,
             default:false
         },
+        duration:{
+            type:Number,
+
+        },
+        
         AddSport: [
   {
     type: mongoose.Schema.Types.ObjectId,

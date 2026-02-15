@@ -18,3 +18,18 @@ export const BookShow=async(values)=>{
         console.log(error.message);
     }
 }
+export const getBookingTurfByDate=async(turfId,date)=>{
+try {
+    const response=await axiosInstance.get('/turfo/booking/getBookingTurfByDate',
+            {
+             params:{
+                turfId,date
+             }   
+            }
+    )
+    return response.data
+} catch (error) {
+    console.log(error.message);
+    
+}
+}

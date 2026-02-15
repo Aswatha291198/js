@@ -8,13 +8,14 @@ import { BiFootball } from "react-icons/bi";
 import { GiTennisBall } from "react-icons/gi";
 import { IoBasketballOutline } from "react-icons/io5";
 import { useNavigate } from 'react-router-dom';
-import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
+
+import BookModel from './BookModel'
 
 const SingleTurf = () => {
   const [turf,setTurf]=useState({})
   const params=useParams()
-  const stripe = useStripe();
-  const elements = useElements();
+  const[isBookModal,setIsBookModal]=useState(false)
+  
   const {id}=params
   const dispatch=useDispatch()
   const sportIconMap = {
@@ -52,6 +53,7 @@ const SingleTurf = () => {
 >
   <section className=' m-20  flex-c'>
   <h1 className='font-p b-color p-left ls'>{turf.name}</h1>
+   {turf._id}
     <span className='p-left  cap font-p f-6 ls b-color'>{turf.address}</span>
 </section>
 <section className='w-100 '>
@@ -133,12 +135,14 @@ const SingleTurf = () => {
     borderRadius:'10px',
     color:'white'
   }}
+  onClick={()=>setIsBookModal(prev=>!prev)}
   >
     <span className='font-p f-6 ls font-medium'>Book Now</span>
   </div>
  
  <div>
   <span>
+   
     {turf.address}
   </span>
 
@@ -150,6 +154,10 @@ const SingleTurf = () => {
 
  </div>
 </div>
+{isBookModal && <BookModel
+isBookModal={isBookModal}
+setIsBookModal={setIsBookModal}
+turf={turf}/>}
   </main>
     </>
   )

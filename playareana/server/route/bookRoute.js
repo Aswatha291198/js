@@ -1,7 +1,8 @@
-const{bookTurf,makePayment}=require('../controllers/bookCont')
+const{getBookingTurfByDate}=require('../controllers/bookCont')
 
 const router=require('express').Router()
 
-router.post('/makepayment',makePayment)
-router.post('bookturf',bookTurf)
+
+router.get('/getBookingTurfByDate',getBookingTurfByDate)
+
 module.exports=router
