@@ -7,18 +7,23 @@ import { getAllCity } from '../../api/city'
 import TextArea from 'antd/es/input/TextArea'
 import { addTurf, updateTurf } from '../../api/turf'
 const TurfForm = ({ formType,
-   addModel,
-   setAddModel,
-   getTurfs,
+   turfModal,
+   setTurfModal,
+   getTurf,
    form,
    selectedTurf,
-   setSelectedTurf  
+   setSelectedTurf,
+   
   }) => {
 
     const dispatch=useDispatch()
     const{user}=useSelector(store=>store.users)
-    const [games, setGames] = useState([])  
-    const [city,setCity]=useState([])
+    const{cities}=useSelector(store=>store.cities)
+    const [games, setGames] = useState([]) 
+    
+    console.log(cities,'fhqsfjghsfi');
+    console.log(selectedTurf,'turf');
+    
     const onFinish=async(values)=>{
       try {
         let response=null
@@ -33,8 +38,9 @@ const TurfForm = ({ formType,
         }
         if(response.success){
           message.success(response.message)
-          setAddModel(false)
-          getTurfs()
+          getTurf()
+          setTurfModal(false)
+          
           setSelectedTurf(null)
 
         }
@@ -44,7 +50,7 @@ const TurfForm = ({ formType,
       }
     }
   const handleCancel = () => {
-    setAddModel(false)
+    setTurfModal(false)
   }
 
   const getData=async()=>{
@@ -54,14 +60,7 @@ const TurfForm = ({ formType,
         if(gameResponse.success){
             setGames(gameResponse.data)
             dispatch(hideLoading())
-        }
-        const cityRes=await getAllCity()
-        if(cityRes.success){
-          setCity(cityRes.data)
-          dispatch(hideLoading())
-        }
-
-        
+        }       
     } catch (error) {
         console.log(error.message);
         dispatch(hideLoading())
@@ -72,15 +71,16 @@ getData()
   },[])
   return (
     <Modal
-      open={addModel}
-      title={form==='add'?'Add Turf':"Edit Turf"}
+      open={turfModal}
+      title={formType==='add'?'Add Turf':"Edit Turf"}
       onCancel={handleCancel}
       width={800}
+
       destroyOnHidden
       footer={null}
     >
       <Form layout="vertical"
-      initialValues={form==='edit'? selectedTurf:""}
+      initialValues={formType==='edit'? selectedTurf:""}
       onFinish={onFinish}>
         <Row gutter={16}>
           <Col span={8}>
@@ -138,7 +138,7 @@ getData()
                   textTransform:'capitalize'
                 }}
                 >
-           {city.map(city => (
+           {cities.map(city => (
       <Select.Option key={city._id} value={city._id}>
         {city.name}
       </Select.Option>

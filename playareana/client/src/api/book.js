@@ -1,8 +1,11 @@
 import { axiosInstance } from ".";
 
-export const MakePayment=async(values)=>{
+export const MakePayment=async({amount,userId})=>{
     try {
-        const response=await axiosInstance.post('/turfo/booking/makepayment',values)
+        const response=await axiosInstance.post('/turfo/booking/makepayment',{
+            amount,
+            userId
+        })
         return response.data
         
     } catch (error) {

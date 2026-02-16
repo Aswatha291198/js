@@ -5,16 +5,17 @@ import { hideLoading,showLoading } from '../../../redux/slice/userSlice'
 import { getAllturfOwner, getTurfbyId } from '../../api/turf'
 import { FiEdit } from "react-icons/fi";
 import { MdDeleteOutline } from "react-icons/md";
+import TurfForm from './TurfForm'
 
 const Turf = () => {
   const [turfs,setTurfs]=useState([])
   const{user}=useSelector(store=>store.users)
   const dispatch=useDispatch()
   const[turfModal,setTurfModal]=useState(false)
-  const[selectedTurd,setSelectedTurf]=useState(null)
+  const[selectedTurf,setSelectedTurf]=useState(null)
   const[formType,setFormType]=useState('add')
   
-  const getData=async()=>{
+  const getTurf=async()=>{
     console.log('inside fu');
     
     try {
@@ -37,7 +38,7 @@ const Turf = () => {
 
   useEffect(()=>{
 if(user?._id){
-  getData()
+  getTurf()
 }
   },[user])
 
@@ -93,7 +94,13 @@ const columns =[
     title:'Actions',
     render:(text,data)=>{
       return <div className='d-flex gap '>
-        <Button className='font-large'><FiEdit/></Button>
+        <Button className='font-large'
+        onClick={()=>{setFormType('edit')
+          setSelectedTurf(data)
+          setTurfModal(true)
+
+        }}
+        ><FiEdit/></Button>
         <Button danger className='font-large'><MdDeleteOutline/></Button>
       </div>
     }
@@ -112,7 +119,14 @@ const columns =[
         <Table columns={columns} dataSource={turfs}
      className='py-3 px-3'
      />
-      
+      {turfModal && <TurfForm
+      formType={formType}
+      turfModal={turfModal}
+      setTurfModal={setTurfModal}
+      selectedTurf={selectedTurf}
+      setSelectedTurf={setSelectedTurf}  
+      getTurf={getTurf} 
+      />}
     </div>
     </>
   )

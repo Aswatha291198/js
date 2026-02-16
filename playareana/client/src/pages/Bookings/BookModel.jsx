@@ -1,12 +1,13 @@
-import {Modal,Row,Col,Select,Input,Button, Dropdown    } from 'antd'
+import {Modal,Row,Col,Select,Input,Button, Dropdown, message    } from 'antd'
 import React, { useEffect, useState } from 'react'
 import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
 import { CiCirclePlus } from "react-icons/ci";
 import { CiCircleMinus } from "react-icons/ci";
 import moment from 'moment'
+import { GoClock } from "react-icons/go";
 import {showLoading,hideLoading} from '../../../redux/slice/userSlice'
-import {useDispatch}from 'react-redux'
-import { getBookingTurfByDate } from '../../api/book';
+import {useDispatch, useSelector}from 'react-redux'
+import { getBookingTurfByDate, MakePayment } from '../../api/book';
 const BookModel = ({
     isBookModal,
     setIsBookModal,
@@ -14,25 +15,44 @@ const BookModel = ({
 }) => {
     const [duration,setDuration]=useState(1)
     const dispatch=useDispatch()
+    const{user}=useSelector(store=>store.users)
+    const [selectedTime,setSelectedTime]=useState(Number)
     const[slotModal,setSlotModal]=useState(false)
     const[filterSlots,setFilterSlots]=useState([])
     const[date,setDate]=useState(moment().format('YYYY-MM-DD'))
+    const[open,setOpen]=useState(false)
 const [startTime, setStartTime] = useState(
     turf?.open ? moment(turf.open, "HH:mm").format('HH:mm') : '09:00'
 ); 
 
-function fillSlots(open,close){
-        const o=parseInt(open)
-        const c=parseInt(close)
-        const slots=[]
-      for(let i=o;i<c;i++){
-            slots.push(i)
-      }
-      return slots
-        
+const generateTimeSlots = (startHour, endHour) => { 
+    const slots = []
+    const open=parseInt(startHour)
+    const close=parseInt(endHour)
+    let openHour=Math.ceil(open)
+    let closeHour=Math.ceil(close)
+    let now=moment()
+    let today=moment().format('YYYY-MM-DD')
+ 
+    if(date===today){
+        const currenthour=now.hour()
+        if(currenthour>=openHour){
+            openHour=currenthour+1
+        }
+    }
+
+    
+    for (let hour = openHour; hour < closeHour; hour++) {
+    const isPM = hour >= 12
+    const displayHour = hour % 12 === 0 ? 12 : hour % 12
+    slots.push(`${displayHour}:00 ${isPM ? 'PM':'AM'}`)
+    }
+    return slots
 }
 
-const slots=fillSlots(turf.open,turf.close)
+const slots=generateTimeSlots(turf.open,turf.close)
+console.log(slots,'array');
+
 
 const getData=async()=>{
     try {
@@ -49,6 +69,8 @@ dispatch(hideLoading())
     }
 }
 
+ 
+
 useEffect(()=>{
 getData()
 },[])
@@ -57,26 +79,43 @@ getData()
         setStartTime(selectedTime)
     }
 
-    const handlePayment=async()=>{
-                if(!stripe || !elements){
-                    message.warning('Stripe not loaded')
-                    return 
-                }
-                try {
-                    dispatch(showLoading())
-                    const payload={
-                        amount:turf?.price*duration * 100,
-                        duration,
-                        date,
-                        startTime,
-                        
+        const handlePayment=async()=>{
+                    if(!stripe || !elements){
+                        message.warning('Stripe not loaded')
+                        return 
                     }
-                } catch (error) {
-                    
-                }finally{
-                      dispatch(hideLoading())  
-                }
-    }
+                    try {
+                        dispatch(showLoading())
+                        const payload={
+                            amount:turf?.price*duration * 100,
+                            userID:user?._id
+                        }
+                        const response=await MakePayment(payload)
+                        if(response.success){
+                            const clientSecret=response.data.clientSecret
+                            
+                            const{paymentIntent,error}=await stripe.confirmCardPayment(
+                                clientSecret,
+                                {payment_method:{
+                                card:elements.getElement(CardElement),
+                                billing_details:{name:user?.name}     
+                                }}
+                            )
+                            if(error){
+                                message.error(error.message)
+                            }
+                            else if(paymentIntent.status==='succeeded'){
+                                message.success('Payment successfull')
+                            }
+
+                            }
+                        
+                    } catch (error) {
+                        
+                    }finally{
+                        dispatch(hideLoading())  
+                    }
+        }
     const stripe = useStripe();
   const elements = useElements();
 const handleDec=()=>{
@@ -96,7 +135,9 @@ const handleInc=()=>{
     }
 }
 
-
+const handleDateChange=(e)=>{
+setDate(moment(e.target.value).format('YYYY-MM-DD'))
+}
 
   return (
   <>
@@ -104,6 +145,7 @@ const handleInc=()=>{
    centered
    open={isBookModal}
    onOk={handlePayment}
+   onCancel={()=>{setIsBookModal(false)}}
    >
 <div className='flex-c gap'>
         <Row gutter={{xs:8,sm:12,md:16,lg:20}}>
@@ -119,9 +161,14 @@ const handleInc=()=>{
         <Col span={12}>
         <Select
         placeholder='Pick a Sport'
-        >
-            
-        </Select>
+        options={turf?.AddSport?.map((sport)=>{
+            return {
+                label:sport.name,
+                value:sport.name
+            }
+        }
+        )}
+        />
         </Col>
     </Row>
     <Row  gutter={{xs:8,sm:12,md:16,lg:20}}>
@@ -129,7 +176,10 @@ const handleInc=()=>{
         <span>Date</span>
         </Col>
         <Col span={12}>
-            <Input type='date'/>
+            <Input type='date'
+            value={date}
+            onChange={handleDateChange}
+            />
         </Col>
     </Row>
     <Row  gutter={{xs:8,sm:12,md:16,lg:20}}>
@@ -141,23 +191,53 @@ const handleInc=()=>{
                 height:40,
                 borderRadius:10
             }}
-            onClick={()=>{setSlotModal(prev=>!prev)}}
             >
                 <Dropdown
   trigger={['click']}
+  placement="bottomLeft"
+  className='c-p'
+   open={open} // control open state
+   onOpenChange={(flag) => setOpen(flag)}
   popupRender={() => (
-    <div className="slot-popup">
-      <div>9:00 AM</div>
-      <div>10:00 AM</div>
-      <div>11:00 AM</div>
+    <div style={{
+        display:'grid',
+        gridTemplateColumns: 'repeat(3, 1fr)',
+    gap: '10px',
+    backgroundColor:'white',
+    maxWidth:200
+    }}>
+      {slots && slots.map((slot, idx) => (
+        <div key={idx}
+        onClick={()=>{
+            setSelectedTime(slot)
+            setOpen(false)
+        }}
+        style={{
+            width:50,
+            height:50
+        }}
+        className='border bor text-center c-p'
+        >
+          {slot} 
+        </div>
+      ))}
     </div>
   )}
 >
-    <div className="start-time-box">
-    Select Start Time
-  </div>
+  <button
+  className='font-p f-6 d-flex justify-content-between'
+  style={{
+    border:'none',
+    backgroundColor:'white'
+  }}
+  >{selectedTime?selectedTime:'Pick a Time'}
+  <GoClock 
+  className='ml-3 font-larger b-color '
+  />
+  </button>
+  
 </Dropdown>
-                </div></Col>
+            </div></Col>
     </Row>
     <Row  gutter={{xs:8,sm:12,md:16,lg:20}}>
         <Col span={8}>
@@ -221,10 +301,12 @@ const handleInc=()=>{
     </Row>
    <Row  gutter={{xs:8,sm:12,md:16,lg:20}}>
     <Col span={24}>
-     <CardElement/>  
+     <CardElement/> 
+
      </Col>
      
    </Row>
+   <Button onClick={handlePayment}>Book Now</Button>
    
 </div>
    </Modal>
