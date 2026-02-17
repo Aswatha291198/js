@@ -70,5 +70,5 @@ const mongoose = require('mongoose')
         
 
     },{timestamps:true})
-    const turfModel = mongoose.model('Turf', turfSchema);
+    const turfModel = mongoose.model('turf', turfSchema);
     module.exports = turfModel

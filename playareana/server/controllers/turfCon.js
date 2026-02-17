@@ -13,7 +13,7 @@ const addTurf = async (req, res) => {
     }
 }
 const updateTurf = async (req, res) => {
-    console.log('backend turf update');
+   
     
     try {
         const exixtingTurf = await turf.findByIdAndUpdate(req.body.turfId, req.body)
@@ -32,7 +32,6 @@ const updateTurf = async (req, res) => {
     }
 }
 const getAllTurf =async(req,res)=>{
-    console.log('getallturf');
     
     try {
         const allturf=await turf.find().populate('city')
@@ -67,9 +66,6 @@ const deleteTurf = async (req, res) => {
     }
 }
 const getTurfByIdowner=async(req,res)=>{
-    console.log(req.params.id,'from the city cont ownid');
-    
-    
     try {
         const find=await turf.find({ owner: req.params.id }).populate('city')
         res.send({
@@ -90,11 +86,11 @@ const getTurfByIdowner=async(req,res)=>{
     }
 }
 const getTurfById=async(req,res)=>{
-    console.log('coming to the id');
+    
     try {
         const turfById=await turf.findById(req.params.id).populate('AddSport')
         .populate('city')
-        console.log(turfById,'trufid');
+      
         
         res.send({
             success:true,
@@ -115,7 +111,7 @@ const getTurfById=async(req,res)=>{
 
 const getTurfByCity = async (req, res) => {
   try {
-    console.log('comit to all cities');
+   
     
     console.log(req.query.city);
     
@@ -140,7 +136,7 @@ const getTurfByCity = async (req, res) => {
       })
     }
 
-    // 2️⃣ Find turfs using city _id
+    // Find turfs using city _id
     const turfs = await turf.find({ city: cityDoc._id })
       .populate('city')
       .populate('owner')

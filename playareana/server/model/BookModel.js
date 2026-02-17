@@ -9,13 +9,9 @@ const BookSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'users'
     },
-    ownerId:{
-        type:mongoose.Schema.Types.ObjectId,
-        ref:'users'
-    },
-
+   
     startTime: {
-        type: Number,
+        type: Number ,
         required: true
     },
     endTime: {
@@ -27,10 +23,10 @@ const BookSchema = new mongoose.Schema({
         required: true
     },
     duration: {
-        type: String,
+        type: Number,
         required: true
     },
-    transcationId:{
+    transactionId:{
         type:String,
         required:true
     },

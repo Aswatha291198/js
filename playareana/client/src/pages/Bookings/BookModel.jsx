@@ -1,4 +1,4 @@
-import {Modal,Row,Col,Select,Input,Button, Dropdown, message    } from 'antd'
+import {Modal,Row,Col,Select,Input,Button, Dropdown, message,Form} from 'antd'
 import React, { useEffect, useState } from 'react'
 import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
 import { CiCirclePlus } from "react-icons/ci";
@@ -7,24 +7,25 @@ import moment from 'moment'
 import { GoClock } from "react-icons/go";
 import {showLoading,hideLoading} from '../../../redux/slice/userSlice'
 import {useDispatch, useSelector}from 'react-redux'
+import { useNavigate } from 'react-router-dom';
 import { getBookingTurfByDate, MakePayment } from '../../api/book';
+import { bookTurf } from '../../api/book';
 const BookModel = ({
     isBookModal,
     setIsBookModal,
     turf
 }) => {
     const [duration,setDuration]=useState(1)
+    const navigate=useNavigate()
     const dispatch=useDispatch()
+    const[booking,setBooking]=useState([])
     const{user}=useSelector(store=>store.users)
     const [selectedTime,setSelectedTime]=useState(Number)
     const[slotModal,setSlotModal]=useState(false)
     const[filterSlots,setFilterSlots]=useState([])
     const[date,setDate]=useState(moment().format('YYYY-MM-DD'))
     const[open,setOpen]=useState(false)
-const [startTime, setStartTime] = useState(
-    turf?.open ? moment(turf.open, "HH:mm").format('HH:mm') : '09:00'
-); 
-
+ 
 const generateTimeSlots = (startHour, endHour) => { 
     const slots = []
     const open=parseInt(startHour)
@@ -53,13 +54,36 @@ const generateTimeSlots = (startHour, endHour) => {
 const slots=generateTimeSlots(turf.open,turf.close)
 console.log(slots,'array');
 
+const parseHour = (time) => {
+  return Number(time.split(":")[0]);
+};
+
+const getAvailableSlots = (slots, booking) => {
+  return slots.filter((slot) => {
+    const slotHour = parseHour(slot);
+
+    const isBooked = booking.some(
+      (booking) =>
+        slotHour >= booking.startTime &&
+        slotHour < booking.endTime
+    );
+
+    return !isBooked;
+  });
+};
+
+const availableSlots=getAvailableSlots(slots,booking)
 
 const getData=async()=>{
     try {
-        const response=await getBookingTurfByDate(turf._id,date)
+        const response=await getBookingTurfByDate(turf?._id,date)
+        console.log('inside the fun');
+        
         if(response.success){
-            setFilterSlots(response.data)
-            console
+            setBooking(response.data)
+            console.log(booking);
+            
+        
         }
     } catch (error) {
         console.log(error.message);
@@ -69,14 +93,44 @@ dispatch(hideLoading())
     }
 }
 
- 
+const book=async(transactionId)=>{
+    try {
+
+        dispatch(showLoading())
+        const startHour=Number(selectedTime.split(':')[0])
+        const endTime=startHour +duration
+        const totalPrice=turf.price *duration
+        const response =await bookTurf({
+            date:date,
+            duration,
+            startTime:startHour,
+            turf:turf._id,
+            user:user._id,
+            totalPrice,
+            transactionId,
+            endTime
+            
+        })
+        if(response.success){
+                message.success('Turf booked Successfully')
+                navigate('/myBookings')
+        }
+        else{
+            message.warning(response.message)
+        }
+    } catch (error) {
+        message.error(response.message)
+        console.log(error.message);
+        
+    }
+}  
 
 useEffect(()=>{
 getData()
 },[])
     const handleTimeChange=(e)=>{
         const selectedTime=parseInt(e.target.value)
-        setStartTime(selectedTime)
+        setSelectedTime(selectedTime)
     }
 
         const handlePayment=async()=>{
@@ -88,8 +142,9 @@ getData()
                         dispatch(showLoading())
                         const payload={
                             amount:turf?.price*duration * 100,
-                            userID:user?._id
+                            userId:user?._id
                         }
+                        
                         const response=await MakePayment(payload)
                         if(response.success){
                             const clientSecret=response.data.clientSecret
@@ -106,6 +161,7 @@ getData()
                             }
                             else if(paymentIntent.status==='succeeded'){
                                 message.success('Payment successfull')
+                                 await book(paymentIntent.id)    
                             }
 
                             }
@@ -115,10 +171,10 @@ getData()
                     }finally{
                         dispatch(hideLoading())  
                     }
-        }
+                     }
     const stripe = useStripe();
-  const elements = useElements();
-const handleDec=()=>{
+    const elements = useElements();
+    const handleDec=()=>{
     if(duration ===1){
         return
     }
@@ -148,6 +204,7 @@ setDate(moment(e.target.value).format('YYYY-MM-DD'))
    onCancel={()=>{setIsBookModal(false)}}
    >
 <div className='flex-c gap'>
+    <Form>
         <Row gutter={{xs:8,sm:12,md:16,lg:20}}>
         <Col span={24}>
         <h2>{turf.name}</h2>
@@ -159,6 +216,7 @@ setDate(moment(e.target.value).format('YYYY-MM-DD'))
         <span>Sports</span>
         </Col>
         <Col span={12}>
+
         <Select
         placeholder='Pick a Sport'
         options={turf?.AddSport?.map((sport)=>{
@@ -206,7 +264,7 @@ setDate(moment(e.target.value).format('YYYY-MM-DD'))
     backgroundColor:'white',
     maxWidth:200
     }}>
-      {slots && slots.map((slot, idx) => (
+      {availableSlots && availableSlots.map((slot, idx) => (
         <div key={idx}
         onClick={()=>{
             setSelectedTime(slot)
@@ -246,7 +304,7 @@ setDate(moment(e.target.value).format('YYYY-MM-DD'))
         <Col span={12}>
         <div className='d-flex justify-content-between'> 
            <Button
-           disabled={duration <=1}
+           disabled={duration <=1  }
            onClick={handleDec}
            onMouseOver={(e)=>{
             e.currentTarget.style.color='none'
@@ -274,7 +332,7 @@ setDate(moment(e.target.value).format('YYYY-MM-DD'))
 
          />
          
-          <Button disabled={duration===24}
+          <Button disabled={duration===24 || selectedTime + duration > turf.close}
           onClick={handleInc}
           onMouseOver={(e)=>{
             e.currentTarget.style.color='none'
@@ -306,9 +364,11 @@ setDate(moment(e.target.value).format('YYYY-MM-DD'))
      </Col>
      
    </Row>
-   <Button onClick={handlePayment}>Book Now</Button>
-   
+   <Button onClick={handlePayment}>{turf?.price *duration}</Button>
+   </Form>
 </div>
+    
+        
    </Modal>
 
    </>  

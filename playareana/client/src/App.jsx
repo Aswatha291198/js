@@ -13,6 +13,7 @@ import Book from './pages/book/Book'
 import Owner from './pages/partner'
 import UserProfile from './pages/user/UserProfile'
 import SingleTurf from './pages/Bookings/SingleTurf'
+import Bookings from './pages/user/Bookings/Bookings'
 
 const App = () => {
     return (
@@ -32,9 +33,9 @@ const App = () => {
                 
                 </Route>
                 <Route path='/owner' element={<Protected><Owner/></Protected>}>
-                
-                
                 </Route>
+                <Route path='/myBookings' element={<Protected><Bookings/></Protected>}></Route>
+                
             </Routes>      
         </Provider>
             
