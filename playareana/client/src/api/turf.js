@@ -49,7 +49,6 @@ export const getTurfbyId = async (id) => {
         console.log('inside ');
         
         const response = await axiosInstance.get(`/turfo/turfs/turf/${id}`)
-         console.log("Raw response:", response.data);
         return response.data
     } catch (error) {
         console.log(error.message);

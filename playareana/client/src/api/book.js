@@ -45,3 +45,12 @@ export const getBookingsTurfOwner=async(values)=>{
         
     }
 }
+export const addGroupBook=async(values)=>{
+    try {
+        const resposne=await axiosInstance.post('/turfo/booking/host-game',values)
+        return resposne.date
+    } catch (error) {
+        console.log(error.message);
+        
+    }
+}

@@ -5,11 +5,22 @@ const BookSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'turf'
     },
-    user: {
+    bookedBy: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'users'
     },
-   
+    owner:{
+        type:mongoose.Schema.Types.ObjectId,
+        ref:'users'
+    },
+
+    
+
+    bookingType:{
+            type:String,
+            required:true
+    },
+    
     startTime: {
         type: Number ,
         required: true

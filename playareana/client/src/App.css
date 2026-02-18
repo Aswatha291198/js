@@ -40,6 +40,11 @@ body {
 .gp-10{
     gap: 10px;
 }
+.active {
+  background-color: #00bd4e;
+  color: white;
+}
+
 .bg-color{
     background-color: rgb(201, 207, 209);
 }
@@ -51,6 +56,15 @@ body {
 }
 .mx-45{
     max-height: 45px;
+}
+
+.ant-form-item-label > label {
+  font-size: 14px;
+  font-weight: 600;
+  color: #444;
+  font-family: 'poppins';
+  letter-spacing: 0.4px;
+  
 }
 
 .d-f{

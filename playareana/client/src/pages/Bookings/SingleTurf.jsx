@@ -8,15 +8,16 @@ import { BiFootball } from "react-icons/bi";
 import { GiTennisBall } from "react-icons/gi";
 import { IoBasketballOutline } from "react-icons/io5";
 import { useNavigate } from 'react-router-dom';
-
 import BookModel from './BookModel'
+import moment from 'moment'
 
 const SingleTurf = () => {
   const [turf,setTurf]=useState({})
   const params=useParams()
-  const[isBookModal,setIsBookModal]=useState(false)
   
+  const[isBookModal,setIsBookModal]=useState(false)  
   const {id}=params
+  const[booking,setBooking]=useState([])
   const dispatch=useDispatch()
   const sportIconMap = {
     Cricket: <MdOutlineSportsCricket />,
@@ -141,8 +142,7 @@ const SingleTurf = () => {
   </div>
  
  <div>
-  <span>
-   
+  <span>  
     {turf.address}
   </span>
 
@@ -151,13 +151,15 @@ const SingleTurf = () => {
   <span>
     {turf.city?.name}
   </span>
-
  </div>
 </div>
 {isBookModal && <BookModel
 isBookModal={isBookModal}
 setIsBookModal={setIsBookModal}
-turf={turf}/>}
+turf={turf}
+/>
+
+}
   </main>
     </>
   )
