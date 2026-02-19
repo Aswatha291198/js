@@ -16,6 +16,7 @@ const Protected = ({children}) => {
   const{user}=useSelector(store=>store.users)
   const{selectedCity,cities,isCityModal}=useSelector(store=>store.cities)
 const {Header}=Layout
+console.log(user?.role);
 
 const getUser=async()=>{
   try {
@@ -82,7 +83,11 @@ const menuRoles={
       : '/book',
     icon: <MdSportsVolleyball />
   },
-     {label:'Play',path:'/play',icon:<GiSoccerKick/>} 
+     {label:'Play',
+      path:localStorage.getItem('city')
+      ? `/play?city=${localStorage.getItem('city')}`
+      : '/play',
+      icon:<GiSoccerKick/>} 
     
   ],
   owner:[

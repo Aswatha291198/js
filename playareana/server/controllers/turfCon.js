@@ -12,13 +12,10 @@ const addTurf = async (req, res) => {
         
     }
 }
-const updateTurf = async (req, res) => {
-   
-    
+const updateTurf = async (req, res) => {    
     try {
-        const exixtingTurf = await turf.findByIdAndUpdate(req.body.turfId, req.body)
-        console.log(exixtingTurf);
-        
+        console.log(req.body,'sas');
+        const exixtingTurf = await turf.findByIdAndUpdate(req.body.turfId, req.body) 
         if (!exixtingTurf) {
             return res.status(404).send({ message: 'Turf Not Found', success: false })
         }
@@ -67,22 +64,21 @@ const deleteTurf = async (req, res) => {
 }
 const getTurfByIdowner=async(req,res)=>{
     try {
+
+        console.log(req.params.id);
+        
         const find=await turf.find({ owner: req.params.id }).populate('city')
         res.send({
             message:'turf',
             success:true,
             data:find
         })
-        console.log(find,'from the controller ownerturfid');
-        
     } catch (error) {
         console.log(error.message);
         res.send({
             message:"something went wrong",
             success:false
-        })
-        
-        
+        })     
     }
 }
 const getTurfById=async(req,res)=>{

@@ -55,7 +55,7 @@ const makePayment = async (req, res) => {
     });
 
   } catch (error) {
-    console.error("❌ makePayment error:", error);
+    console.error(error.message);
     return res.status(500).json({
       success: false,
       message: error.message,
@@ -100,10 +100,20 @@ const getBookingTurfByDate = async (req, res) => {
 
 const bookTurf = async (req, res) => {
   try {
-    const newBooking = new Booking(req.body)
-    await newBooking.save()
-    const populateBooking=await Booking.findById(newBooking._id).populate('user')
+    const{bookType,transactionId, ...rest}=req.body
+    const newBooking=await Booking.create({
+      ...rest,
+      bookType,
+      status:bookType==='book'?'confirmed':'open',
+      players:[{
+        user:req.userid,
+        hasPaid:true,
+        amountPaid:bookType==='book'?rest.totalPrice:rest.pricePerplayer
+      }]
+    })
+    const populateBooking=await Booking.findById(newBooking._id).populate('players.user')
     .populate('turf')
+    .populate('player.user')
 
     res.status(200).json({
       success: true,
@@ -138,10 +148,47 @@ const bookTurf = async (req, res) => {
     
   }
 }
+const getAllGroupGames = async (req, res) => {
+  try {
+    const { city } = req.query  
+console.log(req.body);
+console.log(city);
+  
+  const all=await Booking.find(req.body).populate({
+    path:'turf',
+    select:'name',
+    populate:[{
+      path:'city',
+      select:'name',
+      ...(city && {match:city})
+    },
+    {
+    path:'AddSport',
+    select:'name'
+    }
+    
+  ]
+  })
+  console.log(all,'aa');
+  
+  
+  
+  res.send({
+    message:'all groups',
+    data:all
+  })
+  
+  } catch (error) {
+    console.log(error.message,'line 165')
+    return res.status(500).json({ success: false, message: error.message })
+  }
+}
+
 
 module.exports={
   getBookingTurfByDate,
   makePayment,
   bookTurf,
-  getBookingsTurfOwner
+  getBookingsTurfOwner,
+  getAllGroupGames
 }

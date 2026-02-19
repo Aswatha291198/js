@@ -1,8 +1,9 @@
-import { Table } from 'antd'
+import { Table,Button,message } from 'antd'
 import React, { useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux'
+
 import { hideLoading,showLoading } from '../../../redux/slice/userSlice'
-import { getAllTurf } from '../../api/turf'
+import { getAllTurf,updateTurf } from '../../api/turf'
 const TurfList = () => {
   const[turf,setTurfs]=useState([])
 const dispatch=useDispatch()
@@ -23,6 +24,27 @@ const dispatch=useDispatch()
  
     }
   }
+
+    const handleStatusChange = async (turf) => {
+    try {
+      dispatch(showLoading());
+      let values = {
+        ...turf,
+        turfId: turf._id,
+        isActive: !turf.isActive,
+      };
+      const response = await updateTurf(values);
+     
+      if (response.success) {
+        message.success(response.message);
+        getData();
+      }
+      dispatch(hideLoading());
+    } catch (err) {
+      dispatch(hideLoading());
+      message.error(err.message);
+    }
+  };
 
 useEffect(()=>{
 getData()
@@ -73,6 +95,22 @@ getData()
       render:(text,data)=>{
         return <span>{data.owner?.name}</span>
       }
+    },
+    {
+      key:'act',
+      title:'Status',
+      dataIndex:'actions',
+       render: (text, data) => {
+        return (
+          <div className="d-flex align-items-center gap-10">
+            {data.isActive ? (
+              <Button onClick={() => handleStatusChange(data)}>Block</Button>
+            ) : (
+              <Button onClick={() => handleStatusChange(data)}>Approve</Button>
+            )}
+          </div>
+        );
+      },
     }
   ]
   return (

@@ -10,7 +10,6 @@ const TurfForm = ({ formType,
    turfModal,
    setTurfModal,
    getTurf,
-   form,
    selectedTurf,
    setSelectedTurf,
    
@@ -27,7 +26,7 @@ const TurfForm = ({ formType,
     const onFinish=async(values)=>{
       try {
         let response=null
-        if(form==='add'){
+        if(formType==='add'){
           response=await addTurf({...values,owner:user?._id})
         }
         else{
@@ -80,7 +79,7 @@ getData()
       footer={null}
     >
       <Form layout="vertical"
-      initialValues={formType==='edit'? selectedTurf:""}
+      initialValues={selectedTurf}
       onFinish={onFinish}>
         <Row gutter={16}>
           <Col span={8}>

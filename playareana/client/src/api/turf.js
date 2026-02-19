@@ -13,7 +13,7 @@ export const updateTurf = async (values) => {
     console.log('uppdate-turf');
     
     try {
-        const response = await axiosInstance.put('/turfo/turfs/update-turf', values)
+        const response = await axiosInstance.put('/turfo/turfs/update-turf',values)
         return response.data
     } catch (error) {
         console.log(error);

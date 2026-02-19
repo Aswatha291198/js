@@ -112,7 +112,11 @@ const columns =[
     <div>
       <Button  className='mt font-p f-6 ls'
       onClick={()=>{
+         console.log('add btn cick');
         setFormType('add')
+        setTurfModal(true)
+       
+        
       }}
       type='primary'>Add Turf</Button>
       

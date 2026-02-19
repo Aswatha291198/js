@@ -1,4 +1,4 @@
-  import React, { useEffect, useState } from 'react'
+    import React, { useEffect, useState } from 'react'
   import {Tabs} from 'antd'
   import {hideLoading,showLoading} from '../../../redux/slice/userSlice'
   import {useDispatch,useSelector}from 'react-redux'

@@ -45,9 +45,10 @@ const navigate=useNavigate()
                 >
           <div className='d-flex'>
           <img src={turf.poster} alt="t"
-          className='w-100 h-7 '
+          className='w-100'
           style={{
-            objectFit:'fill'
+            objectFit:'cover',
+            height:200
           }}
           />
           

@@ -16,10 +16,11 @@ const BookModel = ({
     setIsBookModal,
     turf
 }) => {
+    const[selectedGame,setSelectedGame]=useState(null)
     const [duration,setDuration]=useState(1)
     const navigate=useNavigate()
     const dispatch=useDispatch()
-    const [active,setActive]=useState('book')
+    const [actives,setActives]=useState('book')
     const [bookType,setBookType]=useState('book')
     const[booking,setBooking]=useState([])
     const{user}=useSelector(store=>store.users)
@@ -27,38 +28,37 @@ const BookModel = ({
     const[slotModal,setSlotModal]=useState(false)
     const[filterSlots,setFilterSlots]=useState([])
     const[open,setOpen]=useState(false)
+    const[totalPlayers,setTotalPlayers]=useState(1)
     const[date,setDate]=useState(moment().format('YYYY-MM-DD'))
+    
+    const totalPrice =turf.price*duration 
+    const pricePerPlayer=bookType==='host'? Math.ceil(totalPrice/totalPlayers):null
     const book=async(transactionId)=>{
     try {
+        console.log('cominng to book');
+        
         dispatch(showLoading())
         const startHour=Number(selectedTime.split(':')[0])
         const endTime=startHour +duration
-        
         let response
-        if(bookType==='book'){
-           response= await bookTurf({
-            date:date,
-            duration,
-            startTime:startHour,
-            turf:turf._id,
-            bookedBy:user._id,
-            totalPrice:price *duration,
-            transactionId,
-            endTime,
-            owner:turf.owner._id   
+        const payload={
+        turf: turf._id,
+        owner: turf.owner,
+        hostedBy: user._id,
+        bookType,
+        date,
+        startTime: startHour,
+        endTime,
+        duration,
+        game:selectedGame,
+        totalPrice,
+        transactionId,
+        ...(bookType === "host" && {
+          pricePerPlayer,
+          maxPlayers: totalPlayers
         })
-        }
-        else{
-            response=await addGroupBook({
-                date:date,
-                startTime:startHour,
-                hostedBy:user._id,
-                totalPrice,
-                owner:turf.owner_id,
-                transactionId
-
-            })
-        }
+      }
+      response=await bookTurf(payload) 
         if(response.success){
                 message.success('Turf booked Successfully')
                 navigate('/myBookings')
@@ -105,9 +105,10 @@ getData()
                         return 
                     }
                     try {
+                        const amountToCharge=bookType==='host'?pricePerPlayer:totalPrice 
                         dispatch(showLoading())
                         const payload={
-                            amount:turf?.price*duration * 100,
+                            amount:amountToCharge *100,
                             userId:user?._id
                         }
                         
@@ -160,6 +161,7 @@ const handleInc=()=>{
 const handleDateChange=(e)=>{
 setDate(moment(e.target.value).format('YYYY-MM-DD'))
 }
+console.log(totalPlayers,'totalplaeyrs');
 
   return (
   <>
@@ -183,17 +185,17 @@ setDate(moment(e.target.value).format('YYYY-MM-DD'))
     <Col className='ml-3'>
 
    <div className='d-flex gap ml-3 ' >
-     <Button className={`font-p f-6 ls  ${active==='book' ?'active':''}`}
+     <Button className={`font-p f-6 ls  ${actives==='book' ?'actives':''}`}
      onClick={()=>{
         setBookType('book')
-        setActive('book')
+        setActives('book')
      }}
      >Book a Game</Button>
     <Button
-    className={`font-p f-6 ls  ${active==='host' ?'active':''}`}
+    className={`font-p f-6 ls  ${actives==='host' ?'actives':''}`}
     onClick={()=>{
         setBookType('host')
-        setActive('host')
+        setActives('host')
     }}
     >Host a Game</Button>
    </div>
@@ -208,8 +210,10 @@ setDate(moment(e.target.value).format('YYYY-MM-DD'))
             <Col className='ml-3'>
             <Input className='ml-3'
             type='number'
+            value={totalPlayers}
+            onChange={(e)=>setTotalPlayers(e.target.value)}
             min={1}
-            max='12'
+            max={12}
             />
             </Col>
         </Row>
@@ -221,6 +225,7 @@ setDate(moment(e.target.value).format('YYYY-MM-DD'))
         </Col>
         <Col span={12}>
         <Select
+        onChange={(e)=>setSelectedTime(e.target.value)}
         placeholder='Pick a Sport'
         options={turf?.AddSport?.map((sport)=>{
             return {
@@ -368,7 +373,7 @@ setDate(moment(e.target.value).format('YYYY-MM-DD'))
      </Col>
      
    </Row>
-   <Button onClick={handlePayment}>{turf?.price *duration}</Button>
+   <Button onClick={handlePayment}>{bookType==='book' ?totalPrice :Math.ceil(totalPrice/totalPlayers )}</Button>
    
 </div>
     

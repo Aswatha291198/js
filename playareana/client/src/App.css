@@ -40,7 +40,7 @@ body {
 .gp-10{
     gap: 10px;
 }
-.active {
+.actives {
   background-color: #00bd4e;
   color: white;
 }
