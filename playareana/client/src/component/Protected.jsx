@@ -155,7 +155,7 @@ const menuRoles={
   isCityModal && <CityModal isCityModal={isCityModal}/>
  }
   <div
-  style={{minHeight: 380, background: "white" }}
+  style={{minHeight: '100vh', background: 'rgb(241,243,242)' }}
   
   >{children}</div>
     </>

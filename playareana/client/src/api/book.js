@@ -55,10 +55,15 @@ export const addGroupBook=async(values)=>{
     }
 }
 
-export const getGroupgameByCity=async(city)=>{
+export const getGroupgameByCity=async(city,game)=>{
     try {
-        const response=await axiosInstance.get('/turfo/booking/group-game',{
-            params:{city}
+        console.log(game,'api frn');
+        
+        const response=await axiosInstance.get('/turfo/booking/get-all-group-game',{
+            params:{
+                city,
+            game
+            }
         })
         return response.data
     } catch (error) {

@@ -60,7 +60,7 @@ import Venue from './Venue'
     return (
     <>
     <main className='flex-c venue-cont'>
-      <div className='m-20 h-1 d-f-center gap border bor'>
+      <div className=' h-1 d-f-center gap border bor w-color' >
         <h2 className='font-p b-color '>Book By Venue, Cities</h2>
         <input type="text"
         style={{
@@ -83,7 +83,21 @@ import Venue from './Venue'
           <span className='font-p c-p f- ls cap '>{city}</span>
         </div>
       </div>
-      <div className='b-top'><Tabs items={tabItems} className='m-20'/></div>
+      <div className='b-top'>
+      <div className='b-top' style={{ backgroundColor: 'rgb(229, 231, 235)' }}>
+  <Tabs 
+    items={tabItems} 
+    className=''
+    tabBarStyle={{ 
+      backgroundColor: 'white',
+      padding: '0 30px  ',
+      height:80,
+      
+    }}
+  />
+</div>
+    
+      </div>
       {
         isCityModal &&  (<CityModal/>)
       }

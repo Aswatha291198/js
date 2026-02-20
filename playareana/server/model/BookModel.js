@@ -26,11 +26,7 @@ const bookingSchema = new mongoose.Schema({
   date: { type: Date,
           required: true
          },
-         game:{
-          type:mongoose.Schema.Types.ObjectId,
-          ref:'games'
-         },
-         
+
   startTime: { type: Number,
                required: true
              },

@@ -157,6 +157,7 @@ const handleInc=()=>{
         setDuration(duration+1)
     }
 }
+console.log(selectedGame,'game');
 
 const handleDateChange=(e)=>{
 setDate(moment(e.target.value).format('YYYY-MM-DD'))
@@ -171,6 +172,8 @@ console.log(totalPlayers,'totalplaeyrs');
    onOk={handlePayment}
    onCancel={()=>{setIsBookModal(false)}}
    >
+
+
 <div className='flex-c gap'>
 
         <Row gutter={{xs:8,sm:12,md:16,lg:20}}>
@@ -225,7 +228,7 @@ console.log(totalPlayers,'totalplaeyrs');
         </Col>
         <Col span={12}>
         <Select
-        onChange={(e)=>setSelectedTime(e.target.value)}
+        onChange={(value)=>setSelectedGame(value)}
         placeholder='Pick a Sport'
         options={turf?.AddSport?.map((sport)=>{
             return {

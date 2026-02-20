@@ -111,17 +111,19 @@ const bookTurf = async (req, res) => {
         amountPaid:bookType==='book'?rest.totalPrice:rest.pricePerplayer
       }]
     })
-    const populateBooking=await Booking.findById(newBooking._id).populate('players.user')
-    .populate('turf')
-    .populate('player.user')
-
+    const populateBooking=await Booking.findById(newBooking._id).populate({
+      path:'players',
+      populate:[{
+        path:'users'
+      }]
+    })
     res.status(200).json({
       success: true,
       message: 'Booking created successfully'
     })
 
   } catch (error) {
-    console.log(error)
+    console.log(error.message,'line 131')
 
     res.status(500).json({
       success: false,
@@ -150,33 +152,37 @@ const bookTurf = async (req, res) => {
 }
 const getAllGroupGames = async (req, res) => {
   try {
-    const { city } = req.query  
-console.log(req.body);
-console.log(city);
-  
-  const all=await Booking.find(req.body).populate({
+    const { city,game } = req.query  
+  const all=await Booking.find({status:'open'}).populate({
     path:'turf',
-    select:'name',
-    populate:[{
-      path:'city',
+    select:'name city AddSport',
+    populate:[
+      {path:'city',
       select:'name',
-      ...(city && {match:city})
-    },
-    {
-    path:'AddSport',
+      },
+
+    {path:'AddSport',
     select:'name'
-    }
-    
+    }  
   ]
   })
-  console.log(all,'aa');
+const gameFillter=all.filter((b)=>{
+  const gamename=b.find((name)=>name.name===g)
+})
   
-  
+   const filtered = all.filter((b) => {
+  if (!b.turf || !b.turf.city) return false
+   const cityMatch= b.turf.city.name.trim().toLowerCase() === city.trim().toLowerCase()
+   
+if(!game){
+return cityMatch
+}
+return cityMatch && 
+})
   
   res.send({
     message:'all groups',
-    data:all
-  })
+    data:filtered  })
   
   } catch (error) {
     console.log(error.message,'line 165')
@@ -184,11 +190,33 @@ console.log(city);
   }
 }
 
+const getBookings=async(req,res)=>{
+  try {
+    const{id}=req.params
+    const booking=await Booking.findById(id).populate({
+      path:'turf',
+      populate:[{
+        path:'city'
+      },
+    {
+      path:'AddSport',
+    }]
 
+    })
+    
+    res.send({
+      data:booking
+    })
+  } catch (error) {
+    console.log(error.message);
+    
+  }
+}
 module.exports={
   getBookingTurfByDate,
   makePayment,
   bookTurf,
   getBookingsTurfOwner,
-  getAllGroupGames
+  getAllGroupGames,
+  getBookings
 }
