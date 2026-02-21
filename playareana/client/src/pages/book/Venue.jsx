@@ -21,14 +21,13 @@ const navigate=useNavigate()
   return (
     <>
     <main className=''>
-        <div className='d-flex gap  m-20'>
+        <div className='d-grid  m-20'>
         {venues &&venues.map((turf)=>{
             return(
                 <Card 
                 className='flex-c gap bor m-20 c-p'
                 style={{
                     height:350,
-                    width:350,
                     boxShadow:"0px 2px 12px rgba(0, 0, 0, 0.2)"
                 }}
                 onMouseOver={(e) => {

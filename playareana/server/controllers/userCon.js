@@ -40,16 +40,11 @@ const loginUser = async (req, res) => {
     }
 }
 const getCurrentUser = async (req, res) => {
-    console.log('backend current user');
-    console.log(req.body);
-
     try {
         const currentUser = await User.findById(req.userid)
         if (!currentUser) {
             return res.status(404).send({ message: "User Not Found" })
         }
-        console.log(currentUser, 'from db');
-
         return res.status(200).send({ message: 'Welcome User', data: currentUser, success: true })
     } catch (error) {
         return res.status(500).send("something went wrong")

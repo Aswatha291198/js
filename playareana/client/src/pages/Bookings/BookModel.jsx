@@ -8,7 +8,7 @@ import { GoClock } from "react-icons/go";
 import {showLoading,hideLoading} from '../../../redux/slice/userSlice'
 import {useDispatch, useSelector}from 'react-redux'
 import { useNavigate } from 'react-router-dom';
-import { addGroupBook, getBookingTurfByDate, MakePayment } from '../../api/book';
+import {getBookingTurfByDate, MakePayment } from '../../api/book';
 import { bookTurf } from '../../api/book';
 import { generateTimeSlots,getAvailableSlots } from '../../utils/slotUtils'
 const BookModel = ({
@@ -30,9 +30,11 @@ const BookModel = ({
     const[open,setOpen]=useState(false)
     const[totalPlayers,setTotalPlayers]=useState(1)
     const[date,setDate]=useState(moment().format('YYYY-MM-DD'))
-    
     const totalPrice =turf.price*duration 
     const pricePerPlayer=bookType==='host'? Math.ceil(totalPrice/totalPlayers):null
+         
+
+
     const book=async(transactionId)=>{
     try {
         console.log('cominng to book');
@@ -163,7 +165,6 @@ const handleDateChange=(e)=>{
 setDate(moment(e.target.value).format('YYYY-MM-DD'))
 }
 console.log(totalPlayers,'totalplaeyrs');
-
   return (
   <>
     <Modal
@@ -233,7 +234,7 @@ console.log(totalPlayers,'totalplaeyrs');
         options={turf?.AddSport?.map((sport)=>{
             return {
                 label:sport.name,
-                value:sport.name
+                value:sport._id
             }
         }
         )}

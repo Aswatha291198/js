@@ -45,15 +45,6 @@ export const getBookingsTurfOwner=async(values)=>{
         
     }
 }
-export const addGroupBook=async(values)=>{
-    try {
-        const resposne=await axiosInstance.post('/turfo/booking/host-game',values)
-        return resposne.date
-    } catch (error) {
-        console.log(error.message);
-        
-    }
-}
 
 export const getGroupgameByCity=async(city,game)=>{
     try {
@@ -62,7 +53,7 @@ export const getGroupgameByCity=async(city,game)=>{
         const response=await axiosInstance.get('/turfo/booking/get-all-group-game',{
             params:{
                 city,
-            game
+              ...(game &&{game  })
             }
         })
         return response.data

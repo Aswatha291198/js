@@ -63,4 +63,15 @@ const getAllGame = async (req, res) => {
 
     }
 }
-module.exports = { addGame, deleteGame, getAllGame, UpdateGame }
+const getgameByID =async(req,res)=>{
+    try {
+        const getGame=await game.findById(req.params.id)
+        res.send({
+            data:getGame
+        })
+    } catch (error) {
+        console.log(error.message);
+        
+    }
+}
+module.exports = { addGame, deleteGame, getAllGame, UpdateGame,getgameByID }

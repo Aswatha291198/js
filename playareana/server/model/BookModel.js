@@ -42,7 +42,11 @@ const bookingSchema = new mongoose.Schema({
   pricePerPlayer: 
                 { type: Number
 
-                },   
+                }, 
+            game:{
+              type:mongoose.Schema.Types.ObjectId,
+              ref:'games'
+            },      
   maxPlayers: { type: Number }, 
   players: [playerSchema],
   status: {

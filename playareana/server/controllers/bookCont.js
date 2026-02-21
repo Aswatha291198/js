@@ -3,6 +3,7 @@ const Booking=require('../model/BookModel')
 const stripe=require('stripe')(process.env.STRIPE_KEY)
 const User=require('../model/userModel')
 const turf=require('../model/turfModel')
+const Games=require('../model/gameModel')
 const makePayment = async (req, res) => {
   try {
     const { amount, userId } = req.body;
@@ -68,14 +69,10 @@ const getBookingTurfByDate = async (req, res) => {
   try {
     const { turf, date } = req.body;
         console.log('insdie backend');
-        
-    // Build start and end of the given day (UTC)
     const startOfDay = new Date(date);
     startOfDay.setHours(0, 0, 0, 0);
-
     const endOfDay = new Date(date);
     endOfDay.setHours(23, 59, 59, 999);
-
     const bookings = await Booking.find({
       turf,                          
       date: {
@@ -100,7 +97,10 @@ const getBookingTurfByDate = async (req, res) => {
 
 const bookTurf = async (req, res) => {
   try {
-    const{bookType,transactionId, ...rest}=req.body
+    console.log(req.body);
+  
+    
+    const{bookType,transactionId, ...rest}=req.body  
     const newBooking=await Booking.create({
       ...rest,
       bookType,
@@ -117,9 +117,11 @@ const bookTurf = async (req, res) => {
         path:'users'
       }]
     })
+    .populate('game')
     res.status(200).json({
       success: true,
-      message: 'Booking created successfully'
+      message: 'Booking created successfully',
+      data:populateBooking
     })
 
   } catch (error) {
@@ -150,43 +152,39 @@ const bookTurf = async (req, res) => {
     
   }
 }
-const getAllGroupGames = async (req, res) => {
+const getAllGroupGames=async(req,res)=>{
   try {
-    const { city,game } = req.query  
-  const all=await Booking.find({status:'open'}).populate({
-    path:'turf',
-    select:'name city AddSport',
-    populate:[
-      {path:'city',
-      select:'name',
-      },
-
-    {path:'AddSport',
-    select:'name'
-    }  
-  ]
-  })
-const gameFillter=all.filter((b)=>{
-  const gamename=b.find((name)=>name.name===g)
-})
-  
-   const filtered = all.filter((b) => {
-  if (!b.turf || !b.turf.city) return false
-   const cityMatch= b.turf.city.name.trim().toLowerCase() === city.trim().toLowerCase()
-   
-if(!game){
-return cityMatch
-}
-return cityMatch && 
-})
-  
-  res.send({
-    message:'all groups',
-    data:filtered  })
-  
+    const {city,game}=req.query
+    const gameName=await Games.find({name:game})
+    const booking=await Booking.find({status:'open'})
+    .populate({
+      path:'turf',
+      populate:[
+        {path:'city',select:'name'}
+      ]
+    })
+    .populate('game')
+    .populate('hostedBy')
+    const filtered=booking.filter((b)=>{
+      const cityMatch= b.turf.city.name.trim().toLowerCase()===city.trim().toLowerCase()
+    const gameMatch=b?.game?.name===game
+    
+        if(!game){
+          return cityMatch
+        }
+        else{
+          console.log('cominmg in the ');
+          
+          return cityMatch && gameMatch
+        }
+    })
+    
+    res.send({
+      data:filtered
+    })
   } catch (error) {
-    console.log(error.message,'line 165')
-    return res.status(500).json({ success: false, message: error.message })
+    console.log(error.message);
+    
   }
 }
 

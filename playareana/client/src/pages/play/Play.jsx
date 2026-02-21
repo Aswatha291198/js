@@ -10,7 +10,6 @@ import { GiWhistle } from "react-icons/gi"
 import { hideLoading, showLoading } from '../../../redux/slice/userSlice'
 import { getAllGame } from '../../api/game'
 
-
 const Play = () => {
   const [searchParams] = useSearchParams()
   const city = searchParams.get('city')
@@ -22,14 +21,17 @@ const Play = () => {
   const dispatch = useDispatch()
   const navigate = useNavigate()
 
+const getTime = (hour) => {
+  return moment(hour, 'HH').format('hh:mm A') 
+}
+
   const getData = async () => {
     try {
       dispatch(showLoading())
       const gameResponse = await getAllGame()
       let response
       if(selectedGame){
-        console.log(selectedGame,'fam');
-        
+        console.log(selectedGame,'fam'); 
         response=await getGroupgameByCity(city,selectedGame)
       }
     
@@ -118,7 +120,7 @@ console.log(venue,'venue');
                       onMouseEnter={(e) => e.target.style.backgroundColor = '#f5f5f5'}
                       onMouseLeave={(e) => e.target.style.backgroundColor = 'white'}
                     >
-                      {game.name} {/* fix: use game.name not game */}
+                      {game.name}
                     </div>
                   ))}
                 </div>
@@ -146,15 +148,50 @@ console.log(venue,'venue');
           </div>
          </div>
         </section>
-        <section>
-      <div className='red'>
+        <section className='red'>
+      <div className='d-grid-play m-20 gap'>
         {
           venue && venue.map((ve)=>{
           return   <div
             key={ve._d}
-            className='red'
+            className='flex-c c-p bor'
+            style={{
+              height:200,
+              backgroundColor:'white',
+              borderRadius:10,
+               boxShadow: '0px 4px 10px rgba(0, 0, 0, 0.1)',
+                
+  
+            }}
+            onMouseOver={(e) => {
+                      e.currentTarget.style.transform = "scale(1.05)";
+                    }}
+                    onMouseOut={(e) => {
+                      e.currentTarget.style.transform = "scale(1)";
+                    }}
             >
-<div>{ve.turf.city.name}</div>
+              <div className='d-f-center  g-color '
+              style={{
+                borderRadius:'10px 10px 0 0',
+                height:40
+              }}
+              >
+             <span className='font-p  text-color-w ls'
+             
+             >{ve.turf.name}</span>
+              </div>
+             <div className='mt d-flex'>
+              <span className='py-3 b-color cap font-p ls'
+              style={{
+              fontSize:'14px',
+              color:'rgb(117, 138, 128)'
+             }}
+              >{ve.hostedBy.name}</span>
+             </div>
+             <div>
+              <span>{getTime(ve.startTime)}</span>
+              <span>{getTime(ve.endTime)} </span>
+             </div>
             </div>
           })
         }
