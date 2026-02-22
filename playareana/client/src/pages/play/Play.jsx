@@ -9,6 +9,12 @@ import moment from 'moment'
 import { GiWhistle } from "react-icons/gi"
 import { hideLoading, showLoading } from '../../../redux/slice/userSlice'
 import { getAllGame } from '../../api/game'
+import { LuMapPin } from "react-icons/lu";
+import { MdOutlineSportsCricket } from "react-icons/md";
+import { BiFootball } from "react-icons/bi";
+import { GiTennisBall } from "react-icons/gi";
+import { IoBasketballOutline } from "react-icons/io5";
+
 
 const Play = () => {
   const [searchParams] = useSearchParams()
@@ -21,8 +27,21 @@ const Play = () => {
   const dispatch = useDispatch()
   const navigate = useNavigate()
 
+const sportIconMap = {
+  Cricket: <MdOutlineSportsCricket />,
+  Football: <BiFootball />,
+  Tennis: <GiTennisBall />,
+  Basketball: <IoBasketballOutline />,
+};   
+
 const getTime = (hour) => {
   return moment(hour, 'HH').format('hh:mm A') 
+}
+const getDay=(date)=>{
+  return moment(date).format('ddd')
+}
+const getDate=(date)=>{
+  return moment(date).format('DD MMM YYYY')
 }
 
   const getData = async () => {
@@ -148,20 +167,26 @@ console.log(venue,'venue');
           </div>
          </div>
         </section>
-        <section className='red'>
-      <div className='d-grid-play m-20 gap'>
+        <section>
+                <div className='m-20'>
+                   <div className='d-grid-play gap'
+      style={{
+        marginLeft:'50px'
+      }}
+      >
         {
           venue && venue.map((ve)=>{
           return   <div
             key={ve._d}
-            className='flex-c c-p bor'
+            className='flex-c c-p bor gp-10 '
             style={{
               height:200,
               backgroundColor:'white',
               borderRadius:10,
                boxShadow: '0px 4px 10px rgba(0, 0, 0, 0.1)',
-                
-  
+            }}
+            onClick={()=>{
+              navigate(`/join-game/${ve._id}`)
             }}
             onMouseOver={(e) => {
                       e.currentTarget.style.transform = "scale(1.05)";
@@ -180,7 +205,7 @@ console.log(venue,'venue');
              
              >{ve.turf.name}</span>
               </div>
-             <div className='mt d-flex'>
+             <div className=' d-flex'>
               <span className='py-3 b-color cap font-p ls'
               style={{
               fontSize:'14px',
@@ -188,14 +213,56 @@ console.log(venue,'venue');
              }}
               >{ve.hostedBy.name}</span>
              </div>
-             <div>
-              <span>{getTime(ve.startTime)}</span>
-              <span>{getTime(ve.endTime)} </span>
+             <div className='flex-c gp-10  '>
+              <span className='py-3 f-6 cap font-p ls'
+              style={{
+                fontSize:'12px'
+              }}
+              >{getDay(ve.date)}, {getDate(ve.date)}   </span>
+              <span className='py-3 f-6 cap font-p ls'
+              style={{
+                fontSize:'12px'
+              }}
+              >{getTime(ve.startTime)}-{getTime(ve.endTime)}</span>
              </div>
+             <div> 
+            <span className='py-3 d-flex gp-10'
+            
+            >
+              <LuMapPin
+              style={{
+              fontSize:'14px'
+            }}
+              />
+              <span 
+              className='font-p f-6'
+              style={{
+              fontSize:'13px'
+            }}
+              >{ve?.turf?.address}</span>
+            </span>
+               </div>
+              <div className='d-flex gp-10'>
+                <span className='py-3'
+                style={{
+                  fontSize:'15px'
+                }}
+                >
+                  {sportIconMap[ve.game.name]}</span>
+                  <span
+                  className='font-p f-6'
+                  style={{
+                    fontSize:'14px',
+                    position:'relative',
+                    bottom:2
+                  }}
+                  >- {ve.maxPlayers-ve.players.length} Slots Left</span>
+                  </div> 
             </div>
           })
         }
       </div>
+                </div>
         </section>
       </main>
     </>

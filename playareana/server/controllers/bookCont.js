@@ -196,18 +196,22 @@ const getBookings=async(req,res)=>{
       populate:[{
         path:'city'
       },
-    {
-      path:'AddSport',
-    }]
-
+    ]
     })
+    .populate('game')
+    .populate('hostedBy')
+    .populate('players')
     
     res.send({
+      success:true,
       data:booking
     })
   } catch (error) {
     console.log(error.message);
-    
+    res.send({
+      success:false,
+      message:error.message
+    })
   }
 }
 module.exports={

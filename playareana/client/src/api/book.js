@@ -62,3 +62,13 @@ export const getGroupgameByCity=async(city,game)=>{
         
     }
 }
+
+export const getBookinById=async(id)=>{
+    try {
+        const response=await axiosInstance.get(`/turfo/booking/getBookings/${id}`)
+        return response.data
+    } catch (error) {
+        console.log(error.message);
+        
+    }
+}

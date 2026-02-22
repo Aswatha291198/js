@@ -2,7 +2,6 @@ import { Card,Button } from 'antd';
 import React from 'react'
 import { MdOutlineSportsCricket } from "react-icons/md";
 import { BiFootball } from "react-icons/bi";
-
 import { GiTennisBall } from "react-icons/gi";
 import { IoBasketballOutline } from "react-icons/io5";
 import { useNavigate } from 'react-router-dom';
