@@ -3,18 +3,20 @@ import { hideLoading,showLoading } from '../../../redux/slice/userSlice'
 import { useSelector,useDispatch } from 'react-redux'
 import { getBookinById } from '../../api/book'
 import { useParams } from 'react-router-dom'
-import { message } from 'antd'
+import { Button, message } from 'antd'
 import { MdOutlineSportsCricket } from "react-icons/md";
 import { BiFootball } from "react-icons/bi";
 import { GiTennisBall } from "react-icons/gi";
 import { IoBasketballOutline } from "react-icons/io5";
 import { FaRegClock } from "react-icons/fa6";
 import moment from 'moment'
+import { LuMapPin } from "react-icons/lu";
 
+import JoinModel from './JoinModel'
 const SingelGame = () => {
     const dispatch=useDispatch()
     const [game,setGame]=useState([])
-
+    const [gameModel,setGameModel]=useState(false)
     const getDay=(date)=>{
         const formattedDay=moment(date).format('dddd')
         return formattedDay
@@ -22,6 +24,11 @@ const SingelGame = () => {
     const getDate=(date)=>{
         const formattedDate=moment(date).format('DD MMM YYYY')
         return formattedDate
+    }
+    const getTime=(time)=>{
+       
+        const formattedTime=moment(time,'HH:mm').format('h:mm A')
+        return formattedTime
     }
     const sportIconMap = {
       Cricket: <MdOutlineSportsCricket />,
@@ -48,6 +55,10 @@ const getData=async()=>{
             dispatch(hideLoading())
     }
 }
+console.log(game?.hostedBy?._id);
+console.log(game?.players?.id);
+
+
 
 useEffect(()=>{
     getData()
@@ -56,28 +67,84 @@ useEffect(()=>{
    <>
    <main className='flex-c '>
     <div className='d-flex  gap'>
-        <section className=' w-100  m-20'>
-        <div className='d-flex ml-3 w-color w-7 bor'>
+        <section className='d-flex w-100  m-20'>
+        <div className='d-flex ml-3 w-color w-7 bor '>
             <div className='m-20  border-black w-100 bor flex-c gap'>
-                <div className='ml-3 flex-c gp-10 mt'>
-                    <h2 className='font-p b-color ls ml-3'>{game?.game?.name}</h2>
+                <div className='ml-3 flex-c  mt'>
+                   <div className='d-flex'> 
+                        <span className='ml-3 f-size'>{sportIconMap[game?.game?.name]}</span>
+                     <h2 className='font-p b-color ls ml-3'>{game?.game?.name}</h2>
+                   </div>
                     <span className='cap ml-3 font-p'>Hosted by {game?.hostedBy?.name}</span>
                 </div>
-                <div className='ml-3 d-flex gp-10'>
+                <div className='flex-c ml-3 gp-10'>
+                    <div className='ml-3 d-flex gp-10 mt'>
                  <FaRegClock
-                 className='ml-3 font-larger b-color'/>
+                 className=' font-larger b-color'/>
                     <span 
-                    className='font-larger font-p f-6'
+                    className='font-larger font-p f-6 b-color'
                     style={{
                         position:'relative',
                         bottom:4
                     }}
                     >{getDay(game?.date)}, {getDate(game.date)}</span>
                 </div>
+                <div className='ml-3'>
+                    <span className='font-p '>{getTime(game.startTime)} to </span>
+                     <span className='font-p '>{getTime(game.endTime)}  </span>
+                </div>
+                </div>
+                <div className='ml-3 play-div'>
+                        <LuMapPin
+                        className='ml-3 font-larger'
+                        />
+                        <span className='font-p f-6'>{game?.turf?.address},</span>
+                         <span className='font-p f-6'>{game?.turf?.city?.name}</span>
+                </div>
+                <div></div>
             </div>
+            
         </div>
+            <div className='ml-3 w-color flex-c'
+            style={{
+                width:'30%',
+                borderRadius:30,
+                minHeight:'200px'
+            }}>
+                <div className='mt'>
+                    <span className='font-p font-larger f-6 ml-3'>Players </span>
+                    <span className='font-p f-6'>({game?.players?.length})</span>
+                </div>
+                
+                {game?.players?.map((player)=>{
+                    return (
+                        <div
+                        className='m-20'
+                        key={player.user._id}
+                        >
+                            <span className='cap font-p '>{player?.user?.name}</span>
+                            {player.id===game?.hostedBy?._id && (
+                                <span className='font-p'>(Host)</span>
+                            )}
+                        </div>
+                    )
+                })}
+               
+            </div>
     </section>
     </div>
+     <div className='d-flex end'>
+        <Button className='font-p f-6 c-p'
+        onClick={()=>{
+            setGameModel(true)
+            }}
+        >Join Now</Button></div>
+        {gameModel && (<JoinModel
+        gameModel={gameModel}
+        setGameModel={setGameModel}
+        game={game}
+        sportIconMap={sportIconMap}
+        />)}
    </main>
    
    

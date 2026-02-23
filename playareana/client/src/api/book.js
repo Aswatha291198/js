@@ -72,3 +72,21 @@ export const getBookinById=async(id)=>{
         
     }
 }
+export const joinGame=async(values)=>{
+    try {
+        const response=await axiosInstance.post('/turfo/booking/join-game',values)
+        return response.data
+    } catch (error) {
+        console.log(error.message);
+        
+    }
+}
+export const getBookingUser=async()=>{
+    try {
+        const response=await axiosInstance.get('/turfo/booking/myBookings')
+        return response.data
+    } catch (error) {
+        console.log(error.message);
+        
+    }
+}

@@ -23,8 +23,15 @@ const UserProfile = () => {
     }
   ]
   return (
-    <div>
-    <Tabs items={tabItems}  className='m-20'/>
+    <div className='d-f-center'>
+    <Tabs items={tabItems}  className='user-tabs px-3 m-20 '
+    tabBarStyle={{
+      
+      borderRadius:10,
+      padding:'0 10px'
+    }}
+    type='card'
+    />
   </div>
   )
 }

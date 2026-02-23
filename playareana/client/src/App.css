@@ -292,6 +292,17 @@ height: 100px !important;
 .mr-3{
     margin-right: 1.9rem;
 }
+.play-div::after{
+    content: '';
+    height: 100px;
+}
+.user-tabs .ant-tabs-tab-active .ant-tabs-tab-btn {
+  color: rgb(0,189,78) !important;
+  font-family: 'poppins' !important;
+}
+.user-tabs .ant-tabs-ink-bar{
+    background-color:rgb(0,189,78) !important;
+}
 @media (max-width: 768px) {
     .d-grid-play {
         grid-template-columns: repeat(2, 1fr);

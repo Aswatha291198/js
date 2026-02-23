@@ -6,8 +6,8 @@ const turf=require('../model/turfModel')
 const Games=require('../model/gameModel')
 const makePayment = async (req, res) => {
   try {
-    const { amount, userId } = req.body;
-
+    const { amount } = req.body;
+      const userId=req.userid
     if (!amount || !userId) {
       return res.status(400).json({
         success: false,
@@ -214,11 +214,85 @@ const getBookings=async(req,res)=>{
     })
   }
 }
+const joinGame=async(req,res)=>{
+  try {
+    const {id,transactionId} =req.body
+    const userId=req.userid
+    console.log(userId);
+    console.log((typeof(userId)));
+    
+    const bookGame=await Booking.findById(id).populate('players.user')
+    if(!bookGame){
+    return   res.status(404).send({
+        success:false,
+        message:'No bookings found'
+      })
+    }
+    const alreadyJoined=bookGame.players.some((p)=>{
+      console.log(p.user._id)
+      console.log(typeof(p.user._id))
+     return  p.user._id.toString()===req.userid.toString
+    })
+    console.log(alreadyJoined,'d')
+    if(alreadyJoined){
+      return res.status(400).send({
+        success:false,
+        message:'Already Joined'})
+    }
+    bookGame.players.push({
+      user:req.userid,
+      hasPaid:true,
+      amountPaid:bookGame.pricePerPlayer,
+      transactionId
+    })
+    await bookGame.save()
+    return res.status(200).send({
+      success:true,
+      message:'Joined Successfully',
+      data:bookGame
+    })
+
+  } catch (error) {
+    console.log(error.message);
+    res.send({
+      success:false,
+      message:error.message
+    })
+    
+  }
+}
+const getBookingUser=async(req,res)=>{
+  try {
+    const id=req.userid
+    const  userBooking=await Booking.find({hostedBy:id}).populate({
+      path:'turf',
+      populate:[{
+        path:'city'
+      }]
+    }).populate('hostedBy','-password')
+    .populate('players.user','-password -email')
+    .populate('game')
+
+    return res.status(200).send({
+      success:true,
+      data:userBooking
+    })
+  } catch (error) {
+    console.log(error.message);
+    res.status(500).send({
+      success:false,
+      message:error.message
+    })
+    
+  }
+}
 module.exports={
   getBookingTurfByDate,
   makePayment,
   bookTurf,
   getBookingsTurfOwner,
   getAllGroupGames,
-  getBookings
+  getBookings,
+  joinGame,
+  getBookingUser
 }

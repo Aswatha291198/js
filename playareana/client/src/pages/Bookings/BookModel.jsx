@@ -33,7 +33,11 @@ const BookModel = ({
     const totalPrice =turf.price*duration 
     const pricePerPlayer=bookType==='host'? Math.ceil(totalPrice/totalPlayers):null
          
-
+    const removeAmorPm=(time)=>{
+       return Number(moment(time, ['HH:mm', 'hh:mm A']).format('HH'))
+       
+    }
+        
 
     const book=async(transactionId)=>{
     try {
@@ -92,6 +96,7 @@ dispatch(hideLoading())
     }
 }
 
+console.log(typeof(duration),'ddd');
 
 useEffect(()=>{
 getData()
@@ -153,13 +158,20 @@ getData()
 }
 const handleInc=()=>{
     if(duration ===24){
-        return 
+        message.warning('Maximum duration is 24 hours')
+    }
+    if(!selectedTime){
+        message.warning('Please Select a time')
+    }
+    if(removeAmorPm(selectedTime)+duration >=removeAmorPm(turf?.close)){
+        message.warning('Cannot exceed closing time')
     }
     else{
         setDuration(duration+1)
     }
 }
 console.log(selectedGame,'game');
+console.log(typeof(turf.close),'closess');
 
 const handleDateChange=(e)=>{
 setDate(moment(e.target.value).format('YYYY-MM-DD'))
@@ -343,7 +355,7 @@ console.log(totalPlayers,'totalplaeyrs');
          className='font-p f-6'
             value={duration}/>
          
-          <Button disabled={duration===24 || selectedTime + duration > turf.close}
+          <Button disabled={duration===24 || removeAmorPm(selectedTime)  + duration >= removeAmorPm(turf?.close)}
           onClick={handleInc}
           onMouseOver={(e)=>{
             e.currentTarget.style.color='none'
