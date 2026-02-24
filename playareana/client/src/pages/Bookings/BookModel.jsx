@@ -32,13 +32,12 @@ const BookModel = ({
     const[date,setDate]=useState(moment().format('YYYY-MM-DD'))
     const totalPrice =turf.price*duration 
     const pricePerPlayer=bookType==='host'? Math.ceil(totalPrice/totalPlayers):null
-         
+      const stripe = useStripe();
+    const elements = useElements();    
     const removeAmorPm=(time)=>{
-       return Number(moment(time, ['HH:mm', 'hh:mm A']).format('HH'))
-       
+       return Number(moment(time, ['HH:mm', 'hh:mm A']).format('HH'))   
     }
-        
-
+    
     const book=async(transactionId)=>{
     try {
         console.log('cominng to book');
@@ -96,8 +95,6 @@ dispatch(hideLoading())
     }
 }
 
-console.log(typeof(duration),'ddd');
-
 useEffect(()=>{
 getData()
 },[])
@@ -146,8 +143,7 @@ getData()
                         dispatch(hideLoading())  
                     }
                      }
-    const stripe = useStripe();
-    const elements = useElements();
+   
     const handleDec=()=>{
     if(duration ===1){
         return
@@ -170,14 +166,12 @@ const handleInc=()=>{
         setDuration(duration+1)
     }
 }
-console.log(selectedGame,'game');
-console.log(typeof(turf.close),'closess');
+
 
 const handleDateChange=(e)=>{
 setDate(moment(e.target.value).format('YYYY-MM-DD'))
 }
-console.log(totalPlayers,'totalplaeyrs');
-  return (
+return (
   <>
     <Modal
    centered

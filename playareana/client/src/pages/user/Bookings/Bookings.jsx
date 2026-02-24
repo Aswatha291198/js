@@ -2,17 +2,34 @@ import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { showLoading,hideLoading } from '../../../../redux/slice/userSlice'
 import {getBookingUser } from '../../../api/book'
-import { Tabs } from 'antd'
+import { Tabs,Card } from 'antd'
+import moment from 'moment'
 
 const Bookings = () => {
 
   const dispatch=useDispatch()
   const[bookings,setBookings]=useState([])
 const {user}=useSelector(store=>store.users)
+const today=moment()
+
+const filterDate=bookings.filter((b)=>{
+  const gameDate=moment(b.date)
+  console.log(today.isAfter(gameDate));
+  
+  return gameDate.isBefore(today)
+
+})
+console.log(filterDate,'ff');
+
+
   const bookedGames=bookings.filter((b)=>b.hostedBy._id===user._id)
   const joinedGames=bookings.filter((b)=>b.bookType==='host' &&
   b.players.some(p=>p.user._id ===user._id)
 )
+const formatTime=(time)=>{
+  const format=moment(time,['hh:mm','HH:mm']).format('hh')
+  return format
+}
   
   const getData=async()=>{
     try {
@@ -35,19 +52,27 @@ const {user}=useSelector(store=>store.users)
       label:'Bookings',
       children:(
         <>
-        {
+       <div className='d-grid-play gap'>
+         {
           bookedGames && bookedGames.map((game)=>{
             return (
-              <div 
-              key={game._id}>
-                {game.turf.name}
-                {game.maxPlayers}
-                <img src={game?.turf?.poster} alt="poster" />
-
-              </div>
+              <Card className='flex-c bor gp-10'>
+                <div>
+                  <img src={game?.poster} alt="poster" />
+                </div>
+               <div className='flex-c gp-10'>
+                 <span>{game?.turf?.name}</span>
+                <span>{game?.game?.name}</span>
+                <span className='font-p'>Total Players {game.players.length}</span>
+                <span>{game.duration}</span>
+                <span>{formatTime(game.startTime)}</span>
+                <span>{game?.totalPrice}</span>
+               </div>
+              </Card>
             )
           })
         }
+       </div>
         </>
       )
     },
@@ -56,16 +81,28 @@ const {user}=useSelector(store=>store.users)
       label:'Bookins',
       children:(
         <>
-        {
-          joinedGames && joinedGames.map((game)=>{
+         <div className='d-grid-play gap'>
+         {
+          bookedGames && bookedGames.map((game)=>{
             return (
-              <div key={game._id}>
-                <img src={game?.turf?.poster} alt="poster" />
-                <span>{game?.hostedBy.name}</span>
-              </div>
+              <Card className='flex-c bor gp-10'>
+                <div>
+                  <img src={game?.poster} alt="poster" />
+                </div>
+               <div className='flex-c gp-10'>
+                 <span>{game?.turf?.name}</span>
+                <span>{game?.game?.name}</span>
+                <span className='font-p'>Total Players {game.players.length}</span>
+                <span>{game.duration}</span>
+                <span>{formatTime(game.startTime)}</span>
+                <span>{game?.totalPrice}</span>
+                <span>{game.pricePerPlayer}</span>
+               </div>
+              </Card>
             )
           })
         }
+       </div>
         </>
       )
     }
@@ -78,6 +115,7 @@ const {user}=useSelector(store=>store.users)
    <>
    <main>
     <Tabs className='m-20'
+
     items={tabItems}
     
     />

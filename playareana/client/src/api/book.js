@@ -36,9 +36,9 @@ try {
 }
 }
 
-export const getBookingsTurfOwner=async(values)=>{
+export const getBookingsTurfOwner=async(id)=>{
     try {
-        const response =await axiosInstance.get('/turfo/booking/incoming-req',values)
+        const response =await axiosInstance.get(`/turfo/booking/incoming-req/${id}`)
         return response.data
     } catch (error) {
         console.log(error.message);
@@ -46,13 +46,14 @@ export const getBookingsTurfOwner=async(values)=>{
     }
 }
 
-export const getGroupgameByCity=async(city,game)=>{
+export const getGroupgameByCity=async(city,game,date)=>{
     try {
         console.log(game,'api frn');
         
         const response=await axiosInstance.get('/turfo/booking/get-all-group-game',{
             params:{
                 city,
+                date,
               ...(game &&{game  })
             }
         })

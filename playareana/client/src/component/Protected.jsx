@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Layout, message,Modal,Select } from 'antd'
+import { Dropdown, Layout, message,Modal,Select } from 'antd'
 import { useSelector,useDispatch } from 'react-redux'
 import { showLoading,hideLoading,setUser } from '../../redux/slice/userSlice'
 import { NavLink, useNavigate } from 'react-router-dom'
@@ -72,7 +72,29 @@ if(!localStorage.getItem('city') && user?.role==='player'){
 }
 },[])
 
-
+const dropMenu=[
+  {
+    key:'p',
+    label:(
+      <span 
+      className='font-p f-6 ls'
+      onClick={()=>handleProfile()}>Profile</span>
+    )
+  },
+  {
+    key:'l',
+    label:(
+      <span 
+      className='font-p f-6 ls'
+      onClick={()=>{
+        localStorage.removeItem('token')
+        localStorage.removeItem('city')
+        navigate('/login')
+      }}
+      >Logout</span>
+    )
+  }
+]
 const menuRoles={
   player:[
    
@@ -92,7 +114,7 @@ const menuRoles={
   ],
   owner:[
    
-     {label:'Incoming',path:'/incoming',icon:<GiIncomingRocket/>},
+     {label:'Incoming',path:'/incoming-req',icon:<GiIncomingRocket/>},
      {label:'sfksdnk',path:'/play'} 
     
   ],
@@ -135,18 +157,12 @@ const menuRoles={
       </ul>
     </div>
     <section className='d-flex end w-200 px-3 mt'>
-      <span
-      className='c-p'
-       onClick={handleProfile}>{user?.name}</span>
-    </section>
-    <section>
-      <span
-      
-      onClick={()=>{
-        localStorage.removeItem('city')
-        localStorage.removeItem('token')
-        navigate('/login')
-      }}>Logout</span>
+     <Dropdown
+     menu={{items:dropMenu}}
+     trigger={['click']}
+     >
+        <span className='cap font-p f-6 font-large c-p'>{user?.name}</span>
+     </Dropdown>
     </section>
     </Header>
   </Layout>

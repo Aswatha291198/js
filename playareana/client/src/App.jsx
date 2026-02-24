@@ -15,6 +15,7 @@ import UserProfile from './pages/user/UserProfile'
 import SingleTurf from './pages/Bookings/SingleTurf'
 import Bookings from './pages/user/Bookings/Bookings'
 import SingelGame from './pages/Bookings/SingelGame'
+import Incoming from './pages/partner/Incoming'
 
 const App = () => {
     return (
@@ -30,6 +31,7 @@ const App = () => {
                 <Route path='/turf/:id' element={<Protected><SingleTurf/></Protected>}></Route>
                 <Route path ='/player' element={<Protected><UserProfile/></Protected>}></Route>
                 <Route path='/owner' element={<Protected><Owner/></Protected>}></Route>
+                <Route path='/incoming-req' element={<Protected><Incoming/></Protected>}></Route>
                 <Route path='/myBookings' element={<Protected><Bookings/></Protected>}></Route>
                 <Route path='/join-game/:id'element={<Protected><SingelGame/></Protected>}></Route>
             </Routes>      

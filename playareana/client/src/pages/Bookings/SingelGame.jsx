@@ -14,6 +14,7 @@ import { LuMapPin } from "react-icons/lu";
 
 import JoinModel from './JoinModel'
 const SingelGame = () => {
+    const{user}=useSelector(store=>store.users)
     const dispatch=useDispatch()
     const [game,setGame]=useState([])
     const [gameModel,setGameModel]=useState(false)
@@ -27,9 +28,15 @@ const SingelGame = () => {
     }
     const getTime=(time)=>{
        
-        const formattedTime=moment(time,'HH:mm').format('h:mm A')
+        const formattedTime=moment(time,'HH').format('h:mm A')
         return formattedTime
     }
+    const disabledBtn=game?.players?.some((p)=>{        
+      console.log(p?.user?._id,'wew');
+      
+      return  p?.user?._id?.toString() === user?._id?.toString()
+
+    })
     const sportIconMap = {
       Cricket: <MdOutlineSportsCricket />,
       Football: <BiFootball />,
@@ -55,10 +62,8 @@ const getData=async()=>{
             dispatch(hideLoading())
     }
 }
-console.log(game?.hostedBy?._id);
-console.log(game?.players?.id);
-
-
+console.log('players', typeof(game?.players))
+console.log('user id', typeof(user?._id))
 
 useEffect(()=>{
     getData()
@@ -123,7 +128,7 @@ useEffect(()=>{
                         key={player.user._id}
                         >
                             <span className='cap font-p '>{player?.user?.name}</span>
-                            {player.id===game?.hostedBy?._id && (
+                            {player?.user?.id===game?.hostedBy?._id && (
                                 <span className='font-p'>(Host)</span>
                             )}
                         </div>
@@ -138,7 +143,8 @@ useEffect(()=>{
         onClick={()=>{
             setGameModel(true)
             }}
-        >Join Now</Button></div>
+            disabled={disabledBtn}
+        >{disabledBtn ?'Already Joined':'Join Game'}</Button></div>
         {gameModel && (<JoinModel
         gameModel={gameModel}
         setGameModel={setGameModel}

@@ -8,13 +8,13 @@ import { useNavigate } from 'react-router-dom';
 
 const Venue = ({venues}) => {
     console.log(venues,'from jshdjshdbj');
-    
-    const sportIconMap = {
+     const sportIconMap = {
   Cricket: <MdOutlineSportsCricket />,
   Football: <BiFootball />,
   Tennis: <GiTennisBall />,
   Basketball: <IoBasketballOutline />,
 };   
+   
 const navigate=useNavigate()
 
   return (
@@ -42,7 +42,7 @@ const navigate=useNavigate()
         
                 >
           <div className='d-flex'>
-          <img src={turf.poster} alt="t"
+          <img src={turf?.poster} alt="t"
           className='w-100'
           style={{
             objectFit:'cover',
@@ -51,18 +51,7 @@ const navigate=useNavigate()
           />
           
           </div>
-          <div className='d-flex end'
-          
-          style={{
-            position:'relative',
-            bottom:32
-          }}><Button
-          className='font-p f-6 ls'
-          style={{
-            backgroundColor:'rgb(0, 189, 78)'
-          }}
-          type='primary'
-          >Book Now</Button></div>
+
           <div className='flex-c gp-10 py-3 '>
             <span className='font-p f-6 b-color'>{turf.name}</span>
             <span className='font-p  b-color'>{turf.address}</span>

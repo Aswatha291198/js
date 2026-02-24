@@ -6,6 +6,7 @@ import { getAllturfOwner, getTurfbyId } from '../../api/turf'
 import { FiEdit } from "react-icons/fi";
 import { MdDeleteOutline } from "react-icons/md";
 import TurfForm from './TurfForm'
+import DeleteModal from './DeleteModal'
 
 const Turf = () => {
   const [turfs,setTurfs]=useState([])
@@ -14,7 +15,7 @@ const Turf = () => {
   const[turfModal,setTurfModal]=useState(false)
   const[selectedTurf,setSelectedTurf]=useState(null)
   const[formType,setFormType]=useState('add')
-  
+  const [isDeleteModal,setIsDeleteModal]=useState(false)
   const getTurf=async()=>{
     console.log('inside fu');
     
@@ -101,7 +102,12 @@ const columns =[
 
         }}
         ><FiEdit/></Button>
-        <Button danger className='font-large'><MdDeleteOutline/></Button>
+        <Button
+        onClick={()=>{
+          setIsDeleteModal(true)
+          setSelectedTurf(data)
+        }}
+        danger className='font-large'><MdDeleteOutline/></Button>
       </div>
     }
   }
@@ -131,6 +137,13 @@ const columns =[
       setSelectedTurf={setSelectedTurf}  
       getTurf={getTurf} 
       />}
+      {isDeleteModal &&( <DeleteModal
+      isDeleteModal={isDeleteModal}
+      setIsDeleteModal={setIsDeleteModal}
+      selectedTurf={selectedTurf}
+      setSelectedTurf={setSelectedTurf}
+      getTurf={getTurf}
+      />)}
     </div>
     </>
   )

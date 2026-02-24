@@ -45,7 +45,9 @@ const deleteTurf = async (req, res) => {
     try {
         const deleteTurf = await turf.findByIdAndDelete(req.params.id)
         if(!deleteTurf){
-            return res.status(404).send({message:"Not able to delete",success:false})
+            return res.status(404).send(
+                {message:"Not able to delete",
+                success:false})
         }
         res.send({
             message: 'deleted',

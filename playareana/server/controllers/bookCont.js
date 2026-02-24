@@ -4,6 +4,8 @@ const stripe=require('stripe')(process.env.STRIPE_KEY)
 const User=require('../model/userModel')
 const turf=require('../model/turfModel')
 const Games=require('../model/gameModel')
+const moment=require('moment')
+const { message } = require('antd')
 const makePayment = async (req, res) => {
   try {
     const { amount } = req.body;
@@ -135,28 +137,38 @@ const bookTurf = async (req, res) => {
 }
   const getBookingsTurfOwner=async(req,res)=>{
   try {
-    const{ownerId,turf}=req.body
-    const owner= await turf.find({owner:ownerId})
-    .populate('owner')
+    const{id}=req.params
+    console.log(id);
+    
+    const ownerBooking=await Booking.find({owner:id}).populate('hostedBy')
+    .populate('turf')
 
-    const allreq=await Booking.find({
-      owner,
-      turf
-    })
+    console.log(ownerBooking,'[]');
+    
     return res.send({
-      success:true,
-      data:allreq
+      data:ownerBooking,
+      success:true
     })
   } catch (error) {
-    console.log(error.message);
-    
+    console.log(error.message)
   }
 }
 const getAllGroupGames=async(req,res)=>{
   try {
-    const {city,game}=req.query
+    const {city,game,date}=req.query
+    const today=moment().startOf('day')
+    const gameDate=moment(date)
+    
+
     const gameName=await Games.find({name:game})
-    const booking=await Booking.find({status:'open'})
+    const booking=await Booking.find({status:'open',
+      date:date?{
+         $gte: moment(date).startOf('day').toDate(),
+        $lte: moment(date).endOf('day').toDate()
+      }:{
+          $gte:today.toDate()
+      }
+    })
     .populate({
       path:'turf',
       populate:[
@@ -200,7 +212,7 @@ const getBookings=async(req,res)=>{
     })
     .populate('game')
     .populate('hostedBy')
-    .populate('players')
+    .populate('players.user')
     
     res.send({
       success:true,
@@ -229,15 +241,22 @@ const joinGame=async(req,res)=>{
       })
     }
     const alreadyJoined=bookGame.players.some((p)=>{
-      console.log(p.user._id)
-      console.log(typeof(p.user._id))
-     return  p.user._id.toString()===req.userid.toString
+     return  p.user._id.toString()===req.userid.toString()
     })
     console.log(alreadyJoined,'d')
     if(alreadyJoined){
       return res.status(400).send({
         success:false,
         message:'Already Joined'})
+    }
+    if(bookGame.players===bookGame.maxPlayers){
+      bookGame.status='full'
+    }
+    if(bookGame.players.length >= bookGame.maxPlayers){
+      return res.send({
+        success:false,
+        message:'Game full'
+      })
     }
     bookGame.players.push({
       user:req.userid,

@@ -19,7 +19,7 @@ import { IoBasketballOutline } from "react-icons/io5";
 const Play = () => {
   const [searchParams] = useSearchParams()
   const city = searchParams.get('city')
-  const [date, setDate] = useState(moment().format('YYYY-MM-DD'))
+  const [date, setDate] = useState(null)
   const [venue, setVenue] = useState([])
   const [open, setOpen] = useState(false)
   const [games, setGames] = useState([])
@@ -33,6 +33,8 @@ const sportIconMap = {
   Tennis: <GiTennisBall />,
   Basketball: <IoBasketballOutline />,
 };   
+
+
 
 const getTime = (hour) => {
   return moment(hour, 'HH').format('hh:mm A') 
@@ -48,16 +50,8 @@ const getDate=(date)=>{
     try {
       dispatch(showLoading())
       const gameResponse = await getAllGame()
-      let response
-      if(selectedGame){
-        console.log(selectedGame,'fam'); 
-        response=await getGroupgameByCity(city,selectedGame)
-      }
-    
-    else{
-      response=await getGroupgameByCity(city)
-    }
-      if(response){
+      const response=await getGroupgameByCity(city,selectedGame,date)
+            if(response){
         setVenue(response.data)
 
       }
@@ -74,11 +68,15 @@ console.log(venue,'venue');
 
   useEffect(() => {
     getData()
-  }, [city,selectedGame])
+  }, [city,selectedGame,date])
 
-  const handleDateChange = (date) => {
-    setDate(moment(date).format('YYYY-MM-DD'))
+  const handleDateChange = (date,dateString) => {
+    console.log(date,'date')
+    console.log(dateString,'string');
+    
+    setDate(moment(dateString).format('YYYY-MM-DD')||null)
   }
+console.log(date,'outsidefuh');
 
   const handleGameSelect = (game) => {
     setSelectedGame(game.name)
@@ -175,9 +173,11 @@ console.log(venue,'venue');
       }}
       >
         {
-          venue && venue.map((ve)=>{
+          venue.length===0 ?<span>no games</span>
+          :
+        venue.map((ve)=>{
           return   <div
-            key={ve._d}
+            key={ve._id}
             className='flex-c c-p bor gp-10 '
             style={{
               height:200,
@@ -256,11 +256,13 @@ console.log(venue,'venue');
                     position:'relative',
                     bottom:2
                   }}
-                  >- {ve.maxPlayers-ve.players.length} Slots Left</span>
+                  >-
+                   {ve.maxPlayers-ve.players.length} Slots Left</span>
                   </div> 
             </div>
           })
         }
+        
       </div>
                 </div>
         </section>
