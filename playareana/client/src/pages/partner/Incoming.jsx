@@ -31,29 +31,42 @@ try {
 }
 }
 useEffect(()=>{
-getData()
-},[])
+if(user?._id){
+    getData()
+}
+},[user?._id])
 
+
+console.log(booking,'sd')
 const tabItems=[
     {
         key:'name',
         title:'Turf Name',
-        dataIndex:'name'
+        dataIndex:'name',
+        render:(text,data)=>(
+            <span className='f-6 font-p ls'>{data?.turf?.name}</span>
+        )
     },
      {
         key:'price',
         title:'Price',
-        dataIndex:'price'
+        dataIndex:'totalPrice'
     },
      {
         key:'startime',
         title:' Start Time',
-        dataIndex:'startTime'
+        dataIndex:'startTime',
+        render:(text,data)=>(
+            <span>{`${data.startTime}:00`}</span>
+        )
     },
      {
         key:'duration',
         title:'Duration',
-        dataIndex:'duration'
+        dataIndex:'duration',
+        render:(text,data)=>(
+            <span className='ml-3'>{data.duration}</span>
+        )
     },
      {
         key:'Type',
@@ -65,7 +78,9 @@ const tabItems=[
   return (
    <>
    <Table
-   items={tabItems}
+   
+   columns={tabItems}
+   dataSource={booking}
    />
    </>
   )

@@ -46,7 +46,7 @@ const SingleTurf = () => {
   },[])
   return (
     <>
-  <main className='d-flex gap'>
+  <main className='d-flex gap b-top'>
 <div className='flex-c ml-3'
   style={{
     width:'70%'
@@ -54,8 +54,8 @@ const SingleTurf = () => {
 >
   <section className=' m-20  flex-c'>
   <h1 className='font-p b-color p-left ls'>{turf.name}</h1>
-   {turf._id}
-    <span className='p-left  cap font-p f-6 ls b-color'>{turf.address}</span>
+  
+    <span className='p-left  cap font-p f-6 ls b-color mt '>{turf.address}</span>
 </section>
 <section className='w-100 '>
 <div className=' w-100 p-left ml-3'>
@@ -120,7 +120,7 @@ const SingleTurf = () => {
   </section>
   </div>
 </div>
-<div className='red ml-3'
+<div className='ml-3'
  style={{
     maxWidth:'400px',
     display:'flex',
@@ -138,18 +138,42 @@ const SingleTurf = () => {
   }}
   onClick={()=>setIsBookModal(prev=>!prev)}
   >
-    <span className='font-p f-6 ls font-medium'>Book Now</span>
+    <span className='font-p f-6 ls font-large '>Book Now</span>
   </div>
  
- <div>
-  <span>  
+ <div className='flex-c gp-10 bor '
+ style={{
+  border:" 2px solid rgba(156, 184, 201, 0.2)"
+
+ }}
+ >
+ <span className='font-p f-6 font-large ls py-3 px-3'>Address</span>
+ <span className='mb-5 font-p font-large ls f-6 px-3 py-3'>  
     {turf.address}
   </span>
-
  </div>
- <div>
-  <span>
-    {turf.city?.name}
+ <div
+ className='flex-c gp-10 bor '
+ style={{
+  border:" 2px solid rgba(156, 184, 201, 0.2)"
+
+ }}
+ > 
+   <span className='font-p f-6 font-large ls py-3 px-3'>Location</span>
+ <span className='mb-5 font-p font-large ls f-6 px-3 py-3'>  
+    {turf?.city?.name}
+  </span>
+ </div>
+ <div
+ className='flex-c gp-10 bor '
+ style={{
+  border:" 2px solid rgba(156, 184, 201, 0.2)"
+
+ }}
+ > 
+   <span className='font-p f-6 font-large ls py-3 px-3'>Timings</span>
+ <span className='mb-5 font-p font-large ls f-6 px-3 py-3'>  
+    {turf?.open}-{turf?.close}
   </span>
  </div>
 </div>

@@ -21,7 +21,11 @@ const navigate=useNavigate()
     <>
     <main className=''>
         <div className='d-grid  m-20'>
-        {venues &&venues.map((turf)=>{
+        {venues.length===0 ? <div className='d-flex red w-1'>
+          <span className='font-p f-6 f-size ls'> No Turfs Found</span>
+        </div>
+        :
+        venues.map((turf)=>{
             return(
                 <Card 
                 className='flex-c gap bor m-20 c-p'
@@ -43,7 +47,7 @@ const navigate=useNavigate()
                 >
           <div className='d-flex'>
           <img src={turf?.poster} alt="t"
-          className='w-100'
+          className='w-100 bor'
           style={{
             objectFit:'cover',
             height:200
@@ -52,7 +56,7 @@ const navigate=useNavigate()
           
           </div>
 
-          <div className='flex-c gp-10 py-3 '>
+          <div className='flex-c gp-10 py-3 mt '>
             <span className='font-p f-6 b-color'>{turf.name}</span>
             <span className='font-p  b-color'>{turf.address}</span>
             

@@ -173,7 +173,7 @@ console.log(date,'outsidefuh');
       }}
       >
         {
-          venue.length===0 ?<span>no games</span>
+          venue.length===0 ?<span className='font-p f-6 ls cap font-large text-center'>no games Found</span>
           :
         venue.map((ve)=>{
           return   <div

@@ -150,14 +150,17 @@ getData()
             <Form.Item 
             label='Open-time'
             name='open'>
-                <Input/>
+                <Input
+                type='time'/>
             </Form.Item>
             </Col>
             <Col span={8}>
             <Form.Item 
             label='Closing'
             name='close'>
-                <Input/>
+                <Input
+                type='time'
+                />
             </Form.Item>
             </Col>
         </Row>

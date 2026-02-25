@@ -140,9 +140,7 @@ const bookTurf = async (req, res) => {
     const{id}=req.params
     console.log(id);
     
-    const ownerBooking=await Booking.find({owner:id}).populate('hostedBy')
-    .populate('turf')
-
+    const ownerBooking=await Booking.find({owner:id}).populate('turf')
     console.log(ownerBooking,'[]');
     
     return res.send({

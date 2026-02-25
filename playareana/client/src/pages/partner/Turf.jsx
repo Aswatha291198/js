@@ -116,7 +116,7 @@ const columns =[
   return (
     <>
     <div>
-      <Button  className='mt font-p f-6 ls'
+      <Button  className='mt font-p f-6 ls ml-3'
       onClick={()=>{
          console.log('add btn cick');
         setFormType('add')
