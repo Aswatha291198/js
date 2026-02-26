@@ -23,7 +23,9 @@ console.log(filterDate,'ff');
 
 
   const bookedGames=bookings.filter((b)=>b.hostedBy._id===user._id)
-  const joinedGames=bookings.filter((b)=>b.bookType==='host' &&
+  const joinedGames=bookings.filter((b)=>
+    b.bookType==='host' &&
+  b.hostedBy._id !==  user._id &&
   b.players.some(p=>p.user._id ===user._id)
 )
 const formatTime=(time)=>{
@@ -84,12 +86,9 @@ const formatDate=(date)=>{
         <>
          <div className='d-grid-play gap'>
          {
-          bookedGames && bookedGames.map((game)=>{
+          joinedGames && joinedGames.map((game)=>{
             return (
               <Card className='flex-c bor gp-10'>
-                <div>
-                  <img src={game?.poster} alt="poster" />
-                </div>
                <div className='flex-c gp-10'>
                  <span>{game?.turf?.name}</span>
                 <span>{game?.game?.name}</span>

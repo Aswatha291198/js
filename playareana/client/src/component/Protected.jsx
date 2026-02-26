@@ -10,6 +10,7 @@
   import { getAllCity } from '../api/city'
   import { setCity,setCities,setCityModal } from '../../redux/slice/citySlice'
   import CityModal from './Modals/CityModal'
+  import './protected.css'
 
   const Protected = ({children}) => {
     const dispatch=useDispatch()
@@ -124,8 +125,8 @@
           <h2 className='f-p color-g  c-p   f-size font-s py-3 px-3 mt p-left'
           onClick={()=>navigate('/')}>Turfo</h2>
         </section>
-      <div className='d-flex  h-100 p-left '>
-        <ul className='d-flex p-left g-4 justify-content-between'>
+      <div className='header p-left'>
+        <ul className='d-flex p-left g-4 justify-content-between '>
           {menuRoles[user?.role]?.map((item,index)=>(
             <li className='menu-item none p-left  f-size py-3 mt ' key={index}>
               <NavLink
@@ -133,7 +134,7 @@
               className={({isActive})=>
                 isActive ?' menu-item active':'menu-item'}>
               <span className='f-6 ls'>{item.label}</span>
-              <span className='py-3 px-3'>{item.icon}</span>
+              <span className='py-3 px-3 font-larger'>{item.icon}</span>
               </NavLink>
             </li>
         ))}
@@ -149,7 +150,7 @@
       </section>
       </Header>
 
-      <Content style={{ flex: 1, background: 'rgb(241,243,242)', overflow: 'auto',marginBottom:'40px' }}>
+      <Content style={{ flex: 1, background: 'rgb(241,243,242)', overflow: 'hidden',marginBottom:'40px' }}>
         {isCityModal && <CityModal isCityModal={isCityModal}/>}
         {children}
       </Content>

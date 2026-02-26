@@ -24,6 +24,12 @@ const userSchema=mongoose.Schema({
         enum:['player','owner','admin'],
         default:'player'
 
+    },
+    otp:{
+        type:'String'
+    },
+    otpExpiry:{
+        type:Date
     }
 
     

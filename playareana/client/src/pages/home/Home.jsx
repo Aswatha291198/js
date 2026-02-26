@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import x from '../../assets/X.png'
 import{Select} from 'antd'
+import './home.css'
 import { CiLocationOn } from "react-icons/ci"
 import { getAllCity } from '../../api/city'
 import{useDispatch,useSelector}from 'react-redux'
@@ -16,16 +17,13 @@ const Home = () => {
   return (
     <>
     <main className='flex-c'>
-    <section className='d-flex w-color' 
+    <section className='home-sec w-color red' 
     style={{
       height:'600px',
       borderBottomLeftRadius:20
     }}
     > 
-    <div className='d-f-center  flex-c w-50 '>
-   
-
-
+    <div className=' home-hero'>
     <h1 className='font-p w-50 py-3 mb b-color '>
       Book sports venues.
 Join games.
@@ -39,12 +37,12 @@ Find trainers near you.
     </div>
     
     </section>
-    <div className='w-100 p-top '>
+    <div className='home-why-section p-top'>
       <div className='py-3 m-20 '>
         <section className='m-20  w-color bor  '>
          <div>
            <section className='m-20'>
-            <h1 className='font-p b-color py-3'>Why Choose Us</h1>
+            <h1 className='font-p b-color py-3 px-3'>Why Choose Us</h1>
           </section>
           <section className='w-50  m-20  pb-5'>
             <h2 className='font-p py-3'>

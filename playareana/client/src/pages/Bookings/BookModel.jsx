@@ -37,6 +37,7 @@ const BookModel = ({
     const removeAmorPm=(time)=>{
        return Number(moment(time, ['HH:mm', 'hh:mm A']).format('HH'))   
     }
+    const[processing,setProcessing]=useState(false)
     
     const book=async(transactionId)=>{
     try {
@@ -75,7 +76,7 @@ const BookModel = ({
         console.log(error.message);     
     }
 }  
-const slots=generateTimeSlots(turf.open,turf.close,date)
+    const slots=generateTimeSlots(turf.open,turf.close,date)
     const availableSlots=getAvailableSlots(slots,booking)
     
      const getData=async()=>{
@@ -109,6 +110,7 @@ getData()
                         return 
                     }
                     try {
+                        setProcessing(true)
                         const amountToCharge=bookType==='host'?pricePerPlayer:totalPrice 
                         dispatch(showLoading())
                         const payload={
@@ -132,7 +134,8 @@ getData()
                             }
                             else if(paymentIntent.status==='succeeded'){
                                 message.success('Payment successfull')
-                                 await book(paymentIntent.id)    
+                                 await book(paymentIntent.id)  
+                                 setProcessing(false)  
                             }
 
                             }
@@ -383,7 +386,9 @@ return (
      </Col>
      
    </Row>
-   <Button onClick={handlePayment}>{bookType==='book' ?totalPrice :Math.ceil(totalPrice/totalPlayers )}</Button>
+   <Button 
+   disabled={processing}
+   onClick={handlePayment}>{bookType==='book' ?totalPrice :Math.ceil(totalPrice/totalPlayers )}</Button>
    
 </div>
     

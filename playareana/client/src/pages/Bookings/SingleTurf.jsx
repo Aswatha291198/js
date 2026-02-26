@@ -46,7 +46,11 @@ const SingleTurf = () => {
   },[])
   return (
     <>
-  <main className='d-flex gap b-top'>
+  <main className='d-flex gap b-top'
+  style={{
+   minHeight:'100vh',
+    backgroundColor:'white'
+  }}>
 <div className='flex-c ml-3'
   style={{
     width:'70%'
@@ -120,7 +124,7 @@ const SingleTurf = () => {
   </section>
   </div>
 </div>
-<div className='ml-3'
+<div className='ml-3 gap mt'
  style={{
     maxWidth:'400px',
     display:'flex',
@@ -131,17 +135,19 @@ const SingleTurf = () => {
   style={{
     width:350,
     backgroundColor:'rgb(0,189,78)',
-    margin:'30px',
+    marginRight:'10px',
+ 
     height:50,
     borderRadius:'10px',
     color:'white'
   }}
   onClick={()=>setIsBookModal(prev=>!prev)}
   >
-    <span className='font-p f-6 ls font-large '>Book Now</span>
+    
+      <span className='font-p f-6 ls font-large '>Book Now</span>
   </div>
  
- <div className='flex-c gp-10 bor '
+ <div className='flex-c g bor '
  style={{
   border:" 2px solid rgba(156, 184, 201, 0.2)"
 

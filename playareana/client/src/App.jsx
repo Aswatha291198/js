@@ -16,6 +16,8 @@ import SingleTurf from './pages/Bookings/SingleTurf'
 import Bookings from './pages/user/Bookings/Bookings'
 import SingelGame from './pages/Bookings/SingelGame'
 import Incoming from './pages/partner/Incoming'
+import Forget from './pages/Forget'
+import Reset from './pages/Reset/Reset'
 
 const App = () => {
     return (
@@ -25,6 +27,8 @@ const App = () => {
                  <Route path='/' element={<Protected><Home/></Protected>}></Route>
                 <Route path='/login' element={<Login/>}></Route>
                 <Route path='/register' element={<Register/>}></Route>
+                <Route path='/forget' element={<Forget/>}></Route>
+                <Route path='/reset' element={<Reset/>}></Route>
                 <Route path='/play' element={<Protected><Play/></Protected>}></Route>
                 <Route path='/book' element={<Protected><Book/></Protected>}></Route>
                 <Route path='/admin' element={<Protected><Admin/></Protected>}></Route>

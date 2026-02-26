@@ -45,5 +45,39 @@ const CurrentUser = async (req, res) => {
         return res.status(500).send("something went wrong")
     }
 }
+const forgetPassword=async(req,res)=>{
+    try {
+        const {email}=req.body
+        if(!email){
+            return res.status(404).send({
+                success:false,
+                message:'Please enter the email for forget password'
+            })
+        }
+        let user=await User.find({email:email})
+        if(user===null){
+            return res.status(404).send({
+                success:false,
+                message:'User not found'
+            })
+        }
+        else if(user?.otp !== undefined && user.otp<user?.otpExpiry){
+            return res.json({
+                success:false,
+                message:'Please useotp sent on mail'
+            })
+        }
+        const otp=Math.floor(Math.random() * 10000 + 90000)
+        user.otp=otp
+        user.otpExpiry=Date.now() +10 * 60 +1000
+        await user.save()
+    } catch (error) {
+        return res.status(500).send({
+            success:false,
+            message:'Something went wrong'
+        })
+    }
+}
 
-module.exports = { RegisterUser, LoginUser, CurrentUser,UpdateUser }
+
+module.exports = { RegisterUser, LoginUser, CurrentUser,forgetPassword }

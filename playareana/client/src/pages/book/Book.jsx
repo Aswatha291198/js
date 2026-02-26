@@ -7,6 +7,7 @@ import { setCity,setCities,setCityModal } from '../../../redux/slice/citySlice'
 import CityModal from '../../component/Modals/CityModal'
 import { getAllTurf, getTurfByCity } from '../../api/turf'
 import Venue from './Venue'
+import './book.css'
 
 const Book = () => {
   const{cities,isCityModal,selectedCity}=useSelector(store=>store.cities)
@@ -59,7 +60,7 @@ const Book = () => {
   return (
     <>
     <main className='flex-c venue-cont'>
-      <div className='h-1 d-f-center gap border bor w-color'>
+      <div className='h-1 d-f-center gap red bor w-color book-cont'>
         <h2 className='font-p b-color'>Book By Venue, Cities</h2>
         <input 
           type="text"

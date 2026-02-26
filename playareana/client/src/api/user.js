@@ -46,9 +46,29 @@ export const updateuser=async(values)=>{
         
     }
 }
+export const forgetPassword=async(values)=>{
+    try {
+        const response=await axiosInstance.post('/turfo/user/forget',values)
+        return response.data
+    } catch (error) {
+        console.log(error.message);
+        
+    }
+}
 export const getAllUsers=async()=>{
     try {
         const response=await axiosInstance.get('/turfo/user/all-users')
+        return response.data
+    } catch (error) {
+        console.log(error.message);
+        
+    }
+}
+export const ResetPassword=async(values)=>{
+    try {
+        console.log(values,'api');
+        
+        const response=await axiosInstance.post('/turfo/user/reset',values)
         return response.data
     } catch (error) {
         console.log(error.message);
