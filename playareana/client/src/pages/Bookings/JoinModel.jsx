@@ -98,6 +98,7 @@ const JoinModel = ({
         <div className='d-f-center mt'>
             <Button disabled={loading}
             loading={loading}
+            className='font-p f-6'
             onClick={handlePayment}
             >{game.pricePerPlayer}</Button>
         </div>

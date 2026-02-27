@@ -27,11 +27,13 @@
     const parseHour = (time) => {
       return Number(time.split(":")[0]);
     };
-     export const getAvailableSlots = (slots, booking) => {
+     export const getAvailableSlots = (slots, bookings) => {
            return slots.filter((slot) => {
-             const slotHour = parseHour(slot);
+            
+            
+         const slotHour = parseHour(slot);
          
-             const isBooked = booking.some(
+             const isBooked = bookings.some(
                (booking) =>
                  slotHour >= booking.startTime &&
                  slotHour < booking.endTime

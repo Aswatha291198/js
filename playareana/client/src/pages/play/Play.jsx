@@ -249,15 +249,15 @@ console.log(date,'outsidefuh');
                 }}
                 >
                   {sportIconMap[ve.game.name]}</span>
-                  <span
-                  className='font-p f-6'
-                  style={{
-                    fontSize:'14px',
-                    position:'relative',
-                    bottom:2
-                  }}
-                  >-
-                   {ve.maxPlayers-ve.players.length} Slots Left</span>
+                    <span
+                    className='font-p f-6'
+                    style={{
+                      fontSize:'14px',
+                      position:'relative',
+                      bottom:2
+                    }}
+                    >-
+                    {ve.maxPlayers-ve.players.length} Slots Left</span>
                   </div> 
             </div>
           })

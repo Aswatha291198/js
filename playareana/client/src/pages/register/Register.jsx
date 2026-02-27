@@ -1,5 +1,5 @@
 import React from 'react'
-import { Input,Form,Button } from 'antd'
+import { Input,Form,Button,Radio } from 'antd'
 import { Link, useNavigate } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 import { hideLoading,showLoading } from '../../../redux/slice/userSlice'
@@ -85,13 +85,28 @@ dispatch(hideLoading())
                 Register
               </Button>
             </Form.Item>
+             <Form.Item
+              label="Register as a Partner"
+              htmlFor="role"
+              name="role"
+              className="d-f-center"
+              initialValue={false}
+              rules={[{ required: true, message: "Please select an option" }]}
+            >
+              <div className="d-f-center">
+                <Radio.Group name="radiogroup" className="">
+                  <Radio value={"owner"}>Yes</Radio>
+                  <Radio value={"player"}>No</Radio>
+                </Radio.Group>
+              </div>
+            </Form.Item>
           </Form>
         </div>
       </section>
       <section 
       >
-        <span className='f-p f-6 ls'>Already User</span>
-        <Link  className='py-3'to='/login'> Click Here</Link>
+        <span className='font-p f-6 ls'>Already User</span>
+        <Link  className=' font-p  f-6 py-3'to='/login'> Click Here</Link>
       </section>
     </main>
   )

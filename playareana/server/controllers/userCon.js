@@ -2,6 +2,7 @@ const User = require('../model/userModel')
 const jwt = require("jsonwebtoken")
 const bcrypt = require('bcrypt');
 const { message } = require('antd');
+const Emailhelper = require('../utils/emailHelper');
 
     const registerUser = async (req, res) => {
         try {
@@ -104,6 +105,10 @@ const forgetPassword=async(req,res)=>{
         user.otp=otp
         user.otpExpiry=Date.now() + 10 * 60  * 1000
         await user.save()
+        Emailhelper('otp.html',email,{
+            name:user.name,
+            otp:user.otp
+        })
         return res.send({
             success:true,
             message:'Otp sent successfully'
@@ -118,22 +123,16 @@ const forgetPassword=async(req,res)=>{
 const resetPassword= async(req,res)=>{
     try {
         const {password,otp}=req.body
-        console.log(typeof(otp),'otp');
         
-        console.log(otp,'otp backend');
-        
+    
         if(password===undefined || otp===undefined){
                 return  res.status(401).json({
                     success:false,
                     message:'Invalid Request'
                 })
         }
-        const user=await User.findOne({otp:otp})
-        console.log(user);
-        
-        if(!user){
-            console.log('loog');
-            
+        const user=await User.findOne({otp:otp})  
+        if(!user){ 
             return res.status(404).send({
                 success:false,
                 message:'User not found'
@@ -150,7 +149,8 @@ const resetPassword= async(req,res)=>{
         }
         user.otp=null
         user.otpExpiry=null
-        user.password=password
+        const hashedPassword=await bcrypt.hash(password,10)
+        user.password=hashedPassword
         await user.save()
         return res.send({
             success:true,

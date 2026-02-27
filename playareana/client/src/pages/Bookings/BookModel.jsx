@@ -77,8 +77,9 @@ const BookModel = ({
     }
 }  
     const slots=generateTimeSlots(turf.open,turf.close,date)
+    console.log(slots,'slots')
     const availableSlots=getAvailableSlots(slots,booking)
-    
+    console.log(availableSlots,'filter')
      const getData=async()=>{
     try {
         const response=await getBookingTurfByDate(turf?._id,date)
@@ -98,7 +99,7 @@ dispatch(hideLoading())
 
 useEffect(()=>{
 getData()
-},[])
+},[date])
     const handleTimeChange=(e)=>{
         const selectedTime=parseInt(e.target.value)
         setSelectedTime(selectedTime)
@@ -181,6 +182,7 @@ return (
    open={isBookModal}
    onOk={handlePayment}
    onCancel={()=>{setIsBookModal(false)}}
+   footer={null}
    >
 
 
@@ -279,29 +281,35 @@ return (
    onOpenChange={(flag) => setOpen(flag)}
   popupRender={() => (
     <div style={{
-        display:'grid',
+        display: 'grid',
         gridTemplateColumns: 'repeat(3, 1fr)',
-    gap: '10px',
-    backgroundColor:'white',
-    maxWidth:200
+        gap: '10px',
+        backgroundColor: 'white',
+        maxWidth: 200
     }}>
-      {availableSlots && availableSlots.map((slot, idx) => (
-        <div key={idx}
-        onClick={()=>{
-            setSelectedTime(slot)
-            setOpen(false)
-        }}
-        style={{
-            width:50,
-            height:50
-        }}
-        className='border bor text-center c-p'
-        >
-          {slot} 
-        </div>
-      ))}
+        {availableSlots.length === 0 ? (  
+            <span className='font-p f-6 ls font-small'
+            style={{
+                width:150
+            }}>
+                No slots available, please change the date 
+            </span>
+        ) : (
+            availableSlots.map((slot, idx) => (
+                <div key={idx}
+                    onClick={() => {
+                        setSelectedTime(slot)
+                        setOpen(false)
+                    }}
+                    style={{ width: 50, height: 50 }}
+                    className='border bor text-center c-p'
+                >
+                    {slot}
+                </div>
+            ))
+        )}
     </div>
-  )}
+)}
 >
   <button
   className='font-p f-6 d-flex justify-content-between'
@@ -375,7 +383,7 @@ return (
         <span className='font-p f-6 ls'>Price</span>
         </Col>
         <Col span={12}>
-        <span>{turf.price * duration}</span>
+        <span className='font-p f-6'>{turf.price * duration} Price Per Hour</span>
         </Col>
     </Row>
    <Row  gutter={{xs:8,sm:12,md:16,lg:20}}
@@ -386,10 +394,15 @@ return (
      </Col>
      
    </Row>
-   <Button 
+ <div className='d-f-center '>
+      <Button 
    disabled={processing}
-   onClick={handlePayment}>{bookType==='book' ?totalPrice :Math.ceil(totalPrice/totalPlayers )}</Button>
-   
+   className='font-p f-6 ls mt color-g font-large'
+   style={{
+    height:40
+   }} 
+   onClick={handlePayment}>{bookType==='book' ?totalPrice :Math.ceil(totalPrice/totalPlayers )}</Button> 
+ </div>
 </div>
     
         

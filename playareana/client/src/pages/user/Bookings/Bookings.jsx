@@ -12,20 +12,10 @@ const Bookings = () => {
 const {user}=useSelector(store=>store.users)
 const today=moment()
 
-const filterDate=bookings.filter((b)=>{
-  const gameDate=moment(b.date)
-  console.log(today.isAfter(gameDate));
-  
-  return gameDate.isBefore(today)
-
-})
-console.log(filterDate,'ff');
-
-
   const bookedGames=bookings.filter((b)=>b.hostedBy._id===user._id)
   const joinedGames=bookings.filter((b)=>
     b.bookType==='host' &&
-  b.hostedBy._id !==  user._id &&
+  b.hostedBy._id.toString() !==  user._id.toString() &&
   b.players.some(p=>p.user._id ===user._id)
 )
 const formatTime=(time)=>{

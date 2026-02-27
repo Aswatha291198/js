@@ -6,6 +6,7 @@ const turf=require('../model/turfModel')
 const Games=require('../model/gameModel')
 const moment=require('moment')
 const { message } = require('antd')
+const Emailhelper = require('../utils/emailHelper')
 const makePayment = async (req, res) => {
   try {
     const { amount } = req.body;
@@ -100,8 +101,7 @@ const getBookingTurfByDate = async (req, res) => {
 const bookTurf = async (req, res) => {
   try {
     console.log(req.body);
-  
-    
+
     const{bookType,transactionId, ...rest}=req.body  
     const newBooking=await Booking.create({
       ...rest,
@@ -116,10 +116,19 @@ const bookTurf = async (req, res) => {
     const populateBooking=await Booking.findById(newBooking._id).populate({
       path:'players',
       populate:[{
-        path:'users'
+        path:'user'
       }]
     })
     .populate('game')
+    .populate('hostedBy')
+    .populate('turf')
+    await Emailhelper('game.html',populateBooking.hostedBy.email,{
+      name:populateBooking.turf.name,
+      address:populateBooking.turf.address,
+      duration:populateBooking.duration,
+      time:populateBooking.startTime,
+      transactionId:transactionId
+    })
     res.status(200).json({
       success: true,
       message: 'Booking created successfully',
@@ -137,11 +146,9 @@ const bookTurf = async (req, res) => {
 }
   const getBookingsTurfOwner=async(req,res)=>{
   try {
-    const{id}=req.params
-    console.log(id);
-    
+    const{id}=req.params    
     const ownerBooking=await Booking.find({owner:id}).populate('turf')
-    console.log(ownerBooking,'[]');
+   
     
     return res.send({
       data:ownerBooking,
@@ -232,6 +239,7 @@ const joinGame=async(req,res)=>{
     console.log((typeof(userId)));
     
     const bookGame=await Booking.findById(id).populate('players.user')
+    .populate('hostedBy')
     if(!bookGame){
     return   res.status(404).send({
         success:false,
@@ -247,7 +255,7 @@ const joinGame=async(req,res)=>{
         success:false,
         message:'Already Joined'})
     }
-    if(bookGame.players===bookGame.maxPlayers){
+    if(bookGame.players.length===bookGame.maxPlayers){
       bookGame.status='full'
     }
     if(bookGame.players.length >= bookGame.maxPlayers){
@@ -260,9 +268,14 @@ const joinGame=async(req,res)=>{
       user:req.userid,
       hasPaid:true,
       amountPaid:bookGame.pricePerPlayer,
-      transactionId
+      transactionId,
+      date:Date.now()
     })
     await bookGame.save()
+    await Emailhelper('join.html',bookGame.hostedBy.email,{
+      name:bookGame.hostedBy.name,
+      user:req.userid
+    })
     return res.status(200).send({
       success:true,
       message:'Joined Successfully',
@@ -289,7 +302,7 @@ const getBookingUser=async(req,res)=>{
     }).populate('hostedBy','-password')
     .populate('players.user','-password -email')
     .populate('game')
-
+    console.log(userBooking,'user')
     return res.status(200).send({
       success:true,
       data:userBooking
