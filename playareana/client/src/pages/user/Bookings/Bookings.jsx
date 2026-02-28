@@ -2,24 +2,21 @@ import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { showLoading,hideLoading } from '../../../../redux/slice/userSlice'
 import {getBookingUser } from '../../../api/book'
-import { Tabs,Card } from 'antd'
+import { Tabs,Card,Rate } from 'antd'
 import moment from 'moment'
 
 const Bookings = () => {
 
   const dispatch=useDispatch()
   const[bookings,setBookings]=useState([])
+  const[joinBook,setJoinBook]=useState([])
 const {user}=useSelector(store=>store.users)
 const today=moment()
 
   const bookedGames=bookings.filter((b)=>b.hostedBy._id===user._id)
-  const joinedGames=bookings.filter((b)=>
-    b.bookType==='host' &&
-  b.hostedBy._id.toString() !==  user._id.toString() &&
-  b.players.some(p=>p.user._id ===user._id)
-)
+  
 const formatTime=(time)=>{
-  const format=moment(time,['hh:mm','HH:mm']).format('HH:mm a'  )
+  const format=moment(time,['hh:mm','HH:mm']).format('hh:mm A '  )
   return format
 }
   
@@ -31,7 +28,8 @@ const formatDate=(date)=>{
       dispatch(showLoading())
       const response=await getBookingUser()
       if(response.success){
-        setBookings(response.data)
+        setBookings(response.data.userBooking)
+        setJoinBook(response.data.joinedBookings)
       }
     } catch (error) {
       console.log(error.message);
@@ -40,7 +38,7 @@ const formatDate=(date)=>{
        dispatch(hideLoading())
     }
   }
-
+    
   const tabItems=[
     {
       key:'all',
@@ -76,17 +74,21 @@ const formatDate=(date)=>{
         <>
          <div className='d-grid-play gap'>
          {
-          joinedGames && joinedGames.map((game)=>{
+          joinBook && joinBook.map((game)=>{
             return (
-              <Card className='flex-c bor gp-10'>
-               <div className='flex-c gp-10'>
-                 <span>{game?.turf?.name}</span>
-                <span>{game?.game?.name}</span>
-                <span className='font-p'>Total Players {game.players.length}</span>
-                <span>{game.duration}</span>
-                <span>{formatTime(game.startTime)}</span>
-                <span>{game?.totalPrice}</span>
-                <span>{game.pricePerPlayer}</span>
+              <Card className='flex-c bor gp-10'
+              style={{
+                boxShadow: '0 2px 8px rgba(0, 0, 0, 0.06)'
+              }}>
+               <div className='flex-c gp-10 font-p'>
+                 <span> Venue :{game?.turf?.name}</span>
+                <span> Sport :{game?.game?.name}</span>
+                <span>Total Players {game.players.length}</span>
+                <span> Duration :{game.duration}</span>
+                <span>Start Time:{formatTime(game?.startTime)}</span>
+                <span>Price :{game?.totalPrice}</span>
+                <span className='caph'>Hosted By : {game?.hostedBy?.name}</span>
+                <span>Price Per Player :{game.pricePerPlayer}</span>
                 <span>Date : {formatDate(game?.date)}</span>
                </div>
               </Card>
@@ -110,6 +112,7 @@ const formatDate=(date)=>{
     items={tabItems}
     
     />
+    
    </main>
    </>
   )

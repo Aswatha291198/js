@@ -28,6 +28,7 @@ const handleCancel=()=>{
     centered
     open={isCityModal}
     onCancel={handleCancel}
+    closable={bookpage}
     footer={null}
     >
       <div className='flex-c'>

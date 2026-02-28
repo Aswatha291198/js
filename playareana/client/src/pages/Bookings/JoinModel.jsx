@@ -90,7 +90,7 @@ const JoinModel = ({
         }}
         >{sportIconMap[game.game.name]}</span>
         </div>
-        <span className='cap'>Hosted By {game.hostedBy.name}</span>
+        <span className='cap font-p f-6 ls font-large'>Hosted By {game.hostedBy.name}</span>
     </div>
     <div className='mt'>
         <CardElement/>

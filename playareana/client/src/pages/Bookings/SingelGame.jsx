@@ -11,6 +11,9 @@ import { IoBasketballOutline } from "react-icons/io5";
 import { FaRegClock } from "react-icons/fa6";
 import moment from 'moment'
 import { LuMapPin } from "react-icons/lu";
+import {UserOutlined} from '@ant-design/icons'
+import { FaCrown } from "react-icons/fa"
+import userImg from '../../assets/user.png'
 
 import JoinModel from './JoinModel'
 const SingelGame = () => {
@@ -124,12 +127,21 @@ useEffect(()=>{
                 {game?.players?.map((player)=>{
                     return (
                         <div
-                        className='m-20'
+                        className='m-20 gp-10 d-flex'
                         key={player.user._id}
                         >
-                            <span className='cap font-p '>{player?.user?.name}</span>
-                            {player?.user?.id===game?.hostedBy?._id && (
-                                <span className='font-p'>(Host)</span>
+                            <span 
+                             style={{
+                                width:'80px'
+                             }}
+                            ><img src={userImg} alt="x" 
+                            style={{
+                                width:'50%'
+                            }}/></span>
+                            <span className='cap font-p mt '>{player?.user?.name}</span>
+                            {player?.user?._id.toString()===game?.hostedBy?._id.toString() && (
+
+                                <span className='font-p mt'>(Host)</span>
                             )}
                         </div>
                     )
@@ -138,13 +150,23 @@ useEffect(()=>{
             </div>
     </section>
     </div>
-     <div className='d-flex end'>
-        <Button className='font-p f-6 c-p'
+     <div className='d-flex p-left'>
+        <Button className='font-s ls f-6 c-p font'
         onClick={()=>{
             setGameModel(true)
             }}
-            disabled={disabledBtn}
-        >{disabledBtn ?'Already Joined':'Join Game'}</Button></div>
+            disabled={disabledBtn ||game?.players?.length===game.maxPlayers}
+            style={{
+                backgroundColor:'rgb(0,189,78)',
+                color:'white'
+            }}
+        >
+             {game?.players?.length === game?.maxPlayers 
+             ? 'Slot Full' 
+             : disabledBtn 
+             ? 'Already Joined' 
+             : 'Join Game'}
+            </Button></div>
         {gameModel && (<JoinModel
         gameModel={gameModel}
         setGameModel={setGameModel}

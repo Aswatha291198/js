@@ -46,6 +46,7 @@ const getDate=(date)=>{
   return moment(date).format('DD MMM YYYY')
 }
 
+
   const getData = async () => {
     try {
       dispatch(showLoading())
@@ -173,7 +174,23 @@ console.log(date,'outsidefuh');
       }}
       >
         {
-          venue.length===0 ?<span className='font-p f-6 ls cap font-large text-center'>no games Found</span>
+          venue.length===0 ?<div className='d-f-center'
+          style={{
+            minWidth:'50vw'
+          }}>
+            <div
+          className='py-3'
+          style={{
+            minHeight:120,
+            backgroundColor:'white',
+            borderRadius:20,
+            minWidth:280,
+            alignContent:'center',
+            boxShadow: '0px 4px 12px rgba(0, 0, 0, 0.1)'
+          }}>
+            <span className='font-s f-6 ls cap font-large text-center ml-3'>no games Found</span>
+          </div>
+          </div>
           :
         venue.map((ve)=>{
           return   <div

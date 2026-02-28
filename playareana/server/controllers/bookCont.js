@@ -161,10 +161,10 @@ const bookTurf = async (req, res) => {
 const getAllGroupGames=async(req,res)=>{
   try {
     const {city,game,date}=req.query
-    const today=moment().startOf('day')
+    const now=moment()
+    const today=moment().startOf('day').set('hour',now.hour())
     const gameDate=moment(date)
     
-
     const gameName=await Games.find({name:game})
     const booking=await Booking.find({status:'open',
       date:date?{
@@ -187,7 +187,7 @@ const getAllGroupGames=async(req,res)=>{
     const gameMatch=b?.game?.name===game
     
         if(!game){
-          return cityMatch
+          return cityMatch 
         }
         else{
           console.log('cominmg in the ');
@@ -257,6 +257,7 @@ const joinGame=async(req,res)=>{
     }
     if(bookGame.players.length===bookGame.maxPlayers){
       bookGame.status='full'
+      await bookGame.save()
     }
     if(bookGame.players.length >= bookGame.maxPlayers){
       return res.send({
@@ -302,11 +303,23 @@ const getBookingUser=async(req,res)=>{
     }).populate('hostedBy','-password')
     .populate('players.user','-password -email')
     .populate('game')
-    console.log(userBooking,'user')
+     const joinedBookings = await Booking.find({ 
+      'players.user': id,  
+      hostedBy: { $ne: id } 
+    })
+      .populate({ path: 'turf', populate: [{ path: 'city' }] })
+      .populate('hostedBy', '-password')
+      .populate('players.user', '-password -email')
+      .populate('game')
+
     return res.status(200).send({
       success:true,
-      data:userBooking
+      data:{
+        userBooking,
+        joinedBookings
+      } 
     })
+  
   } catch (error) {
     console.log(error.message);
     res.status(500).send({

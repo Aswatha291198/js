@@ -26,15 +26,10 @@ const Emailhelper = require('../utils/emailHelper');
 const loginUser = async (req, res) => {
     try {
          const user = await User.findOne({ email: req.body.email })
-    console.log('req body email:', req.body.email)
-    console.log('req body password:', req.body.password)
-    console.log('user found:', user)
-    console.log('stored password:', user.password)
-
+    
     const isMatch = await bcrypt.compare(req.body.password, user.password)
     console.log('isMatch:', isMatch)
-
-        
+  
         const token = jwt.sign({ userid: user._id }, process.env.JWT_SECRET, { expiresIn: "1d" })
             if (!isMatch) {
       return res.status(404).send({ success: false, message: 'Invalid password' })

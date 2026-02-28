@@ -77,9 +77,11 @@ const BookModel = ({
     }
 }  
     const slots=generateTimeSlots(turf.open,turf.close,date)
-    console.log(slots,'slots')
     const availableSlots=getAvailableSlots(slots,booking)
-    console.log(availableSlots,'filter')
+    console.log(slots,'slots');
+    console.log(availableSlots,'fitler');
+    
+    
      const getData=async()=>{
     try {
         const response=await getBookingTurfByDate(turf?._id,date)
@@ -104,10 +106,13 @@ getData()
         const selectedTime=parseInt(e.target.value)
         setSelectedTime(selectedTime)
     }
-
         const handlePayment=async()=>{
                     if(!stripe || !elements){
                         message.warning('Stripe not loaded')
+                        return 
+                    }
+                    if(!selectedGame || !selectedTime ){
+                        message.warning('Please Select all fields')
                         return 
                     }
                     try {

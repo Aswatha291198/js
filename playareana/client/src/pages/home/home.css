@@ -38,12 +38,21 @@
   background-color: white;
   border-radius: 10px;
   margin: 30px;
-  padding-bottom: 50px;
+  padding-bottom: 20px;
+  min-height: 300px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+  position: relative;
+  top: 30px;
+
 }
 
 .why-content {
   width: 50%;
   margin: 30px;
+}
+.how-cont{
+  min-height: 250px;
+   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
 }
 
 @media (max-width: 786px) {

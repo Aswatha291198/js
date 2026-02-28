@@ -60,7 +60,7 @@ const Book = () => {
   return (
     <>
     <main className='flex-c venue-cont'>
-      <div className='h-1 d-f-center gap red bor w-color book-cont'>
+      <div className='h-1 d-f-center gap  bor w-color book-cont'>
         <h2 className='font-p b-color'>Book By Venue, Cities</h2>
         <input 
           type="text"

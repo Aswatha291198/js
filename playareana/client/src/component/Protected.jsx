@@ -71,7 +71,7 @@
   if(!localStorage.getItem('city') && user?.role==='player'){
   dispatch(setCityModal(true))
   }
-  },[])
+  },[user])
 
   const dropMenu=[
     {

@@ -18,26 +18,23 @@
     
         
         for (let hour = openHour; hour < closeHour; hour++) {
-        const isPM = hour >= 12
-        const displayHour = hour % 12 === 0 ? 12 : hour % 12
-        slots.push(`${displayHour}:00 ${isPM ? 'PM':'AM'}`)
+          const isPM =hour>12
+            slots.push(`${hour}:00 ${isPM?'PM':'AM'}`)
         }
         return slots
     }
-    const parseHour = (time) => {
-      return Number(time.split(":")[0]);
-    };
+   
      export const getAvailableSlots = (slots, bookings) => {
-           return slots.filter((slot) => {
-            
-            
-         const slotHour = parseHour(slot);
+           return slots.filter((slot) => {          
+         const slotHour = parseInt(slot);
+         console.log(typeof(slotHour),'jour');
          
              const isBooked = bookings.some(
                (booking) =>
                  slotHour >= booking.startTime &&
                  slotHour < booking.endTime
              );
+         console.log(isBooked,'isbooked');
          
              return !isBooked;
            });

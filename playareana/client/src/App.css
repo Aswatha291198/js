@@ -1,4 +1,4 @@
-s* {
+*{
   margin: 0;
   padding: 0;
   box-sizing: border-box;
@@ -323,6 +323,9 @@ height: 100px !important;
     .py-3{
         padding: 0;
     }
+    .gp-10{
+        gap: 5px;
+    }
     .g-4{
         gap: 10px;
     } 
@@ -346,6 +349,9 @@ height: 100px !important;
     .d-grid-play {
         grid-template-columns: repeat(1, 1fr);
     }
+    .py-3{
+        padding-left: 2px;
+    }
      .hero-img-div .w-50{
         width: 100%;
     }
@@ -355,6 +361,9 @@ height: 100px !important;
     .end{
         justify-content: start;
     }   
+    .gp-10{
+        gap: 1px;
+    }
 }
 
 

@@ -74,8 +74,8 @@ finally{
         </div>
       </section>
       <section>
-        <span className='font-poppins py-3 c-p'> New User ?<Link to='/register'>Register Here</Link> </span>
-         <span className='font-poppins py-3 c-p mt'>Forgot Password <Link to='/forget'>Click Here</Link> </span>
+        <span className='font-p f-6 py-3  ls c-p'> New User ?<Link to='/register'>Register Here</Link> </span>
+         <span className='font-p py-3 f-6 ls c-p mt'>Forgot Password <Link to='/forget'>Click Here</Link> </span>
       </section>
     </main>
   )
