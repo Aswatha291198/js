@@ -8,7 +8,6 @@ import { updateuser } from '../../api/user';
 import { GetCurrentUser } from '../../api/user'
 
 const Edit = () => {
-  console.log('coming to the eidtri');
   const{user}=useSelector(store=>store.users)
   const dispatch=useDispatch()
 
@@ -27,7 +26,6 @@ const Edit = () => {
         } catch (error) {
       message.error(error.message)
       dispatch(hideLoading())
-      console.log(error.message);
       
     }
   }

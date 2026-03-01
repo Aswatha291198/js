@@ -10,9 +10,7 @@ const Reset = () => {
     const dispatch=useDispatch()
     const onFinish=async(values)=>{
         try {
-            dispatch(showLoading())
-            console.log(values);
-            
+            dispatch(showLoading()) 
             const response = await ResetPassword(values)
              if(response.success){
                 message.success(response.message)
@@ -23,10 +21,10 @@ const Reset = () => {
                 navigate('/forget')
              }
         } catch (error) {
-            console.log(error.message);
+            message.error(error.message)
             
         }finally{
-
+            dispatch(hideLoading())
         }
     }
   return (

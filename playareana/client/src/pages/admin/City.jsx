@@ -1,4 +1,4 @@
-import { Button, Space, Table } from 'antd'
+import { Button, message, Space, Table } from 'antd'
 import React, { useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { hideLoading,showLoading } from '../../../redux/slice/userSlice'
@@ -15,7 +15,7 @@ const dispatch=useDispatch()
 
       }
     } catch (error) {
-     console.log(error.message);
+     message.error(error.message)
      
 
     }finally{

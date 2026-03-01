@@ -34,7 +34,7 @@ const SingleTurf = () => {
           setTurf(response.data)
         }
     } catch (error) {
-      console.log(error.message);
+      error.message(error.message);
       
     }finally{
     dispatch(hideLoading())

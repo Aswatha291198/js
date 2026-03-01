@@ -26,6 +26,7 @@ const Play = () => {
   const [selectedGame, setSelectedGame] = useState('')
   const dispatch = useDispatch()
   const navigate = useNavigate()
+  const now=moment()
 
 const sportIconMap = {
   Cricket: <MdOutlineSportsCricket />,
@@ -46,7 +47,10 @@ const getDate=(date)=>{
   return moment(date).format('DD MMM YYYY')
 }
 
-
+const filterGames=venue.filter((b)=>{
+  const gameTime=moment(b.startTime)
+  return gameTime.isAfter(now.hour())
+})
   const getData = async () => {
     try {
       dispatch(showLoading())
@@ -60,28 +64,25 @@ const getDate=(date)=>{
         setGames(gameResponse.data)
       }
     } catch (error) {
-      console.log(error.message)
+     
     } finally {
       dispatch(hideLoading())
     }
   }
-console.log(venue,'venue');
+
 
   useEffect(() => {
     getData()
   }, [city,selectedGame,date])
 
   const handleDateChange = (date,dateString) => {
-    console.log(date,'date')
-    console.log(dateString,'string');
-    
     setDate(moment(dateString).format('YYYY-MM-DD')||null)
   }
-console.log(date,'outsidefuh');
+
 
   const handleGameSelect = (game) => {
     setSelectedGame(game.name)
-    setOpen(false) // close dropdown on select
+    setOpen(false) 
   }
 
   return (
@@ -91,9 +92,7 @@ console.log(date,'outsidefuh');
           <h1 className='font-p ls mt mr-3'>Games in {city}</h1>
         </section>
         <section>
-          <div className='m-20 d-flex justify-content-between'>
-
-            
+          <div className='m-20 d-flex justify-content-between'> 
             <div className='bor'
             style={{   
               display: 'flex',
@@ -174,7 +173,7 @@ console.log(date,'outsidefuh');
       }}
       >
         {
-          venue.length===0 ?<div className='d-f-center'
+          filterGames.length===0 ?<div className='d-f-center'
           style={{
             minWidth:'50vw'
           }}>
@@ -192,7 +191,7 @@ console.log(date,'outsidefuh');
           </div>
           </div>
           :
-        venue.map((ve)=>{
+        filterGames.map((ve)=>{
           return   <div
             key={ve._id}
             className='flex-c c-p bor gp-10 '
@@ -218,7 +217,7 @@ console.log(date,'outsidefuh');
                 height:40
               }}
               >
-             <span className='font-p  text-color-w ls'
+             <span className='font-p  text-color-w ls f-6'
              
              >{ve.turf.name}</span>
               </div>

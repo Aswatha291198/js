@@ -38,10 +38,12 @@ const GameForm = ({
             else{
                 message.error(response.message)
             }           
-            dispatch(hideLoading())
+           
         } catch (error) {
-            console.log(error.message);
-            dispatch(hideLoading())
+           message.error(error.message)
+           
+        }finally{
+           dispatch(hideLoading())
         }
     }
     return (

@@ -1,4 +1,4 @@
-import { Table,Button } from 'antd'
+import { Table,Button, message } from 'antd'
 import React, { useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { hideLoading,showLoading } from '../../../redux/slice/userSlice'
@@ -16,12 +16,10 @@ const dispatch=useDispatch()
 
       }
     } catch (error) {
-     console.log(error.message);
-     
+     message.error(error.message) 
 
     }finally{
-      console.log(game,'game');
-      
+            
  dispatch(hideLoading())
  
     }

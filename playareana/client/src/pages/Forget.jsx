@@ -22,7 +22,7 @@ const Forget = () => {
               }
             }
         } catch (error) {
-            
+            message.error(error.message)
         }finally{
             dispatch(hideLoading(   ))
         }

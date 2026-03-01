@@ -26,10 +26,12 @@ const DeleteGame = ({
             message.error(response.message)
 
         }   
-        dispatch(hideLoading())
+       
         } catch (error) {
-            console.log(error.message);
+           message.error(error.message)
             
+        }finally{
+           dispatch(hideLoading())
         }
     }
     const handleCancel=()=>{

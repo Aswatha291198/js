@@ -1,9 +1,7 @@
 import { axiosInstance } from ".";
 
 export const MakePayment=async({amount,userId})=>{
-    console.log('makepayment');
-    console.log(userId,'from book api');
-    
+
     try {
         const response=await axiosInstance.post('/turfo/booking/makepayment',{
             amount,
@@ -12,7 +10,11 @@ export const MakePayment=async({amount,userId})=>{
         return response.data
         
     } catch (error) {
-        console.log(error.message);
+        return { 
+        success: false,
+        message: error.message }
+
+        
         
     }
 }
@@ -21,18 +23,22 @@ export const bookTurf=async(values)=>{
         const response=await axiosInstance.post('/turfo/booking/book-turf',values)
         return response.data
     } catch (error) {
-        console.log(error.message);
+    return { 
+        success: false,
+        message: error.message }
+
+          
     }
 }
 export const getBookingTurfByDate=async(turf,date)=>{
 try {
     const response=await axiosInstance.post('/turfo/booking/getBookingTurfByDate', {turf,date})
-    console.log(response.data)
     return response.data
     
 } catch (error) {
-    console.log(error.message);
-    
+    return { 
+        success: false,
+        message: error.message }        
 }
 }
 
@@ -41,15 +47,16 @@ export const getBookingsTurfOwner=async(id)=>{
         const response =await axiosInstance.get(`/turfo/booking/incoming-req/${id}`)
         return response.data
     } catch (error) {
-        console.log(error.message);
+       return { 
+        success: false,
+        message: error.message }
+
         
     }
 }
 
 export const getGroupgameByCity=async(city,game,date)=>{
-    try {
-        console.log(game,'api frn');
-        
+    try {    
         const response=await axiosInstance.get('/turfo/booking/get-all-group-game',{
             params:{
                 city,
@@ -59,7 +66,10 @@ export const getGroupgameByCity=async(city,game,date)=>{
         })
         return response.data
     } catch (error) {
-        console.log(error.message);
+        return { 
+        success: false,
+        message: error.message }
+
         
     }
 }
@@ -69,8 +79,9 @@ export const getBookinById=async(id)=>{
         const response=await axiosInstance.get(`/turfo/booking/getBookings/${id}`)
         return response.data
     } catch (error) {
-        console.log(error.message);
-        
+       return { 
+        success: false,
+        message: error.message }
     }
 }
 export const joinGame=async(values)=>{
@@ -78,7 +89,9 @@ export const joinGame=async(values)=>{
         const response=await axiosInstance.post('/turfo/booking/join-game',values)
         return response.data
     } catch (error) {
-        console.log(error.message);
+       return { 
+        success: false,
+        message: error.message }
         
     }
 }
@@ -87,7 +100,8 @@ export const getBookingUser=async()=>{
         const response=await axiosInstance.get('/turfo/booking/myBookings')
         return response.data
     } catch (error) {
-        console.log(error.message);
-        
+       return { 
+        success: false,
+        message: error.message }
     }
 }

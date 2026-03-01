@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { showLoading,hideLoading } from '../../../../redux/slice/userSlice'
 import {getBookingUser } from '../../../api/book'
-import { Tabs,Card,Rate } from 'antd'
+import { Tabs,Card,Rate, message } from 'antd'
 import moment from 'moment'
 
 const Bookings = () => {
@@ -32,7 +32,7 @@ const formatDate=(date)=>{
         setJoinBook(response.data.joinedBookings)
       }
     } catch (error) {
-      console.log(error.message);
+     message.error(error.message)
       
     }finally{
        dispatch(hideLoading())

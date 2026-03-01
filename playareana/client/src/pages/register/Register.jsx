@@ -15,7 +15,7 @@ dispatch(showLoading())
       navigate('/login')
     }
   } catch (error) {
-    console.log(error);
+    message.error(error);
     
   }finally{
 dispatch(hideLoading())

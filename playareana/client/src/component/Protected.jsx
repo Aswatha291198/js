@@ -18,8 +18,7 @@
     const{user}=useSelector(store=>store.users)
     const{selectedCity,cities,isCityModal}=useSelector(store=>store.cities)
   const {Header,Footer,Content}=Layout
-  console.log(user?.role);
-
+  
   const getUser=async()=>{
     try {
       dispatch(showLoading())
@@ -40,8 +39,7 @@
         navigate('/login')
         localStorage.removeItem('city')
       }
-    } catch (error) {
-      console.log(error.message);
+    } catch (error) {   
       dispatch(hideLoading()) 
     }
     finally{

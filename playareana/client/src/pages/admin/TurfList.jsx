@@ -13,11 +13,9 @@ const dispatch=useDispatch()
       const response=await getAllTurf()
       if(response.success){
         setTurfs(response.data)
-          console.log();
-          
       }
     } catch (error) {
-     console.log(error.message);
+    message.error(error.message)
      
 
     }finally{

@@ -59,11 +59,10 @@ const makePayment = async (req, res) => {
     });
 
   } catch (error) {
-    console.error(error.message);
-    return res.status(500).json({
-      success: false,
-      message: error.message,
-    });
+     return res.status(500).send({
+              message:error.message,
+              success: false,
+        })  
   }
 };
 
@@ -71,7 +70,6 @@ const makePayment = async (req, res) => {
 const getBookingTurfByDate = async (req, res) => {
   try {
     const { turf, date } = req.body;
-        console.log('insdie backend');
     const startOfDay = new Date(date);
     startOfDay.setHours(0, 0, 0, 0);
     const endOfDay = new Date(date);
@@ -83,25 +81,22 @@ const getBookingTurfByDate = async (req, res) => {
         $lte: endOfDay,            
       },
     });
-    console.log(bookings,'bokkkoko')
+  
     return res.status(200).json({
       success: true,
       data: bookings,
     });
 
   } catch (error) {
-    console.error("getBookingTurfByDate error:", error.message);
-    return res.status(500).json({
-      success: false,
-      message: error.message,
-    });
+     return res.status(500).send({
+              message:error.message,
+              success: false,
+        })  
   }
 };
 
 const bookTurf = async (req, res) => {
   try {
-    console.log(req.body);
-
     const{bookType,transactionId, ...rest}=req.body  
     const newBooking=await Booking.create({
       ...rest,
@@ -136,12 +131,10 @@ const bookTurf = async (req, res) => {
     })
 
   } catch (error) {
-    console.log(error.message,'line 131')
-
-    res.status(500).json({
-      success: false,
-      message: error.message
-    })
+     return res.status(500).send({
+              message:error.message,
+              success: false,
+        })  
   }
 }
   const getBookingsTurfOwner=async(req,res)=>{
@@ -155,14 +148,17 @@ const bookTurf = async (req, res) => {
       success:true
     })
   } catch (error) {
-    console.log(error.message)
+    return res.status(500).send({
+              message:error.message,
+              success: false,
+        })  
   }
 }
 const getAllGroupGames=async(req,res)=>{
   try {
     const {city,game,date}=req.query
     const now=moment()
-    const today=moment().startOf('day').set('hour',now.hour())
+    const today=moment().startOf('day')
     const gameDate=moment(date)
     
     const gameName=await Games.find({name:game})
@@ -190,17 +186,20 @@ const getAllGroupGames=async(req,res)=>{
           return cityMatch 
         }
         else{
-          console.log('cominmg in the ');
-          
+   
           return cityMatch && gameMatch
         }
     })
     
     res.send({
+      success:true,
       data:filtered
     })
   } catch (error) {
-    console.log(error.message);
+     return res.status(500).send({
+              message:error.message,
+              success: false,
+        })  
     
   }
 }
@@ -224,20 +223,17 @@ const getBookings=async(req,res)=>{
       data:booking
     })
   } catch (error) {
-    console.log(error.message);
-    res.send({
-      success:false,
-      message:error.message
-    })
+    return res.status(500).send({
+              message:error.message,
+              success: false,
+        })  
   }
 }
 const joinGame=async(req,res)=>{
   try {
     const {id,transactionId} =req.body
     const userId=req.userid
-    console.log(userId);
-    console.log((typeof(userId)));
-    
+
     const bookGame=await Booking.findById(id).populate('players.user')
     .populate('hostedBy')
     if(!bookGame){
@@ -249,7 +245,7 @@ const joinGame=async(req,res)=>{
     const alreadyJoined=bookGame.players.some((p)=>{
      return  p.user._id.toString()===req.userid.toString()
     })
-    console.log(alreadyJoined,'d')
+    
     if(alreadyJoined){
       return res.status(400).send({
         success:false,
@@ -270,7 +266,6 @@ const joinGame=async(req,res)=>{
       hasPaid:true,
       amountPaid:bookGame.pricePerPlayer,
       transactionId,
-      date:Date.now()
     })
     await bookGame.save()
     await Emailhelper('join.html',bookGame.hostedBy.email,{
@@ -284,12 +279,10 @@ const joinGame=async(req,res)=>{
     })
 
   } catch (error) {
-    console.log(error.message);
-    res.send({
-      success:false,
-      message:error.message
-    })
-    
+     return res.status(500).send({
+              message:error.message,
+              success: false,
+        })  
   }
 }
 const getBookingUser=async(req,res)=>{
@@ -321,12 +314,10 @@ const getBookingUser=async(req,res)=>{
     })
   
   } catch (error) {
-    console.log(error.message);
-    res.status(500).send({
-      success:false,
-      message:error.message
-    })
-    
+     return res.status(500).send({
+              message:error.message,
+              success: false,
+        })  
   }
 }
 module.exports={

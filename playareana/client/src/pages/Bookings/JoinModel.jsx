@@ -62,7 +62,7 @@ const JoinModel = ({
                         }
             }
         } catch (error) {
-            console.log(error.message);
+            message.error(error.message);
             
         }
         finally{

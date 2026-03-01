@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import {Tabs} from 'antd'
+import {message, Tabs} from 'antd'
 import {hideLoading,showLoading} from '../../../redux/slice/userSlice'
 import {useDispatch,useSelector} from 'react-redux'
 import {useNavigate, useSearchParams} from 'react-router-dom'
@@ -39,7 +39,7 @@ const Book = () => {
         setVenues(response.data)
       }
     } catch (error) {
-      console.log(error.message);
+      message.error(error.message);
     } finally {
       dispatch(hideLoading())
     }

@@ -41,7 +41,7 @@ const BookModel = ({
     
     const book=async(transactionId)=>{
     try {
-        console.log('cominng to book');
+      
         
         dispatch(showLoading())
         const startHour=Number(selectedTime.split(':')[0])
@@ -73,26 +73,24 @@ const BookModel = ({
             message.warning(response.message)
         }
     } catch (error) {
-        console.log(error.message);     
+        message.error(error.message)     
     }
 }  
     const slots=generateTimeSlots(turf.open,turf.close,date)
     const availableSlots=getAvailableSlots(slots,booking)
-    console.log(slots,'slots');
-    console.log(availableSlots,'fitler');
+    
     
     
      const getData=async()=>{
     try {
         const response=await getBookingTurfByDate(turf?._id,date)
-        console.log('inside the fun');
         
         if(response.success){
             setBooking(response.data)
-            console.log(booking); 
+         
         }
     } catch (error) {
-        console.log(error.message);
+        message.error(error.message)
         
     }finally{
 dispatch(hideLoading())
@@ -147,7 +145,7 @@ getData()
                             }
                         
                     } catch (error) {
-                        
+                        message.error(error.message)
                     }finally{
                         dispatch(hideLoading())  
                     }

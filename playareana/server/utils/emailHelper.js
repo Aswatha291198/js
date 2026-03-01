@@ -3,8 +3,7 @@ const path=require('path')
 const fs=require('fs')
 
 
-console.log(process.env.GMAIL_PASS,'ddd ');
-console.log(process.env.GMAIL_APP_EMAIL,'Email')
+
 const transport=nodemailer.createTransport({
     service:'gmail',
     auth:{
@@ -34,7 +33,7 @@ const Emailhelper =async(templateName,receiverEmail,creds)=>{
             html:content
         }
             await transport.sendMail(emailDetails)
-            console.log('email sent successfully');
+            
             
     } catch (error) {
          if (error.code === "ENOENT") {

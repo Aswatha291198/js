@@ -27,15 +27,14 @@
      export const getAvailableSlots = (slots, bookings) => {
            return slots.filter((slot) => {          
          const slotHour = parseInt(slot);
-         console.log(typeof(slotHour),'jour');
+         
          
              const isBooked = bookings.some(
                (booking) =>
                  slotHour >= booking.startTime &&
                  slotHour < booking.endTime
              );
-         console.log(isBooked,'isbooked');
-         
+        
              return !isBooked;
            });
          };

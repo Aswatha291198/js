@@ -1,4 +1,4 @@
-import { Button, Table } from 'antd'
+import { Button, message, Table } from 'antd'
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { hideLoading,showLoading } from '../../../redux/slice/userSlice'
@@ -17,19 +17,15 @@ const Turf = () => {
   const[formType,setFormType]=useState('add')
   const [isDeleteModal,setIsDeleteModal]=useState(false)
   const getTurf=async()=>{
-    console.log('inside fu');
     
     try {
       dispatch(showLoading())
-      const response=await getAllturfOwner(user?._id)
-      console.log(user?._id);
-      
+      const response=await getAllturfOwner(user?._id) 
         if(response.success){
           setTurfs(response.data)
         }    
     } catch (error) {
-      console.log(error.messsage);
-      
+      message.error(error.message)      
     }finally{
     
       dispatch(hideLoading())
@@ -118,11 +114,10 @@ const columns =[
     <div>
       <Button  className='mt font-p f-6 ls ml-3'
       onClick={()=>{
-         console.log('add btn cick');
+        
         setFormType('add')
         setTurfModal(true)
-       
-        
+          
       }}
       type='primary'>Add Turf</Button>
       

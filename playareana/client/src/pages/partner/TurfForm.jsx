@@ -20,9 +20,7 @@ const TurfForm = ({ formType,
     const{cities}=useSelector(store=>store.cities)
     const [games, setGames] = useState([]) 
     
-    console.log(cities,'fhqsfjghsfi');
-    console.log(selectedTurf,'turf');
-    
+   
     const onFinish=async(values)=>{
       try {
         let response=null
@@ -44,7 +42,7 @@ const TurfForm = ({ formType,
 
         }
       } catch (error) {
-        console.log(error.message);
+        message.error(error.message);
         
       }
     }
@@ -61,7 +59,7 @@ const TurfForm = ({ formType,
             dispatch(hideLoading())
         }       
     } catch (error) {
-        console.log(error.message);
+        message.error(error.message);
         dispatch(hideLoading())
     }
   }

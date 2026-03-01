@@ -2,7 +2,6 @@
 const City = require('../model/cityModel')
 
 const addCity = async (req, res) => {
-    console.log('coming to the addcity');
     
   try {
     const { name } = req.body
@@ -16,8 +15,6 @@ const addCity = async (req, res) => {
         message: 'City already exists'
       })
     }
-
-   
     const newCity = await City.create(req.body)
 
     return res.status(201).send({
@@ -27,11 +24,10 @@ const addCity = async (req, res) => {
     })
 
   } catch (error) {
-    console.log(error.message)
-    return res.status(500).send({
-      success: false,
-      message: 'Server Error'
-    })
+     return res.status(500).send({
+              message:error.message,
+              success: false,
+        })  
   }
 }
 
@@ -43,20 +39,15 @@ const  AllCity=async(req,res)=>{
     return res.status(201).send({success:true,data:allCity})
     
   } catch (error) {
-    console.log(error.message);
     return res.status(500).send({
-      success: false,
-      message: 'Server Error'
-    })
+              message:error.message,
+              success: false,
+        })  
   }
 }
 const updateCity =async(req,res)=>{
   try {
     const editCity=await City.findByIdAndUpdate(req.body.id,req.body.name)
-    console.log(editCity,'from the city-cont');
-    console.log(req.body);
-    
-
     if(!editCity){
       return res.status(404).send({
         success:false,
@@ -68,11 +59,10 @@ const updateCity =async(req,res)=>{
       data:editCity
     })
   } catch (error) {
-    console.log(error.message);
-    return res.status(500).send({
-      success: false,
-      message: 'Server Error'
-    })
+     return res.status(500).send({
+              message:error.message,
+              success: false,
+        })  
   }
 }
 

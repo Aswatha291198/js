@@ -12,9 +12,7 @@ const CityForm = ({getCity,
     formType
 }) => {
     const dispatch=useDispatch()
-const handleOk= async (values)=>{
-    console.log(values,'values from the fun')
-    
+const handleOk= async (values)=>{  
 try {
     dispatch(showLoading())
     let response=null
@@ -26,8 +24,6 @@ try {
             id:city._id,
             values
         })
-        console.log(response);
-        
     }
     if(response.success){
         getCity()
@@ -36,7 +32,7 @@ try {
         setVisible(false)
     }
 } catch (error) {
-    console.log(message.error);
+    message.error(message.error);
     dispatch(hideLoading())
     
 }

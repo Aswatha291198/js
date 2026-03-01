@@ -6,7 +6,7 @@ const Emailhelper = require('../utils/emailHelper');
 
     const registerUser = async (req, res) => {
         try {
-            const user = await User.findOne({ email: req.body.email })
+            const user = await User.findOne({ email: req.body.email }).select('-password')
             if (user) {
                 return res.status(409).send({ message: "User Already exists", success: false })
             }
@@ -19,7 +19,7 @@ const Emailhelper = require('../utils/emailHelper');
             )
             return res.status(201).send({ message: "User created successfully", success: true, data: newUser })
         } catch (error) {
-            console.error("Error in registerUser:", error);
+            
             return res.status(500).send({ message: "Something went wrong", success: false })
         }
     }
@@ -28,8 +28,7 @@ const loginUser = async (req, res) => {
          const user = await User.findOne({ email: req.body.email })
     
     const isMatch = await bcrypt.compare(req.body.password, user.password)
-    console.log('isMatch:', isMatch)
-  
+   
         const token = jwt.sign({ userid: user._id }, process.env.JWT_SECRET, { expiresIn: "1d" })
             if (!isMatch) {
       return res.status(404).send({ success: false, message: 'Invalid password' })
@@ -41,7 +40,7 @@ const loginUser = async (req, res) => {
 }
 const getCurrentUser = async (req, res) => {
     try {
-        const currentUser = await User.findById(req.userid)
+        const currentUser = await User.findById(req.userid).select('-password')
         if (!currentUser) {
             return res.status(404).send({ message: "User Not Found" })
         }
@@ -58,7 +57,7 @@ const UpdateUser = async (req, res) => {
         }
         return res.status(200).send({ message: "User updated", success: true, data: updateUser })
     } catch (error) {
-        console.log(error.message);
+        
         return res.status(500).send("something went wrong")
     }
 }
@@ -68,7 +67,7 @@ const GetAllUser = async (req, res) => {
         return res.status(200).send({message:'userlist',success:true,data:allUsers})
 
     } catch (error) {
-        console.log(error.message);
+       
         return res.status(500).send("something went wrong")
     }
 }
@@ -83,7 +82,7 @@ const forgetPassword=async(req,res)=>{
         }
         let user=await User.findOne({email:email})
         if(user===null){
-            console.log('hi');
+            
             
             return res.status(404).send({
                 success:false,
@@ -152,7 +151,7 @@ const resetPassword= async(req,res)=>{
             message:'password set successfully'
         })
     } catch (error) {
-        console.log(error.message);
+    
         return res.status(500).send({
             success:false,
             message:error.message

@@ -6,19 +6,25 @@ const connectDB=require('./config/db');
 const userRoute = require("./route/userRoute");
 const turfRouter = require("./route/turfeRoute");
 const gameRouter = require("./route/gameRoute");
-const blogRouter = require("./route/blogRoute");
-const tourRouter = require("./route/tourRoute");
 const cityRouter = require("./route/cityRoute");
 const bookRouter=require('./route/bookRoute')
+const rateLimit=require('express-rate-limit')
+const helmet=require('helmet')
+
+const apiLimit=rateLimit({
+    windowMS: 15 * 60 *1000,
+    max:100,
+    message:'Too many request from this api'
+})
 
 connectDB() 
 app.use(express.json())
+app.use(helmet())
+app.use('/turfo',apiLimit)
 app.use('/turfo/user',userRoute)
 app.use('/turfo/turfs',turfRouter)
 app.use('/turfo/game',gameRouter)
-app.use('/turfo/blog',blogRouter)
 app.use('/turfo/city',cityRouter)
-app.use('/turfo/tournament',tourRouter)
 app.use('/turfo/booking',bookRouter)
 const port=8082
 app.listen(port,()=>{

@@ -7,7 +7,7 @@ import { IoBasketballOutline } from "react-icons/io5";
 import { useNavigate } from 'react-router-dom';
 
 const Venue = ({venues}) => {
-    console.log(venues,'from jshdjshdbj');
+
      const sportIconMap = {
   Cricket: <MdOutlineSportsCricket />,
   Football: <BiFootball />,

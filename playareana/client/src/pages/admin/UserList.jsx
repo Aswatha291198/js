@@ -5,8 +5,6 @@ import {useDispatch} from 'react-redux'
 import { getAllUsers } from '../../api/user'
 
 const UserList = () => {
-    console.log('coming to the userlist');
-    
     const[users,setUsers]=useState(null)
     const dispatch=useDispatch()
 
@@ -20,13 +18,13 @@ const UserList = () => {
             }else{
                 message.error(response.message)
             }
-            dispatch(hideLoading())
-            console.log(response.data);
+        
             
         } catch (error) {
-            console.log(error.message);
-            dispatch(hideLoading())
+            message.error(error.message)
             
+        }finally{
+            dispatch(hideLoading())
         }
     }
     useEffect(()=>{

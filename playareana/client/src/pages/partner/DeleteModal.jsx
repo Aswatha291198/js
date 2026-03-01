@@ -22,7 +22,7 @@ const dispatch=useDispatch()
         getTurf()
       }
     } catch (error) {
-      console.log(error.message);
+      message.error(error.message);
       
     }finally{
       dispatch(hideLoading())

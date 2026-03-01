@@ -34,9 +34,7 @@ const SingelGame = () => {
         const formattedTime=moment(time,'HH').format('h:mm A')
         return formattedTime
     }
-    const disabledBtn=game?.players?.some((p)=>{        
-      console.log(p?.user?._id,'wew');
-      
+    const disabledBtn=game?.players?.some((p)=>{
       return  p?.user?._id?.toString() === user?._id?.toString()
 
     })
@@ -59,14 +57,12 @@ const getData=async()=>{
             message.error(response.message)
         }
     } catch (error) {
-        console.log(error.message);
+        error.message(error.message);
         
     }finally{
             dispatch(hideLoading())
     }
 }
-console.log('players', typeof(game?.players))
-console.log('user id', typeof(user?._id))
 
 useEffect(()=>{
     getData()
@@ -138,10 +134,10 @@ useEffect(()=>{
                             style={{
                                 width:'50%'
                             }}/></span>
-                            <span className='cap font-p mt '>{player?.user?.name}</span>
+                            <span className='cap font-p mt f-6 '>{player?.user?.name}</span>
                             {player?.user?._id.toString()===game?.hostedBy?._id.toString() && (
 
-                                <span className='font-p mt'>(Host)</span>
+                                <span className='font-p mt f-6'>(Host)</span>
                             )}
                         </div>
                     )

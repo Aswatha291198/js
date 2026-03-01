@@ -21,7 +21,7 @@ try {
     dispatch(hideLoading())
   }
 } catch (error) {
-  console.log(error.message);
+  message.error(error.message)
   dispatch(hideLoading())
 }
 finally{
