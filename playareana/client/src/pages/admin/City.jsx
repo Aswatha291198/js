@@ -12,6 +12,7 @@ const dispatch=useDispatch()
       const response=await getAllCity()
       if(response.success){
         setCities(response.data)
+        
 
       }
     } catch (error) {

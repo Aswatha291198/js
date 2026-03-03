@@ -32,16 +32,21 @@ const Edit = () => {
   
   return (
     <>
-    <div className="edit-profile">
-    <div className="edit-head">
-        <span className='font-poppins'>Edit-Profile</span>
+    <div className="w-color flex-c gap"
+    style={{
+      minWidth:'400px',
+      minHeight:'300px'
+    }}
+    >
+    <div className="px-3 ">
+        <span className='font-p f-6 ls ml-3 font-large'>Edit-Profile</span>
     </div>
-      <div className="edit-form">
+      <div className="">
          <Form
     name="basic"
-    labelCol={{ span: 8 }}
-    wrapperCol={{ span: 16 }}
-    style={{ maxWidth: 600 }}
+    style={{
+      width:'400px'
+    }}
     initialValues={{ 
       name:user?.name,
       email:user?.email
@@ -52,20 +57,24 @@ const Edit = () => {
     <Form.Item
     label='Username'
     name='name'
+    className='ml-3'
     rules={[{required:true}]}>
       <Input/>
     </Form.Item>
      <Form.Item
     label='Email'
     name='email'
+    className='ml-3'
     rules={[{required:true}]}>
       <Input/>
     </Form.Item>
-    <Form.Item>
+    <Form.Item
+  className='d-f-center'
+    >
       <Button 
       type='primary'
       htmlType='submit'
-      className='edit-btn font-poppins'>Save</Button>
+      className='font-p ml-3'>Save</Button>
     </Form.Item>
   </Form>
       </div>
