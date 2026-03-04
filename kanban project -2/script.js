@@ -64,7 +64,7 @@ modalCont.addEventListener('keydown', function(e) {
 
         // const tktId = shortid();
 
-        const tktId = Math.random().toString(36).substring(2);
+        const tktId = ;
         console.log(tktId, '[ticketID]')
 
         createTicket(modalPriorityColor, textArea.value, tktId);
