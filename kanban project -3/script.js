@@ -7,54 +7,6 @@ const removeBtn = document.querySelector('.remove-btn');
 const toolboxColors = document.querySelectorAll('.color');
 
 
-let modalPriorityColor = 'black';
-let addTaskFlag = false;
-let removeTaskFlag = false;
-
-const lockClose = 'fa-lock';
-const lockOpen = 'fa-lock-open';
-
-const colors = ['lightpink', 'lightgreen', 'lightblue', 'black'];
-
-// LS impl.
-
-const ticketArr = JSON.parse(localStorage.getItem('tickets')) || [];
-
-// in the keydown event SHIFT
-// ticketArr.push({
-//     ticketID,
-//     taskContent,
-//     ticketColor: modalPriorityColor
-// })
-
-
-addBtn.addEventListener('click', function(e) {
-    addTaskFlag = !addTaskFlag;
-    // if(addTaskFlag) {
-    //     addTaskFlag = false;
-    // } else {
-    //     addTaskFlag = true;
-    // }
-
-    if(addTaskFlag) {
-        modalCont.style.display = 'flex'
-    } else {
-        modalCont.style.display = 'none'
-    }
-})
-
-removeBtn.addEventListener('click', function() {
-    removeTaskFlag = !removeTaskFlag; // toggle the remve flag when btn is clicked.
-
-    if(removeTaskFlag) {
-        alert('Delete button activated.'); // present on window object.
-        removeBtn.style.color = 'red';
-
-    } else {
-        removeBtn.style.color = 'white'
-    }
-
-})
 
 function handleRemoval(ticketElem) {
     const ticketId = ticketElem.querySelector('.ticket-id').innerText;
