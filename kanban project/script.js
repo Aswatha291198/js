@@ -11,6 +11,25 @@ let modalPriorityColor=color[color.length-1]
 const allColors=document.querySelectorAll('.color')
 let lockClose='fa-lock'
 let lockOpen='fa-lock-open'
+let ticketArr=[]
+
+if(localStorage.getItem('tickets')){
+    ticketArr=JSON.parse(localStorage.getItem('tickets'))
+    ticketArr.forEach((ticket)=>{
+        const{ticketId,ticketTask,ticketColor}=ticket
+        createTicket(ticketId,ticketColor,ticketTask)
+    })
+}
+
+function addTickets(id,ticketColor,ticketTask){
+    ticketArr.push({
+        ticketId:id,
+        ticketColor,
+        ticketTask
+    })
+   updateLocalStorage()
+   createTicket(id,ticketColor,ticketTask)
+}
 addbtn.addEventListener('click',()=>{
     addFlag=!addFlag
      
@@ -45,17 +64,24 @@ priorityColor.forEach((color)=>{
     })
 })
 
-function handleRemove(ticket){
+function handleRemove(ticket,id){
     ticket.addEventListener('click',()=>{
-        if(deleteFlag){
+        if(deleteFlag)
             ticket.remove()
-        }
+        let idx=getIndex(id)
+        ticketArr.splice(idx,1)
+        updateLocalStorage()    
+        
     })
 }
 
 
+function getIndex(id){
+const idx = ticketArr.findIndex((ticket) => ticket.ticketId === id)
+return idx
+}
 
-function createTicket(text,id,color){
+function createTicket(id,color,text){
     const ticketCont=document.createElement('div')
     ticketCont.setAttribute('class','ticket-cont')
     ticketCont.innerHTML=` 
@@ -67,17 +93,27 @@ function createTicket(text,id,color){
             </div>`
 
             mainCont.appendChild(ticketCont)
-            handleRemove(ticketCont)
-            handleLock(ticketCont)
-            handleColor(ticketCont)
-            
-           
+            handleRemove(ticketCont,id)
+            handleLock(ticketCont,id)
+            handleColor(ticketCont,id)
+            handleFilter() 
 }
+function updateLocalStorage(){
+    console.log('inisde local');
+    
+    localStorage.setItem('tickets',JSON.stringify(ticketArr))
+}
+
 function handleFilter(){
+    console.log('handleFilter');
+    
     allColors.forEach((element)=>{
+        
         element.addEventListener('click',()=>{
+           
             const getColor=element.classList[0]
-          ;
+       
+          
             const allTickets=document.querySelectorAll('.ticket-cont')
           
             allTickets.forEach((ticket)=>{
@@ -94,20 +130,26 @@ function handleFilter(){
             })    
         })
          element.addEventListener('dblclick',()=>{
+            console.log('inside the double clicj');
+            
             let allTickets=document.querySelectorAll('.ticket-cont')
             allTickets.forEach((tickets)=>{
-                tickets.style.display='flex'
+                tickets.style.display='block'
             })
          })
     })
 }
 
-function handleLock(ticket){
+function handleLock(ticket,id){
 
 let ticketLockElem = ticket.querySelector(".ticket-lock");
 let ticketLockIcon = ticketLockElem.children[0];
 let ticketTaskArea = ticket.querySelector(".task-area");
+
       ticketLockIcon.addEventListener('click',()=>{
+        const index=getIndex(id)
+        console.log(index);
+        
         if(ticketLockIcon.classList.contains(lockClose)){
             ticketLockIcon.classList.remove(lockClose)
             ticketLockIcon.classList.add(lockOpen)
@@ -117,16 +159,21 @@ let ticketTaskArea = ticket.querySelector(".task-area");
             ticketLockIcon.classList.remove(lockOpen)
             ticketLockIcon.classList.add(lockClose)
             ticketTaskArea.setAttribute('contenteditable','false')
-
         }
+        console.log(localStorage.length);
+        
+         ticketArr[index].ticketTask=ticketTaskArea.innerText
+      localStorage.setItem("tickets",JSON.stringify(ticketArr))
+       
         
       })
         
     }
-    function handleColor(ticket){
+function handleColor(ticket,id){
         const ticketColor=ticket.querySelector('.ticket-color')
-      
+
         ticketColor.addEventListener('click',()=>{
+             const index=getIndex(id)
             const selectedColor=ticketColor.style.backgroundColor
             
             const getColor=color.findIndex((item)=>{
@@ -134,11 +181,14 @@ let ticketTaskArea = ticket.querySelector(".task-area");
             }) 
         let nextColorIdx=(getColor + 1) % color.length
         let nextColor=color[nextColorIdx]
-        ticketColor.style.backgroundColor=nextColor
+        ticketColor.style.backgroundColor=nextColor    
+        ticketArr[index].ticketColor=nextColor
+              updateLocalStorage()
+
         })
         
     }
-handleFilter()
+
 modalCont.addEventListener('keydown',(e)=>{
     if(e.key==='Enter'){
         const text=textAreaCont.value.trim()
@@ -148,7 +198,7 @@ modalCont.addEventListener('keydown',(e)=>{
         }
         const id=Math.random().toString(36).substring(2)
         const color=modalPriorityColor
-        createTicket(text,id,color)
+        addTickets(id,color,text)
         textAreaCont.value=''
         addFlag=false
         modalCont.style.display='none'
