@@ -1,0 +1,23 @@
+#add-comment {
+    position: relative;
+    top: 20px;
+}
+.add-btn    {
+    position: relative;
+    top: 20px;
+    left: 20px;
+    border: none;
+    cursor: pointer;
+}
+.comment-section{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+.comment-p{
+    
+}
+.reply-btn{
+    border: none;
+    cursor: pointer;
+}

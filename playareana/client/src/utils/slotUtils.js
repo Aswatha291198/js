@@ -1,6 +1,6 @@
  import moment from "moment"
  
- export const generateTimeSlots = (startHour, endHour,date) => { 
+ export const generateTimeSlots = (startHour, endHour,date) => {   
         const slots = []
         const open=parseInt(startHour)
         const close=parseInt(endHour)

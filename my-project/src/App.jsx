@@ -1,18 +1,12 @@
-import WithoutMemo from "../WithoutMemo"
-import Comment from "./Comment"
-import List from "./List"
+import React from 'react'
+import WithoutMemo from './WithoutMemo'
 
-
-
-export default function App() {
+const App = () => {
   return (
-    <>
-    {/* <ProductSearch/> */}
-    {/* <Memo/> */}
-    {/* <WithoutMemo/> */}
-    {/* <List/> */}
-    <Comment/>
-    
-    </>
+   <>
+   <WithoutMemo/>
+   </>
   )
 }
+
+export default App

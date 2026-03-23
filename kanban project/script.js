@@ -66,14 +66,15 @@ priorityColor.forEach((color)=>{
 
 function handleRemove(ticket,id){
     ticket.addEventListener('click',()=>{
-        if(deleteFlag)
+        if(deleteFlag){
             ticket.remove()
         let idx=getIndex(id)
         ticketArr.splice(idx,1)
         updateLocalStorage()    
-        
+        return}  
     })
 }
+
 
 
 function getIndex(id){
@@ -98,9 +99,7 @@ function createTicket(id,color,text){
             handleColor(ticketCont,id)
             handleFilter() 
 }
-function updateLocalStorage(){
-    console.log('inisde local');
-    
+function updateLocalStorage(){  
     localStorage.setItem('tickets',JSON.stringify(ticketArr))
 }
 
@@ -147,25 +146,22 @@ let ticketLockIcon = ticketLockElem.children[0];
 let ticketTaskArea = ticket.querySelector(".task-area");
 
       ticketLockIcon.addEventListener('click',()=>{
-        const index=getIndex(id)
-        console.log(index);
-        
+         const index=getIndex(id)
+       console.log('edit');
+        console.log(ticketArr,'ticketarr')
         if(ticketLockIcon.classList.contains(lockClose)){
             ticketLockIcon.classList.remove(lockClose)
             ticketLockIcon.classList.add(lockOpen)
             ticketTaskArea.setAttribute('contenteditable','true')
-        }
+        }   
         else{
             ticketLockIcon.classList.remove(lockOpen)
             ticketLockIcon.classList.add(lockClose)
             ticketTaskArea.setAttribute('contenteditable','false')
+            ticketArr[index].ticketTask=ticketTaskArea.innerText  
         }
-        console.log(localStorage.length);
-        
-         ticketArr[index].ticketTask=ticketTaskArea.innerText
-      localStorage.setItem("tickets",JSON.stringify(ticketArr))
-       
-        
+        console.log(ticketArr,'ticekt')
+        updateLocalStorage()        
       })
         
     }

@@ -11,6 +11,8 @@ import { useNavigate } from 'react-router-dom';
 import {getBookingTurfByDate, MakePayment } from '../../api/book';
 import { bookTurf } from '../../api/book';
 import { generateTimeSlots,getAvailableSlots } from '../../utils/slotUtils'
+import { useCallback } from 'react';
+import { useMemo } from 'react';
 const BookModel = ({
     isBookModal,
     setIsBookModal,
@@ -76,8 +78,13 @@ const BookModel = ({
         message.error(error.message)     
     }
 }  
-    const slots=generateTimeSlots(turf.open,turf.close,date)
+
+   const slots = useMemo(() => {
+ console.log('inside memo');    
+  return generateTimeSlots(turf.open, turf.close, date)
+}, [date])
     const availableSlots=getAvailableSlots(slots,booking)
+    console.log(slots);
     
     
     

@@ -1,0 +1,87 @@
+ *{
+    margin: 0;
+    padding: 0;
+ }
+.header-main{
+width: 100vw;
+    min-height: 100px;
+}
+.header-wrap{
+    width: 100%;
+    display: flex;
+    gap: 20px;
+    align-items: center;
+height: 100px;
+}
+.logo-cont{
+    
+    width:15%;
+    position: relative;
+    left: 100px;
+    
+}
+.logo-cont >h2{
+    cursor: pointer;
+
+}
+.header-nav {
+position: relative;
+left:120px;
+width: 40%;
+}
+.header-nav >ul{
+    display: flex;
+    list-style: none;
+    gap: 10px;
+    justify-content: space-between;
+   
+}
+.header-nav > ul > li{
+    font-size: larger;
+    font-weight: 600;
+    cursor: pointer;
+    color: rgb(121, 18, 255);
+}
+.header-nav >ul >li:hover{
+    color: rgb(135, 126, 148);
+}
+.touch-div{
+ width: 15%;
+ 
+}
+.touch-wrap{
+    height: 50px;
+    border-radius: 20px;
+    position: relative;
+    display: flex;
+    gap: 20px;
+    background-color:rgb(121, 18, 255);
+}
+.phone-img{
+    position: absolute;
+    left: 5px;
+    background-color:white;
+    height: 80%;
+    top: 4px;
+    width: 30px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.phone-img > *{
+    color:blue;
+}
+.touch-div{
+    position: relative;
+    left: 250px;
+}
+.touch-text{
+        margin-left: 3rem;
+        margin-top: 0.9rem;
+}
+.touch-text > *{
+    font-size: larger;
+    font-weight: 600;
+    color: white;
+}

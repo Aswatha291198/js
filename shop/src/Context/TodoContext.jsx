@@ -11,18 +11,13 @@ const TodoProvider = ({ children }) => {
     setValue(e.target.value);
   };
 
-  const addTask = (input) => {
-    if (editIndex !== null) {
-      const updatedTasks = tasks.map((task, idx) =>
-        idx === editIndex ? input : task
-      );
-      setTasks(updatedTasks);
-      setEditIndex(null);
-    } else {
-      setTasks(prev => [...prev, input]);
+  const addTask=(input)=>{
+    if(input.trim()===''){
+      return
     }
-    setValue('');
-  };
+    setTasks((old)=>[...old,input])
+    setValue('')
+  }
 
   const deleteTask = (idx) => {
     const filtered = tasks.filter((_, i) => i !== idx);

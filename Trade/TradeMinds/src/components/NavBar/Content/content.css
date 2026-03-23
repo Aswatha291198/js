@@ -1,0 +1,876 @@
+.content-main{
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+   
+}
+
+.carousel-sect{
+    max-height: 500px;    
+}
+.carousel-img{
+    background-image: url('https://media.istockphoto.com/id/1443560890/photo/digital-marketing-business-technology-concept-website-advertisement-email-social-media.jpg?s=612x612&w=0&k=20&c=S7d_Mof_fEsM69inW540APogoXkz-eA23XE1AIhTaBA=');
+    width: 100%;  
+    height: 500px;
+    background-size: cover;
+    background-position: center;
+    position: relative;
+}
+
+.carousel-img::after{
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 50%;
+    height: 100%;
+    background-color: rgb(39, 35, 35);
+    background: transparent;
+}
+.info-sect{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+.info-sect>h2{
+    color: white !important;
+}
+.info-cont{
+    
+    z-index: 1;
+    position: relative;
+    bottom: 400px;
+    left: 100px;
+    height: 400px;
+    width: 40%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+.info-sect>h1{
+    color: rgb(121, 18, 255);
+}
+.typing{
+    color:rgb(121, 18, 255);
+   width:0;
+    font-weight: bold;
+   overflow: hidden;
+    white-space: nowrap;
+    animation: typing 4s steps(67,end) forwards,blink 0.7s infinite; 
+}
+@keyframes typing{
+from{
+    width: 0;
+}
+to{width: 30ch;}
+}
+@keyframes blink{
+    50%{
+        border-color: transparent;
+    }
+}
+.info-sect{
+    color: white;
+}
+.info-btn{
+    background-color: rgb(121, 18, 255);
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 90%;
+    margin-left: 20px;
+    border-radius: 20px;
+}
+.info-btn > *{
+    color: white;
+    background-color: rgb(121, 18, 255);
+    width: 90%;
+    
+}
+.struggles-sect{
+    height: 300px;
+}
+.struggle-wrap{
+    
+    margin: 10px;
+    width: 100%;
+    height: 90%;
+}
+.struggle-text{
+   
+    display: flex;
+    justify-content: center;
+    align-items: center;
+height: 100px;
+}
+.struggle-text > h2{
+    font-size: 40px;
+    width: 30%;
+    color: rgb(121, 18, 255);
+    position: relative;
+    top: 50px;
+
+}
+.struggle-text >h2::after{
+background-color: rgb(121, 18, 255);
+height: 2px;
+width: 300px;
+content: "";
+display: block;
+margin-top: 10px;
+}
+.growth-div{
+  
+}
+.growth-wrap{
+   
+    
+    display: flex;
+   position: relative;
+   left: 20px;
+   justify-content: space-around;
+}
+.div-1{
+width: 200px;
+margin-left: 10px;
+    height: 190px;
+    border: 2px solid rgb(211, 203, 203);
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+    position: relative;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1)
+}
+.round-div{
+    height: 200px;
+    background-color: rgb(121, 18, 255);
+    height: 80px;
+    width: 45%;
+    border-radius: 50px;
+    position: absolute;
+    left: 50px;
+    bottom: 140px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: transform 0.3s ease;
+  
+    
+}
+@keyframes spin {
+    from { transform: rotate(0deg); }
+    to   { transform: rotate(360deg); }
+}
+.round-div:hover{
+    transform: rotate(90deg);
+      animation: spin 2s linear infinite;
+}
+.round-div > *{
+    color: white;
+    font-size: 30px;
+}
+.div-1 > span{
+    position: absolute; 
+    top: 50px;
+    font-weight: 600;
+    margin: 10px;
+    left: 10px;
+    font-size: large;
+}
+.plan{
+    width: 100%; 
+    position: relative;
+    top: 200px;
+    height: 100px;
+}
+.plan-wrap{
+margin: 10px;
+
+height: 90%;
+display: flex;
+justify-content: center;
+align-items: center;
+}
+.plan-cont{
+    background-color: rgb(121, 18, 255);
+    width: 400px;
+    height: 50px;
+    border-radius: 10px;
+    display: flex;
+    gap: 10px;
+    font-size: 15px;
+}
+.plan-cont{
+    transition: transform 0.3s ease; 
+}
+.plan-cont > * {
+    margin: 10px;
+    color: white;
+    cursor: pointer;
+    transition: transform 0.3s ease; 
+}
+
+.plan-cont:hover {
+    transform: scale(1.05); 
+}
+.academy{
+   
+    position: relative;
+    top: 240px;
+}
+.academy-cont{
+   
+    min-height: 500px;
+    display: flex;
+}
+.academy-left{
+    width: 50%;
+   
+    height: 500px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+.academy-left >h1{
+    position: relative;
+    left: 100px;
+    top: 20px;
+    color: rgb(121, 18, 255);
+    width: 60%;
+    font-size: 40px;
+   
+}
+.academy-wrap{
+    position: relative;
+    left: 100px;
+}
+.academy-wrap>ul{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    height: 300px;
+}
+.academy-wrap>ul>li{
+    margin-left: 10px;
+    display: flex;
+    gap: 20px;
+    font-size: larger;
+}
+.academy-right{
+   
+    width: 40%;
+    position: relative;
+    left: 100px;
+    height: 450px;
+}
+.academy-img{
+    background-image: url('https://img.freepik.com/free-photo/businesswoman-call-center-office_1098-984.jpg?semt=ais_hybrid&w=740&q=80');
+    width: 100%;
+    height: 100%;
+    border-radius: 10px;
+        box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1)
+}
+.growth-service{
+   display: flex;
+    width: 100%;
+    height: 500px;
+    gap: 30px;
+    background-color: lightgray;
+}
+.growth-text{
+    width: 25%; 
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    left: 40px;
+}
+
+.text-wrap{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: rgb(121, 18, 255);
+    font-size: 20px;
+}
+.text-wrap>h1:after{
+    content: '';
+    background-color: rgb(121, 18, 255);
+    width: 300px;
+    height: 2px;
+    display: flex;
+    margin-top: 10px;
+
+}
+.text-info{
+   
+    margin: 20px;
+    position: relative;
+    top: 10px;
+}
+.next-div{
+    
+    display: flex;
+    gap: 10px;
+    position: relative;
+    left: 20px;
+}
+.next-div >button{
+    border: none;
+    height: 50px;
+    width: 50px;
+    background-color: rgb(121, 18, 255);
+    color: white; 
+    border-radius: 50px;
+    font-size: larger;
+    font-weight: 600;
+    text-align: center;
+    cursor: pointer;
+    margin-top: 10px;
+}
+.item-cont{
+background-color: rgb(163, 141, 190);
+width:75%;
+height: 50%;
+display: flex;
+gap: 20px;
+}
+.item-info{
+    height: 300px;
+    display: flex;
+    flex-direction: column;
+    background-color: white;
+    position: relative;
+    justify-content: space-around;
+    top: 100px;
+    width: 350px;
+    left: 100px;
+    border-radius: 10px;
+     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1)
+}
+.item-info>h2{
+    color: rgb(121, 18, 255);
+    font-size: larger;
+    text-align: center;
+    margin-top: 10px;
+}
+.item-info >p{
+        text-align: center  ;
+}
+.item-info>button{
+    background-color: rgb(121, 18, 255);
+    border: none;
+    width: 90%;
+    height: 40px;
+    margin-left: 10px;
+    color: white;
+    font-size: larger;
+    cursor: pointer;
+}
+.trust-cont{
+    height: 500px;
+        box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1)
+}
+.trust-wrap{
+    display: flex;
+    width: 100%;
+    margin: 10px;
+}
+.trust-img{
+    width: 50%;
+    margin: 10px;
+    
+}
+.trust-text{
+    width: 40%;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+.trust-h2{
+    margin-top: 10px;
+    width: 70%;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+.trust-ul{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    color: rgb(173, 159, 159);
+}
+.client-cont{
+    background-color: rgb(233, 224, 224);
+    height: 500px;
+
+}
+.client-h1{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.client-h1>h1{
+    color: rgb(121, 18, 255);
+    text-align: center;
+    position: relative;
+    top: 50px;
+    font-size: 40px;
+}
+.client-h1>h1::after{
+    display: block;
+    background-color: rgb(121, 18, 255);
+    content: '';
+    width: 150px;
+    height: 5px;
+    text-align: center;
+    position: relative;
+    left: 140px;
+    top: 10px;
+}
+.client-text>p{
+    position: relative;
+    top: 100px;
+    left: 300px;
+    width: 60%;
+   font-size: x-large;
+   color: rgb(158, 132, 132);
+}
+.client-text>h3{
+    position: relative;
+    top: 120px;
+    left: 400px;
+    color: rgb(158, 132, 132);
+}
+.company-cont{
+ 
+    position: relative;
+    top: 130px;
+    height: 300px;
+    background-color:rgb(233, 224, 224) ;
+}
+
+.list{
+    
+    margin: 10px;
+    height: 90%;
+    display: flex;
+    gap: 40px;
+    position: relative;
+    justify-content: space-around;
+    left: 10px;
+}
+.list-1{
+    height: 170px;
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    width: 200px;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    margin: 10px;
+    border-radius: 10px;
+     transition: transform 0.3s ease;
+}
+.list-1:hover{
+transform: scale(1.05);
+ box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1)
+}
+.list-1>h3{
+    color: rgb(54, 48, 48);
+    text-align: c;
+}
+.net-btn{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.net-wrap{
+     position: relative;
+    bottom: 80px;
+     background-color: rgb(121, 18, 255);
+     color: white !important;
+     cursor:  pointer !important;
+}
+.net-wrap > button{
+      height: 40px;
+    width: 300px;
+    background-color: rgb(121, 18, 255) !important;
+    color: white !important;
+    font-size: large;
+   border: none;
+}
+.info-sect>h2{
+color: rgb(121, 18, 255);
+}
+.buisness{
+    background-color: white;
+    height:500px;
+    position: relative;
+    top: 100px;
+}
+.buisness-wrap{
+    display: flex;
+    width: 100%;
+    position: relative;
+    top: 100px;
+    gap: 20px;
+
+}
+.buisness-left{
+    width: 40%;
+    position: relative;
+    left: 20px;
+    background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRgmA5hP7WWo4_IeuI_kkEseEw6u3kvnJHIVw&s');
+}
+.buisness-right{
+    width: 50%;
+    position: relative;
+    left: 30px;
+}
+.right-h2{
+    color: rgb(121, 18, 255);
+    font-size: x-large;
+    width: 80%;
+    margin-left: 10px;
+}
+.buisness-right>p{
+    color: rgb(168, 154, 154);
+    font-size: larger;
+    margin-top: 10px;
+}
+.p-2{
+    position: relative;
+    top: 40px;
+}
+.help{
+    height: 600px;
+    position: relative;
+    top: 240px;
+    background: linear-gradient(to right, #1a237e, #00b4d8);
+}
+.help-div{
+    width: 90%;
+    display: flex;
+}
+.help-h2{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+.help-h2>h2{
+    width: 50%;
+    position: relative;
+    top: 50px;
+    left: 40px;
+    color: white;
+    font-size: xx-large;
+}
+.help-h2 >p{
+    color: white;
+    width: 50%;
+    position: relative;
+    top: 100px;
+    left:50px
+}
+.help-img{
+   
+    width: 60%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+}
+.help-img-cont{
+    height: 100%;
+    width: 100%;
+    position: relative;
+    top: 40px;
+    background-image: url('https://t4.ftcdn.net/jpg/02/52/76/09/360_F_252760983_ZTCURKreID1WJkC7uiX6olt7hH0Q7v8X.jpg');
+}
+.tools-cont {                    
+    height: 500px;
+   
+    position: relative;
+    top: 250px;
+    
+}
+.tools-wrap{
+    display: grid;
+    grid-template-columns: repeat(5, 200px);
+    grid-template-rows: repeat(5,200px);
+    gap: 20px;
+    top: 30px;
+    position: relative;
+    left: 100px;
+}
+.tools-h2{
+    display: flex;
+    justify-content: center;
+    align-items: center ;
+    color: rgb(121, 18, 255);
+}
+.sin-card {                     
+    background: white;
+    border: 0.5px solid #e0e0e0;
+    border-radius: 12px;
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+
+.sin-card:hover {
+    transform: scale(1.03);
+    box-shadow: 0px 4px 16px rgba(121, 18, 255, 0.2);
+}
+
+.sin-card h3 {
+    font-size: 16px;
+    font-weight: 600;
+    color: rgb(121, 18, 255);
+}
+
+.sin-card p {
+    font-size: 14px;
+    color: #555;
+    line-height: 1.5;
+}.message{
+    height: 500px;
+    position: relative;
+    display: flex;
+    top: 280px;
+    background-color: rgb(228, 212, 212);
+}
+.msg-img{
+    width: 50%;
+  
+}
+.msg-wrap{
+    height: 450px;
+    position: relative;
+    top: 20px;
+    left: 30px;
+    border-radius: 20px;
+     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    background-image: url('https://thumbs.dreamstime.com/b/sms-sending-text-phone-screen-hand-chalkboard-background-44870689.jpg');
+}
+.msg-text{
+    position: relative;
+    left: 80px;
+    top: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    
+}
+.msg-text>h2{
+    color: rgb(121, 18, 255);
+    font-size: 40px;
+    width: 90%;
+}
+
+.msg-text>h2::after{
+    display: block;
+    background-color: rgb(121, 18, 255);
+    width: 200px;
+    height: 5px;
+    content: "";
+}
+.msg-text>p{
+    width: 50%;
+    font-size: larger;
+}
+.msg-text>button{
+    background-color: rgb(121, 18, 255);
+    width: 50%;
+    height: 50px;
+    color: white;
+    font-size: larger;
+    border: none;
+    cursor: pointer;
+}
+.insights{
+   
+   
+    position: relative;
+    top: 300px;
+}
+.insights-h2{
+width: 70%;
+display: flex;
+flex-direction: column;
+gap: 20px;
+}
+
+.insights-h2>h2{
+    position: relative;
+    left: 50px;
+    top: 20px;
+    font-size: 40px;
+    color: rgb(121, 18, 255);
+}
+.insights-h2>h2::after{
+    content: '';
+    width: 100px;
+    background-color: rgb(121, 18, 255);
+    height: 5px;
+    display: block;
+    margin-top: 10px;
+}
+.insights-h2>p{
+    position: relative;
+    left: 50px;
+    top: 50px;
+    font-size: larger;
+}
+.idea-img{
+    
+    position: relative;
+    top: 50px;
+    width: 100%;
+    display: flex;
+}
+.idea-cont{
+    height: 400px;
+    width: 40%;
+    position: relative;
+    left: 50px;
+    border-radius: 20px;
+    top: 50px;
+    background-image: url('https://thumbs.dreamstime.com/b/clear-incandescent-light-bulb-centered-against-black-background-surrounding-bulb-vibrant-burst-colors-ranging-398981208.jpg');
+}
+.idea-text{
+    position: relative;
+    left: 100px;
+    top: 50px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+.idea-text>h2{
+    color: blue;
+}
+.div-cont{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+.idea-text>.div-cont>span{
+    font-weight: 600;
+    color: blue;
+}
+.connect-sect{
+    width: 100%;
+    height: 300px;
+    position: relative;
+    top: 500px;
+    gap: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(to right, #1a237e, #00b4d8);
+}
+.connect-sect>h2{
+    color: white;
+    font-size:30px;
+}
+.connect-sect>h2::after{
+    display: block;
+    background-color: white;
+    content:'';
+    width: 100px;
+    margin-top: 10px;
+    position: relative;
+    left: 150px;
+    height: 5px;
+}
+.connect-sect>span{
+    color: white;
+    margin-top: 20px;
+}
+.connect-sect>button{
+    background-color: darkblue;
+    margin-top: 20px;
+    height: 50px;
+    width: 300px;
+    border: none;
+    border-radius: 10px;
+    color: white;
+    font-size: 15px;
+    font-weight: 600;
+}
+.last-h2{
+    position: relative;
+    top: 550px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: rgb(121, 18, 255);
+}
+.footer-section{
+background-color: rgb(1, 1, 46);
+position: relative;
+top: 600px;
+border: 2px solid red;
+height: 400px;
+}
+.footer-cont{
+    display: flex;
+    justify-content: space-around   ;
+    align-items: center;
+}
+.div-f{
+    height: 70%;
+    position: relative;
+    top: 100px;
+    display: flex;
+    flex-direction: column;
+}
+.logo-div{
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    gap: 20px;
+    top: 80px;
+}
+.logo-div> *{
+    cursor: pointer;
+    transition: transform 0.3s ease; 
+}
+.logo-div>*:hover{
+    transform: scale(1.05);
+    font-size: larger;
+}
+.links{
+    color:white;  
+    position: relative;
+    bottom: 40px;  
+}
+.links>span{
+    position: relative;
+    top: 80px;
+}
+.links>ul{
+    list-style: none;
+    position: relative;
+    top: 100px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+.contact-info{
+    color: white;
+display: flex;
+flex-direction: column;
+gap: 20px;
+position: relative;
+top: 20px;
+}
