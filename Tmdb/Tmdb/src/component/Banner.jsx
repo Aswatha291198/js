@@ -30,8 +30,20 @@ if (!currentMovie) return null
       className='rounded-2xl h-[450px] w-[100%]'
       />
       <figcaption className='flex flex-col relative'>
-        <span className='absolute bottom-20 left-10 tracking-normal text-white font-bold text-5xl'>{currentMovie.title}</span>
-        <span className='absolute bottom-5 left-10 tracking-normal text-white font-bold text-md'>{currentMovie.release_date  }</span>
+        <span className='absolute bottom-20 left-10 tracking-wider text-white/70 font-[poppins] font-bold text-5xl'>{currentMovie.title}</span>
+        <span className='absolute bottom-5 left-10 tracking-wider text-white/70 font-bold text-md'>{currentMovie.release_date  }</span>
+        <span className='absolute bottom-12 tracking-wider left-10 tracking-normal text-white/70 font-bold text-xl uppercase'>{currentMovie.original_language}</span>
+        <div className="absolute bottom-4 right-6 flex gap-2 justify-center items-center">
+        {carouselMovies.map((_, i) => (
+          <button
+            key={i}
+            onClick={() => setIndex(i)} // manual navigation on dot click
+            className={`w-2.5 h-2.5 rounded-full transition-all ${
+              i === index ? 'bg-white scale-125' : 'bg-white/40'
+            }`}
+          />
+        ))}
+      </div>
       </figcaption>
      </figure>
     
