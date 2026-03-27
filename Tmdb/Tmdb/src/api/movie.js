@@ -20,3 +20,36 @@ console.log('inside the movies api');
         
     }
 }
+export const singleMovie=async(id)=>{
+ try {
+     const url = `https://api.themoviedb.org/3/movie/${id}`
+    const res=await axios.get(url, {
+          headers: {
+            accept: 'application/json',
+            Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIxOTVlM2UxNWYwMzc2MjllMGMyNzMzMzQ4ZThkYmY1YiIsIm5iZiI6MTc0NTgwNjc1MS44MTEsInN1YiI6IjY4MGVlNTlmMTBkMWU0NTNkMmViMWIyOCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.n_DG6B5IZZZLHh6nuvRj_IIkrD5dt_MThxp_HZGzWlU'
+          }})
+          
+
+
+          return res.data
+ } catch (error) {
+    console.log(error.message);
+    
+ }  
+}
+export const getMovieCredits=async(id)=>{
+    try {
+        const url = `https://api.themoviedb.org/3/movie/${id}/credits`;
+        const res=await axios.get(url, {
+          headers: {
+            accept: 'application/json',
+            Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIxOTVlM2UxNWYwMzc2MjllMGMyNzMzMzQ4ZThkYmY1YiIsIm5iZiI6MTc0NTgwNjc1MS44MTEsInN1YiI6IjY4MGVlNTlmMTBkMWU0NTNkMmViMWIyOCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.n_DG6B5IZZZLHh6nuvRj_IIkrD5dt_MThxp_HZGzWlU'
+          }})
+          return res.data
+        
+          
+    } catch (error) {
+        console.log(error.message);
+        
+    }
+}

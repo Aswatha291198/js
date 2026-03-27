@@ -5,6 +5,7 @@ import WatchList from './Pages/WatchList'
 import Layout from './component/LayOut'
 import MovieContextProvider from './store/Movies-context'
 import WatchListContextProvider from './store/WatchList-context'
+import SingleMovie from './Pages/SingleMovie'
 const App = () => {
   return (
     <>
@@ -14,6 +15,7 @@ const App = () => {
     <Routes>
       <Route path='/' element={<Home/>}></Route>
       <Route path='/watchlist' element={<WatchList/>}></Route>
+      <Route path='/movie/:id' element={<SingleMovie/>}></Route>
     </Routes>
   </Layout>
   </WatchListContextProvider>

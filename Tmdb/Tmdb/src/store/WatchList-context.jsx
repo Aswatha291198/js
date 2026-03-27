@@ -4,30 +4,39 @@ export const WatchListContext = createContext();
 
 const WatchListContextProvider = ({ children }) => {
 
-  // ✅ Initialize from localStorage properly
   const [watchList, setWatchList] = useState(() => {
-    const data = localStorage.getItem('watchList');
-    return data ? JSON.parse(data) : [];
-  });
-
-  // ✅ Sync with localStorage
+  const stored = localStorage.getItem('watchList');
+  return stored ? JSON.parse(stored) : [];
+})
   useEffect(() => {
     localStorage.setItem('watchList', JSON.stringify(watchList));
   }, [watchList]);
 
-  // ✅ Add movie properly
+ const sortLow=()=>{
+  setWatchList((prev)=>[...prev].sort((a,b)=>a.vote_average-b.vote_average))
+ }
+ const sortHigh=()=>{
+  console.log('inside the context high');
+  
+  setWatchList((prev)=>[...prev].sort((a,b)=>b.vote_average-a.vote_average))
+ }
+
+  const removeFromWatchList = (id) => {
+  setWatchList((prev) => prev.filter(item => item.id !== id)) 
+}
   const addToWatchList = (movie) => {
-    setWatchList((prev) => {
-      // prevent duplicates
-      if (prev.find(item => item.id === movie.id)) return prev;
-      return [...prev, movie];
-    });
+    console.log('inside the  context',movie);
+    
+    setWatchList((prev) => [...prev,movie]);
   };
 
   return (
     <WatchListContext.Provider value={{
       watchList,
-      addToWatchList
+      addToWatchList,
+      removeFromWatchList,
+      sortLow,
+      sortHigh
     }}>
       {children}
     </WatchListContext.Provider>
