@@ -39,7 +39,7 @@ const Banner = () => {
             {currentMovie.release_date}
           </span>
 
-          {/* Dots */}
+         
           <div className="absolute bottom-4 right-6 flex gap-2 items-center">
             {carouselMovies.map((_, i) => (
               <button

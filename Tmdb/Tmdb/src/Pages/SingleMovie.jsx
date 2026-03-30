@@ -63,14 +63,20 @@ else{
     </figure>
 
   </section>
-  <section>
-    {cast.map((crew)=>{
-      return (
-        <Castcard
-
-        />
-      )
-    })}
+  <section className='shadow-lg mt-6 flex-col gap-3 '>
+   <div className='p-3 font-bold text-3xl '>
+     <h1 className='text-black/60 text-center tracking-wider'>Cast</h1>
+   </div>
+ <div className='flex gap-4'>
+  {cast.slice(0,5).map((crew)=>(   
+    <Castcard
+    key={crew.id}
+    character={crew.character}
+    original_name={crew.original_name}
+    profile_path={crew.profile_path}
+    />
+))}
+ </div>
      </section>
   </>
   )

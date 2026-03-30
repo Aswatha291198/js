@@ -18,10 +18,7 @@ const Header = () => {
             <Link to='/watchlist'>WatchList</Link>
             <FaBookmark className='absolute left-25 top-1' />
             </li>
-            <li className='text-xl text-white hover:text-blue-400 transition-colors duration-300 cursor-pointer font-bold flex relative'>
-              <Link>About</Link>
-              <FaInfoCircle className='absolute left-18 top-1'/>
-              </li>
+            
         </ul>
       </nav>
     </header>

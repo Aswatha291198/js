@@ -7,14 +7,7 @@ const WatchList = () => {
   const[input,setInput]=useState('')
   const[sort,setSort]=useState('low')
  
-  const handleSort=()=>{
-if(sort==='low'){
-sortLow()
-}
-else{
-  sortHigh()
-}
-  }
+  
   return (
    <>
    <section className='p-3 flex flex-col gap-5'>
@@ -24,12 +17,12 @@ else{
        <button className={`w-20  h-10 rounded-xl  font-bold tracking-wider ${sort==='low'?'bg-indigo-500 text-white' :'bg-white text-indigo-500 '}
        hover:cursor-pointer
        `}
-       onClick={()=>(setSort('low'), handleSort())}>Low</button>
+       onClick={()=>(setSort('low'), sortLow())}>Low</button>
         <button
         className={`w-20  h-10 rounded-xl font-bold tracking-wider ${sort==='high'?'bg-indigo-500 text-white' :'bg-white text-indigo-500'}
        hover:cursor-pointer
        `}
-       onClick={()=>(setSort('high'),handleSort())}
+       onClick={()=>(setSort('high'),sortHigh())}
         >High</button>
       </div>
       <div>
